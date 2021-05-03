@@ -39,7 +39,7 @@ alert("O tipo da variavel nome é " + typeof(nome) + " e o tipo da variavel idad
 
 O tipo das variáveis forma underfined porque a variável não foi definida
 */
-let nome = prompt("Qual o seu nome?")
+const nome = prompt("Qual o seu nome?")
 let idade = prompt("Qual a sua idade?")
 
 alert("O tipo da variavel nome é " + typeof(nome) + " e o tipo da variavel idade é " + typeof(idade))
