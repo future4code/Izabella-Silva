@@ -70,7 +70,6 @@ O código não irá rodar, porque dará erro por causa da variável mensagem que
 Exercícios de escrita de código
 1)
 */
-
 const age = Number(prompt("Qual a sua idade?"))
 
 if(age >= 18){
@@ -144,196 +143,97 @@ if( genre === "fantasia" && price <=15){
 ---------------------------------------------------------------------------------------------------------
 2)
 */
+function informationTicketValue(gameStep, category){
+
+    if(gameStep === "SF"){
+        switch(category){
+            case 1:
+                return 1320
+            case 2:
+                return 880
+            case 3:
+                return 550
+            case 4:
+                return 220
+            default:
+                return "Error"
+        }
+    }
+
+    if(gameStep === "DT"){
+        switch(category){
+            case 1:
+                return 660
+            case 2:
+                return 440
+            case 3:
+                return 330
+            case 4:
+                return 170
+            default:
+                return "Error"
+        }
+    }
+
+    if(gameStep === "FI"){
+        switch(category){
+            case 1:
+                return 1980
+            case 2:
+                return 1320
+            case 3:
+                return 880
+            case 4:
+                return 130
+            default:
+                return "Error"
+        }
+    }
+
+}
+
+function informationTypeOfGame(typeOfGame){
+    if(typeOfGame === "IN"){
+        return "Internacional"
+    }else if(typeOfGame === "DO"){
+        return "Nacional"
+    }else{
+        return "Error"
+    }
+}
+
+function informationGameStep(gameStep){
+    if(gameStep === "SF"){
+        return "semi-final"
+    }else if(gameStep === "DT"){
+        return "Terceiro Lugar"
+    }else if( gameStep === "FI"){
+        return "Final"
+    }else{
+        return "Error"
+    }
+}
+
 const name = prompt("Qual o seu nome completo?")
 const typeOfGame = prompt("Indique o tipo do jogo:\nIN - Internacional\nDO - Doméstico").toUpperCase()
 const gameStep = prompt("Indique a etapa:\nSF - semi-final\nDT - 3º lugar\nFI - Final")
-const category = prompt("De qual categoria (1,2,3 ou 4)?")
+const category = Number(prompt("De qual categoria (1,2,3 ou 4)?"))
 const numberOfTickets = Number(prompt("Quantos Ingressos você irá comprar?"))
 
-let newTypeOfGame = ""
-let newGameStep = ""
 
-if(typeOfGame === "IN"){
-    newTypeOfGame = "Internacional"
-}else if(typeOfGame === "DO"){
-    newTypeOfGame = "Doméstico"
-}else{
-    console.log("Informe uma opção válida para o tipo do jogo")
-}
-
-if(gameStep === "SF"){
-    newGameStep = "semi-final"
-}else if(gameStep === "DT"){
-    newGameStep = "Terceiro Lugar"
-}else if( gameStep === "FI"){
-    newGameStep = "Final"
-}else{
-    console.log("Informe uma opção válida para etapa do jogo")
-}
-// switch(gameStep){
-//     case "SF":
-//         newGameStep = "semi-final"
-//         break
-//     case "DT":
-//         newGameStep = "Terceiro Lugar"
-//         break
-//     case "FI":
-//         newGameStep = "Final"
-//         break
-//     default:
-//         console.log("Informe uma opção válida para etapa do jogo")
-
-// }
-
-
-function calculateTicketValue(gameStep, category){
-    let ticketValue = 0
-
-    if(gameStep === "SF" && category === 1){
-        ticketValue = 1320
-        return ticketValue
-    }else if(gameStep === "SF" && category === 2){
-        ticketValue = 880
-        return ticketValue
-    }else if(gameStep === "SF" && category === 3){
-        ticketValue = 550
-        return ticketValue
-    }else if(gameStep === "SF" && category === 4){
-        ticketValue = 220
-        return ticketValue
-    }
-
-    if(gameStep === "DT" && category === 1){
-        ticketValue = 660
-        return ticketValue
-    }else if(gameStep === "DT" && category === 2){
-        ticketValue = 440
-        return ticketValue
-    }else if(gameStep === "DT" && category === 3){
-        ticketValue = 330
-        return ticketValue
-    }else if(gameStep === "DT" && category === 4){
-        ticketValue = 170
-        return ticketValue
-    }
-
-    if(gameStep === "FI" && category === 1){
-        ticketValue = 1980
-        return ticketValue
-    }else if(gameStep === "FI" && category === 2){
-        ticketValue = 1320
-        return ticketValue
-    }else if(gameStep === "FI" && category === 3){
-        ticketValue = 880
-        return ticketValue
-    }else if(gameStep === "FI" && category === 4){
-        ticketValue = 330
-        return ticketValue
-    }
-}
 
 console.log(`----Dados da compra ----
 Nome do cliente: ${name}
-Tipo do jogo: ${newTypeOfGame}
-Etapa do Jogo: ${newGameStep}
+Tipo do jogo: ${informationTypeOfGame(typeOfGame)}
+Etapa do Jogo: ${informationGameStep(gameStep)}
 categoria: ${category}
 Quantidade de Ingressos: ${numberOfTickets}
 ----Dados da compra ----
 `)
 if (typeOfGame === "DO"){
-    console.log(`Valor do ingresso: R$  ${calculateTicketValue(gameStep, category)}
-    Valor Total: R$ ${calculateTicketValue(gameStep, category)*numberOfTickets}`)
+    console.log(`Valor do ingresso: R$  ${informationTicketValue(gameStep, category)}
+    Valor Total: R$ ${informationTicketValue(gameStep, category)*numberOfTickets}`)
 }else if (typeOfGame === "IN"){
-    console.log(`Valor do ingresso: U$  ${calculateTicketValue(gameStep, category)/4}
-    Valor Total: U$ ${calculateTicketValue(gameStep, category)*numberOfTickets/4}`)
+    console.log(`Valor do ingresso: U$  ${informationTicketValue(gameStep, category)/4}
+    Valor Total: U$ ${informationTicketValue(gameStep, category)*numberOfTickets/4}`)
 }
-
-// if(typeOfGame === "SF"){
-//     switch(category){
-//         case 1:
-//             ticketValue = 1320
-//             if (typeOfGame === "IN"){
-//                 ticketValue = ticketValue/4.10
-//             }
-//             break
-//         case 2:
-//             ticketValue = 880
-//             if (typeOfGame === "IN"){
-//                 ticketValue = ticketValue/4.10
-//             }
-//             break
-//         case 3:
-//             ticketValue = 550
-//             if (typeOfGame === "IN"){
-//                 ticketValue = ticketValue/4.10
-//             }
-//             break
-//         case 4:
-//             ticketValue = 220
-//             if (typeOfGame === "IN"){
-//                 ticketValue = ticketValue/4.10
-//             }
-//             break
-//     }
-// }
-
-// if(typeOfGame === "DT"){
-//     switch(category){
-//         case 1:
-//             ticketValue = 660
-//             if (typeOfGame === "IN"){
-//                 ticketValue = ticketValue/4.10
-//             }
-//             break
-//         case 2:
-//             ticketValue = 440
-//             if (typeOfGame === "IN"){
-//                 ticketValue = ticketValue/4.10
-//             }
-//             break
-//         case 3:
-//             ticketValue = 330
-//             if (typeOfGame === "IN"){
-//                 ticketValue = ticketValue/4.10
-//             }
-//             break
-//         case 4:
-//             ticketValue = 170
-//             if (typeOfGame === "IN"){
-//                 ticketValue = ticketValue/4.10
-//             }
-//             break
-//     }
-// }
-
-// if(typeOfGame === "FI"){
-//     switch(category){
-//         case 1:
-//             ticketValue = 1980
-//             if (typeOfGame === "IN"){
-//                 ticketValue = ticketValue/4.10
-//             }
-//             break
-//         case 2:
-//             ticketValue = 1320
-//             if (typeOfGame === "IN"){
-//                 ticketValue = ticketValue/4.10
-//             }
-//             break
-//         case 3:
-//             ticketValue = 880
-//             if (typeOfGame === "IN"){
-//                 ticketValue = ticketValue/4.10
-//             }
-//             break
-//         case 4:
-//             ticketValue = 130
-//             if (typeOfGame === "IN"){
-//                 ticketValue = ticketValue/4.10
-//             }
-//             break
-//     }
-// }
-
-
-
