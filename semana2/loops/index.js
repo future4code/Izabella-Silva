@@ -84,3 +84,51 @@ function maxAndMinNumero(array){
     }
     console.log(`O menor número é ${min} e o maior número é ${max}`)
 }
+/*
+------------------------------------------------------------------------------------------------
+Desafios
+1)
+*/
+const numero = Number(prompt("Informe o número a ser advivinhado"))
+
+let acertou = false
+let tentativas = 1
+
+while(acertou === false && tentativas <= 4){
+    let chute = Number(prompt(`Insira a ${tentativas}ª tentativa`))
+    if(chute < numero){
+        alert("Errrrrrrrou, é maior")
+        tentativas++
+    }else if(chute > numero){
+        alert("Errrrrrrrou, é menor")
+        tentativas++
+    }else if(chute === numero){
+        acertou = true
+        alert(`Acertou!!!\nO número de tentativas foi ${tentativas}`)
+    }
+}
+/*
+------------------------------------------------------------------------------------------------
+2)
+*/
+alert("Jogo da sorte, você terá 4 tentativas")
+
+const numero = Math.floor(Math.random() * 100) + 1
+
+let acertou = false
+let tentativas = 1
+
+while(acertou === false && tentativas <= 4 ){
+    let chute = Number(prompt(`Insira a ${tentativas}ª tentativa`))
+    if(chute < numero){
+        alert("Errrrrrrrou, é maior")
+        tentativas++
+    }else if(chute > numero){
+        alert("Errrrrrrrou, é menor")
+        tentativas++
+    }else if(chute === numero){
+        acertou = true
+        alert(`Acertou!!!\nO número de tentativas foi ${tentativas}`)
+    }
+}
+//Não foi dificil, já estava a sujestã no site javascriptRandom
