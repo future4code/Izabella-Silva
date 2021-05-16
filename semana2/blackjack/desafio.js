@@ -24,8 +24,8 @@ function sortearCartasJogadores(){
 
 //imprime no console as primeiras cartas dos jogadores e as pontuações
 function imprimirEscolhaEPontuacao(){
-   console.log(`Usuário - cartas: ${cartasUsuario[0].texto} ${cartasUsuario[1].texto} - pontuação ${pontuacoesUsuario}`) // imprime o texto da carta. Exemplo: "K♦️" (indica "K" de ouros)
-   console.log(`Computador - cartas: ${cartasComputador[0].texto} ${cartasComputador[1].texto} - pontuação ${pontuacoesComputador}`) // imprime o valor da carta (um número). Exemplo: 10 (dado que "K" vale 10)
+   console.log(`Usuário - cartas: ${cartasUsuario[0].texto} ${cartasUsuario[1].texto} - pontuação ${pontuacoesUsuario}`) 
+   console.log(`Computador - cartas: ${cartasComputador[0].texto} ${cartasComputador[1].texto} - pontuação ${pontuacoesComputador}`)
 }
 
 //soma pontuações das cartas   
@@ -57,18 +57,18 @@ function imprimirCartas(cartas){
 
 //imprime resultado final
 function imprimirResultado(){
-   if(pontuacoesUsuario >= 21){
+   if(pontuacoesUsuario > 21){
       alert(`Suas cartas são ${imprimirCartas(cartasUsuario)} . Sua pontuação é ${pontuacoesUsuario}.
       As cartas do computador são ${imprimirCartas(cartasComputador)} . A pontuação do computador é ${pontuacoesComputador}.
       O computador ganhou!`)
    }
 
-   if(pontuacoesUsuario ===  pontuacoesComputador){
+   if(pontuacoesUsuario === pontuacoesComputador){
       alert(`Suas cartas são ${imprimirCartas(cartasUsuario)} . Sua pontuação é ${pontuacoesUsuario}.
       As cartas do computador são ${imprimirCartas(cartasComputador)} . A pontuação do computador é ${pontuacoesComputador}.
       Empataram!!`)
    }
-   if(pontuacoesComputador >= 21 ){
+   if(pontuacoesComputador > pontuacoesUsuario ){
       alert(`Suas cartas são ${imprimirCartas(cartasUsuario)} . Sua pontuação é ${pontuacoesUsuario}. 
       As cartas do computador são ${imprimirCartas(cartasComputador)}. A pontuação do computador é ${pontuacoesComputador}. 
       O usuário ganhou!`)
@@ -105,10 +105,10 @@ if(confirmar){
    A carta revelada do computador é ${cartasComputador[0].texto}.
    Deseja comprar mais uma carta?`)
 
-   cartasUsuario = comprarNovasCartas(cartasUsuario)
-   pontuacoesUsuario = somarPontuacoes(cartasUsuario)
-
    if (confirmacaoCompraCarta){
+
+      cartasUsuario = comprarNovasCartas(cartasUsuario)
+      pontuacoesUsuario = somarPontuacoes(cartasUsuario)
 
       while(pontuacoesUsuario <=21 && confirm(`Suas cartas são ${imprimirCartas(cartasUsuario)}.
       A carta revelada do computador é ${cartasComputador[1].texto}.
@@ -116,9 +116,11 @@ if(confirmar){
          cartasUsuario = comprarNovasCartas(cartasUsuario)
          pontuacoesUsuario = somarPontuacoes(cartasUsuario)
       }
-
-   }else if(!confirmacaoCompraCarta && pontuacoesUsuario <= 21){
-      while (pontuacoesComputador <= pontuacoesUsuario){
+      confirmacaoCompraCarta = false
+   }
+   
+   if(!confirmacaoCompraCarta && pontuacoesUsuario <= 21){
+      while (pontuacoesComputador < pontuacoesUsuario){
          cartasComputador = comprarNovasCartas(cartasComputador)
          pontuacoesComputador = somarPontuacoes(cartasComputador)
       }
