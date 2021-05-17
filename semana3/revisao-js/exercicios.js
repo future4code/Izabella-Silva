@@ -84,14 +84,12 @@ function retornaExpressoesBooleanas() {
 function retornaNNumerosPares(n) {
    // implemente sua lógica aqui
    const numerosPares = []
+   let par = 0
    let i = 0
-   while(i <= n){
-      if(i % 2 === 0){
-         numerosPares.push(i)
-      }else{
-         i--
-      }
+   while(i < n){
       i++
+      numerosPares.push(par)
+      par = par + 2
    }
    return numerosPares
 }
