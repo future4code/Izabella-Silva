@@ -7,7 +7,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto';
 }
 
 h2 {
@@ -58,6 +58,7 @@ div img {
 .container {
     height: 500px;
     text-align: center;
+    padding-top: 100px;
 }
 
 .icone {
@@ -74,7 +75,6 @@ div img {
 #container-de-descricao {
     background-color: #2274a5;
     color: white;
-    margin-top: 10px;
 }
 
 #container-de-descricao>ol {
