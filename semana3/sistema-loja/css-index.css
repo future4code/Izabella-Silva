@@ -8,17 +8,23 @@ a{
     text-decoration:none; 
     font-weight: bold;
     color: white;
-    border: 20 px;
-    border-color: purple;
-    border-radius: 10 px;
+    border-radius: 10px;
 }
 
-.redesSociais{
-    max-width:50px;
-}
 
 body{
     text-align: center;
     background-image: url("./img/background-body.jpg");
-    opacity : 0.5
+    background-repeat: no-repeat;
+    background-position: absolute;
+    background-size: cover;
+}
+
+#apresentacao{
+    text-align: center;
+    margin: 20px 400px 0px 400px;
+}
+
+.redesSociais{
+    max-width:50px;
 }

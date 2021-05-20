@@ -1,0 +1,13 @@
+img{
+    max-width:100px;
+}
+
+table{
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+#tituloDaPagina{
+    font-weight: bold;
+    font-size: 40px;
+}
