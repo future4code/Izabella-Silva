@@ -1,0 +1,30 @@
+.menu{
+    margin: 10 px;
+    display: inline;
+}
+
+a{
+    background-color: purple;
+    text-decoration:none; 
+    font-weight: bold;
+    color: white;
+    border-radius: 10px;
+}
+
+
+body{
+    text-align: center;
+    background-image: url("./img/background-body.jpg");
+    background-repeat: no-repeat;
+    background-position: absolute;
+    background-size: cover;
+}
+
+#apresentacao{
+    text-align: center;
+    margin: 20px 400px 0px 400px;
+}
+
+.redesSociais{
+    max-width:50px;
+}
