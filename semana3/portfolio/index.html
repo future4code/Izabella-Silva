@@ -8,55 +8,65 @@
     <title>Izabella Brandão - Desenvolvedora Full Stack</title>
 </head>
 <body>
-    <header>
-        <nav id="menu">
-            <ul>
-                <il><img src="/img/logo.jpg" id = "logo" alt = "logo"></il>
-                <il><a href="index.html" class="opcoesMenu">Inicio</a></il>
-                <il><a href="portfolios.html" class="opcoesMenu">Portfólios</a></il>
-                <il><a href="contato.html" class="opcoesMenu">Contato</a></il>            
+    <header class="header">
+        <img src="/img/logo.png" alt="logo" id = "logo">
+        <nav>
+            <ul class="menu">
+                <il><a href="index.html">Inicio</a></il>
+                <il><a href="portfolios.html">Portfólios</a></il>
+                <il><a href="contato.html">Contato</a></il>            
             </ul>
         </nav>
     </header>
-    <div id = apresentacao>
-        <h1>Desenvolvedora Full Stack</h1>
 
-        <main>
-        <p id = "bem-vindo">Seja bem vindo(a), meu nome é Izabella</p>
+    <main>
+        <section class="sobre-mim">
+            <div id = "apresentacao">
+
+                <h1>Desenvolvedora Full Stack</h1><br>
+
+                <p id = "bem-vindo">Seja bem vindo(a), meu nome é Izabella</p><br>
+                
+                <p id = "paragrafo-principal">Atualmente sou estudante na Labenu como no curso Desenvolvimento Web Full Stack, sou formada em Engenharia Civil e Sistemas de Informação, decidi agora migrar para área de tecnologia da informação e mergulhar mais área. Adoro lógica da programação, estou sempre disposta a aprender algo novo</p>
+            </div>
+            <span class = "foto-redonda"></span>
+        </section>
         
-        <p id = "sobre-mim">Atualmente sou estudante na Labenu como no curso Desenvolvimento Web Full Stack, sou formada em Engenharia Civil e Sistemas de Informação, estava trabalhando em uma empresa à 9 anos, mas decidi agora migrar para área de tecnologia da informação e mergulhar mais área. Adoro lógica da programação, estou sempre disposta a aprender algo novo</p>
+        <section id = "instituicoeshabilidades">
+            <div>
+                <h2>Habilidades</h2>
+                <ul id="habilidades">
+                    <li>Técnica:
+                        <ul>
+                            <li>JavaScript: aprendida no curso da Labenu</li>
+                        </ul>
+                    </li>
 
-        </main>
+                    <li>Comportamental:
+                        <ul>
+                            <li>Trabalhar em equipe: gosto sempre de ajudar as pessoas e aprender com elas</li>
+                            <li>Aprender: gosto sempre de buscar o aprendizado</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
 
+            <div>
+                <h2>Instituições de ensino e empregadores prévios</h2>
 
-        <fieldset id="usuario"><legend>Instituições de ensino e empregadores prévios</legend>
+                <ul id = "instituicoes">
+                    <li>Labenu</li>
+                </ul>
+            </div>
+            
 
-            <ul>
-                <li>Labenu</li>
-                <li>Venturus</li>
-                <li>Magalu Code</li>
-            </ul>
+        </section>
 
-		</fieldset><br>
-
-        <fieldset id="usuario"><legend>Habilidades</legend>
-
-            <ul>
-                <li>Técnica:
-                    <ul>
-                        <li>JavaScript</li>
-                    </ul>
-                </li>
-    
-                <li>Comportamental:
-                    <ul>
-                        <li>Trabalhar em equipe</li>
-                        <li>Aprender</li>
-                    </ul>
-                </li>
-            </ul>
-		</fieldset>
+    </main>
         
-    </div>
+    <footer>
+        <img id = "logo-footer" src="/img/logo.svg">
+        <p>&copy; Copyright Izabella Brandão</p>
+    </footer>
 </body>
 </html>

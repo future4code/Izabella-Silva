@@ -8,26 +8,57 @@
     <title>Izabella Brandão - Desenvolvedora Full Stack</title>
 </head>
 <body>
-    <header>
-        <ul id="menu">
-            <il><img src="/img/logo.jpg" id = "logo" alt = "logo"></il>
-            <il><a href="index.html" class="opcoesMenu">Inicio</a></il>
-            <il><a href="portfolios.html" class="opcoesMenu">Portfólios</a></il>
-            <il><a href="index.html" class="opcoesMenu">Contato</a></il>            
-        </ul>
+    <header class="header">
+        <img src="/img/logo.png" alt="logo" id = "logo">
+        <nav>
+            <ul class="menu">
+                <il><a href="index.html">Inicio</a></il>
+                <il><a href="portfolios.html">Portfólios</a></il>
+                <il><a href="contato.html">Contato</a></il>            
+            </ul>
+        </nav>
     </header>
 
+    <main class="formulario">
+        <form>
+            <fieldset><legend>Entre em contato conosco</legend>
+                <p><label form="nome">Nome:</label>
+                    <input type="text" name="tNome" id="nome" size="20" maxlength="30" placeholder="Nome completo" required></p>
+                <p><label form="email">E-mail:</label>
+                    <input type="email" name="tMail" id="email" size="20" maxlength="40" placeholder="seuemail@dominio.com" required></p>
+                
+                <p><label for="telefone">Telefone:</label>
+                <input type="tel" name="telefone-usuario" id = "telefone" size="20" maxlength="12" placeholder="(XX) XXXXX-XXXX" required></p>
+                <p><label for="mensagem">Mensagem:</label></p>
+                <br>
+                <textarea name="mensagem-texto" id="mensagem" cols="35" rows="5" placeholder="Deixe aqui sua mensagem" required></textarea></p>
+            </fieldset><br>
 
-    <form>
-        <fieldset id="usuario"><legend>Entre em contato conosco</legend>
-			<p><label form="cNome">Nome:</label><input type="text" name="tNome" id="cNome" size="20" maxlength="30" placeholder="Nome completo"></p>
-			<p><label form="cMail">E-mail:</label><input type="email" name="tMail" id="cMail" size="20" maxlength="40"</p>
-            <p><label for="cMsg">Mensagem:</label><br>
-            <textarea name="tMsg" id="cMsg" cols="35" rows="5" placeholder="Deixe aqui sua mensagem"></textarea></p>
-		</fieldset><br>
-        <div class="form-add">
-            <button type="submit">Enviar</button>
-        </div>
-    </form>
+            <fieldset>
+                <legend>Como prefere nosso contato?</legend>
+                <p><label for="radio-email"><input type="radio" name="contato" value="email" id="radio-email">E-mail</label></p>
+                <p><label for="radio-telefone"><input type="radio" name="contato" value="telefone" id="radio-telefone">Telefone</label></p>
+                <p><label for="radio-whatsapp"><input type="radio" name="contato" value="whatsapp" id="radio-whatsapp" checked>Whatsapp</label></p>
+            
+            </fieldset>
+
+            <fieldset>
+                <legend>Qual Horário prefere ser atendido?</legend>
+                <select name="horario-atendimento" id="horario">
+                    <option value="manha">Manha</option>
+                    <option value="tarde">Tarde</option>
+                    <option value="noite">Noite</option>
+                </select>
+            </fieldset>
+            <div class="form-add">
+                <button type="submit">Enviar</button>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <img id = "logo-footer" src="/img/logo.svg">
+        <p>&copy; Copyright Izabella Brandão</p>
+    </footer>
 </body>
 </html>

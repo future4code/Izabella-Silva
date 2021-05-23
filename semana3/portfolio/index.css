@@ -1,24 +1,40 @@
 * {
-    color: white;
-    font-family: 'Roboto', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    font-size: 1.05em;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-header{
-    background-color: #4F4F4F;
+a {
+    text-decoration: none;
+}
+
+.header{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
     position: fixed;
     top: 0px;
     width: 100%;
 }
+#logo {
+    height: 15%;
+    width: 15%;
+    padding: 20px;
+}
 
-#logo{
-    width: 200px;
-    height: 50px;
-    margin: 0px;
+div #logo-e-nome{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 body{
-    margin-top: 50px;
-    background-color: black;
+    background-color: rgb(6, 38, 77);
+    color: white;
 }
 
 .menu  {
@@ -26,54 +42,168 @@ body{
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-weight: bold;
+    padding: 20px;
 }
 
-il a {
+.menu il a {
     display: inline;
     color: #FFB187;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    border-radius: 20px;
+    transition: 1s all;
+    cursor: pointer;
 }
 
-li a:hover {
-    background-color: black;
+.menu il a:hover {
+    background-color: white;
 }
 
-#opcoesMenu{
+.sobre-mim {
     display: flex;
-    margin-left: 100px;
+}
+main{
+    margin: 100px 200px 0px 200px;
+    /* text-align: center; */
+    align-items: center;
+}
+main h1{
+    margin: auto;
 }
 
-div {
+.foto-redonda{
+    border: 2px solid #FFB187;
+    border-radius: 50%;
+    background-size: 500px;
+    width: 400px;
+    height: 150px;
+    background-image: url("/img/perfil.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+#instituicoeshabilidades{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#instituicoeshabilidades div{
+    padding: 100px 0;
+}
+
+#habilidades{
+    border-right: #FFB187 solid 5px;
+}
+#habilidades, #instituicoes{
+    width: 550px;
+}
+
+/* div {
     width: 500px;
     margin: auto;
     text-align: justify;
-}
+} */
 
 ul{
     list-style-type: none;
 }
+.portifolio{
+    margin: auto;
+}
 
-form{
+.portifolio li{
+    display: inline-block;
+    padding: 20px;
+    text-align: center;
+    border: #FFB187 solid 5px;
+    border-radius: 20px;
+    margin: 0 1.5%;
+    box-sizing: border-box;
+    width: 500px;
+}
+ul h2{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.portifolio p{
+    font-size: 20px;
+}
+
+.foto-projeto{
+    width: 70%;
+    height: 70%;
+}
+
+.visitar-site{
+    color: #FFB187;
+    transition: 1s all;
+}
+
+.visitar-site:hover{
+    color: black;
+    transform: scale(1.2);
+}
+
+.visitar-site:active{
+    color: black;
+}
+
+.formulario{
 	width: 500px;
     margin-top: 100px;
     color: #FFB187;
 }
+
+fieldset select{
+    margin: 10px 10px;
+}
+
+fieldset p{
+    margin: 10px 10px;
+}
+
 button{
     border-color: white;
     color: #FFB187;
-    background-color: #4F4F4F;
+    background-color: black;
     border-radius: 10px;
+    padding: 10px;
+    font-weight: bold;
+    transition: 1s all;
+    border-color: none;
+    margin: 10px;
+}
+#form-add {
+    text-align: center;
 }
 
+
 button:hover{
-    color: white;
+    color: black;
     background-color: #FFB187;
+    cursor: pointer;
 }
 
 button:active{
-    color: white;
+    color: black;
     background-color: #FFB187;
+    cursor: pointer;
 }
 
+footer{
+    text-align: center;
+    background-color: black;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#logo-footer{
+    height: 3%;
+    width: 3%;
+}
