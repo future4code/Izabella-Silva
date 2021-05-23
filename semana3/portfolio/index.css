@@ -104,6 +104,10 @@ main h1{
 ul{
     list-style-type: none;
 }
+
+.redesSociais{
+    max-width:50px;
+}
 .portifolio{
     margin: auto;
 }
