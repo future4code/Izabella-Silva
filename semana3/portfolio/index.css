@@ -66,7 +66,6 @@ body{
 }
 main{
     margin: 100px 200px 0px 200px;
-    /* text-align: center; */
     align-items: center;
 }
 main h1{
@@ -82,6 +81,14 @@ main h1{
     background-image: url("/img/perfil.jpg");
     background-position: center;
     background-size: cover;
+}
+
+.redesSociais{
+    max-width:50px;
+    background-color: white;
+    background-image: none;
+    margin: 10px 10px 200px 0px;
+    border-radius: 10px;
 }
 
 #instituicoeshabilidades{
@@ -105,9 +112,6 @@ ul{
     list-style-type: none;
 }
 
-.redesSociais{
-    max-width:50px;
-}
 .portifolio{
     margin: auto;
 }
@@ -196,9 +200,10 @@ footer{
     text-align: center;
     background-color: black;
     padding: 10px;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
+    /* flex-shrink: 0; */
 }
 
 #logo-footer{
