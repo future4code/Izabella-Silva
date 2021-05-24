@@ -1,0 +1,83 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+body{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:50px 1fr 50px;
+    height: 100vh;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: mediumvioletred;
+    padding: 10px;
+}
+
+#logo{
+    display: flex;
+    align-items: center;
+}
+
+#icone-bolinho{
+    width: 5%;
+    height: 5%;
+    margin: 0 10px;
+}
+
+.titulo-destaque{
+    font-weight: bold;
+}
+
+button{
+    margin-left: 50px;
+}
+
+main{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+nav{
+    background-color: #f2d0e0;
+    grid-row: 1/3;
+    grid-column: 1/2;
+}
+
+nav img {
+    width: 50%;
+    height: 50%;
+}
+
+nav div{
+    margin: 50px 10px;
+    justify-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-row: 1fr;
+}
+
+.icone-navegacao{
+    justify-self: left;
+}
+.icone-navegacao > p{
+    justify-self: left;
+}
+
+.bolo-chocolate{
+    width: 60%;
+    height: 60%;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: mediumvioletred;
+}
