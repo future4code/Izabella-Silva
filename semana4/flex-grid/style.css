@@ -32,6 +32,7 @@ header{
 
 .titulo-destaque{
     font-weight: bold;
+    margin: 5px;
 }
 
 button{
@@ -51,28 +52,40 @@ nav{
 }
 
 nav img {
-    width: 50%;
-    height: 50%;
+    width: 90%;
+    height: 90%;
 }
 
 nav div{
     margin: 50px 10px;
     justify-items: center;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 25px 1fr 25px;
     grid-row: 1fr;
 }
 
 .icone-navegacao{
     justify-self: left;
 }
-.icone-navegacao > p{
+.opcoes{
     justify-self: left;
+    padding-left: 5px;
 }
 
 .bolo-chocolate{
-    width: 60%;
-    height: 60%;
+    max-width:100%;
+    max-height:100%;
+    margin: auto;
+}
+
+main > div {
+    margin: 10px;
+    text-align: center;
+    box-shadow: 0px 14px 14px 0px darkgray;
+}
+
+.descricao{
+    margin: 1em 0px;
 }
 
 footer{
