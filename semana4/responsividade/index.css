@@ -2,6 +2,7 @@
     margin: 0px;
     padding: 0px;
     font-size: 20px;
+    box-sizing: border-box;
 }
 
 body{
@@ -51,7 +52,6 @@ header{
 .tela-com-videos{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
     gap: 53px;
     justify-content: center;
     margin: 20px 20px;
@@ -61,32 +61,47 @@ header{
     align-items: center;
     display: flex;
     flex-direction: column;
-    box-shadow: 2px 2px 5px silver;
+    box-shadow: 5px 5px 5px silver;
+    background-color: #BA55D3;
 }
 
-.reproducao-de-video{
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 2px 2px 5px silver;
-}
 .imagem{
     max-width: 100%;
     max-height: 100%;
 }
-.video-e-legenda > p{
+
+.legenda{
+    margin-top: 1.5em;
     font-size: 2em;
+    align-self: center;
+}
+
+.titulo{
+    color: black;
+    margin-bottom: 1.5em;
     margin-top: 1.5em;
 }
 
-.video-e-descricao{
-    text-align: center;
-    vertical-align: center;
+.reproducao-de-video{
+    max-width: 100%;
+    min-width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 5px silver;
+    padding-bottom: 1.5em;
 }
 
-.video-e-descricao > p{
+.video-e-descricao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.legenda{
     font-size: 2em;
-    margin: 10px;
+    align-self: center;
+    font-weight: bold;
 }
 
 footer{
@@ -96,4 +111,10 @@ footer{
     align-items: center;
     color: white;
     padding: 10px;
+}
+
+@media (max-width: 400px) {
+    .tela-com-videos {
+        grid-template-columns: 1fr;
+    }
 }
