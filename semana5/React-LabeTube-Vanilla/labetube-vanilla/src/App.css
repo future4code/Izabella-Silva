@@ -1,14 +1,18 @@
-body {
-  width: 100%;
+*{
   padding: 0;
   margin: 0;
+}
+
+body {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 70px 1fr 70px;
 }
 
 
 .tela-inteira {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 header {
@@ -16,8 +20,50 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 50px;
-  height: 10%;
+  padding: 0 24px;
+}
+
+h1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 >img{
+  height: 50px;
+  padding-right: 5px;
+}
+#campoDePesquisaELupa{
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+}
+
+#campoDeBusca{
+  width: 50vw;
+}
+
+#lupaDePesquisa{
+  height: 16px;
+  padding: 8px;
+}
+
+.botao-login{
+  border: 1px solid blue;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  flex-direction: row;
+  background-color: white;
+  color: blue;
+  font-weight: bold;
+  border-radius: 20px;
+  vertical-align: center;
+}
+
+.botao-login > img{
+  height: 24px;
 }
 
 main {
@@ -30,9 +76,20 @@ main {
   border-right-style: solid;
   border-right-width: thin;
 }
+.menu-vertical >ul{
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
-.botoes-meunu-vertical {
+.botoes-menu-vertical {
   list-style-type: none;
+  text-align: center;
+}
+.botoes-menu-vertical>img{
+  height: 32px;
+  padding-top: 16px;
 }
 
 .painel-de-videos {
@@ -97,7 +154,7 @@ main {
 
 
 footer {
-  height: 10%;
+  /* height: 10%; */
   background-color: grey;
   margin: 0;
   padding: 0;
