@@ -1,0 +1,121 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-size: 20px;
+    box-sizing: border-box;
+}
+
+body{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 80px 1fr 80px;
+    height: 100vh;
+}
+h2{
+    font-size: 3em;
+    color: white;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: purple;
+}
+
+.texto-e-lupa-de-pesquisa{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#lupa-pesquisa{
+    width: 3em;
+    height: 2.75em;
+}
+
+#botao-login{
+    padding: 1em;
+}
+
+#pesquisar{
+    width: 50em;
+    height: 3em;
+}
+
+#botao-login{
+    border-radius: 20px;
+    font-weight: bolder;
+}
+
+.tela-com-videos{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 53px;
+    justify-content: center;
+    margin: 20px 20px;
+    
+}
+.foto-e-legenda{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 5px 5px silver;
+    background-color: #BA55D3;
+}
+
+.imagem{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.legenda{
+    margin-top: 1.5em;
+    font-size: 2em;
+    align-self: center;
+    text-align: center;
+}
+
+.titulo{
+    color: black;
+    margin-bottom: 1.5em;
+    margin-top: 1.5em;
+}
+
+.reproducao-de-video{
+    max-width: 100%;
+    min-width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 5px silver;
+    padding-bottom: 1.5em;
+}
+
+.video-e-descricao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.legenda{
+    font-size: 2em;
+    align-self: center;
+    font-weight: bold;
+}
+
+footer{
+    background-color: purple;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 10px;
+}
+
+@media (max-width: 400px) {
+    .tela-com-videos {
+        grid-template-columns: 1fr;
+    }
+}
