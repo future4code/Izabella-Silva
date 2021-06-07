@@ -27,8 +27,6 @@ export class Etapa1 extends React.Component{
                     </select>
                 </li>
             </ol>
-
-            <button>Proxima Etapa</button>
         </div>
     }
 }

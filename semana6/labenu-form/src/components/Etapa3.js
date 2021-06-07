@@ -11,7 +11,6 @@ export class Etapa3 extends React.Component{
                 <option value="cursoTecnico">Curso Técnico</option>
                 <option value="CursoDeIngles">Curso de Ingles</option>
             </select>
-            <button>Proxima Etapa</button>
         </div>
     }
 }

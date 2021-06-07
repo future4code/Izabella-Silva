@@ -7,7 +7,6 @@ export class Etapa2 extends React.Component{
 </h1>
             <p>Qual Curso?</p>
             <input type="text" />
-            <button>Proxima Etapa</button>
         </div>
 
     }
