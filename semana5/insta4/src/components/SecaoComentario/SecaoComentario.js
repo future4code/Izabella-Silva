@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import styled from 'styled-components'
+import React, {Component} from 'react';
+import styled from 'styled-components';
 
 const CommentContainer = styled.div`
     display: flex;
@@ -12,24 +12,66 @@ const InputComentario = styled.input`
     margin-right: 5px;
 `
 
+const Comentarios = styled.p`
+	max-width: 100%
+`
+
 export class SecaoComentario extends Component {
 	state = {
-		comentario:''
+		comentarios: [
+			{
+				comentario: ""
+			}
+		],
+		valorInputComentario:''
 	}
 
 	onChangeComentario = (event) => {
-		this.setState({comentario: event.target.value})
-		console.log(event.target.value)
+		this.setState({valorInputComentario: event.target.value})
 	}
 
-	render() {
+	adicionarComentario = () =>{
+		const novoComentario = {
+			comentario: this.state.valorInputComentario
+		}
+		
+		const novosComentarios = [...this.state.comentarios, novoComentario]
+
+		console.log(novosComentarios)
+		
+		this.setState({comentarios: novosComentarios})
+
+		this.props.aoEnviar()
+
+	}
+
+	render(){
+
+		const postComentarios = this.state.comentarios.filter((comentario) => {
+			
+			return comentario.comentario !== ""
+		}).map((comentario, index) => {
+			return(
+				<p key={index}>
+				{comentario.comentario}
+				</p>
+			)
+		})
+
+		console.log(postComentarios)
+
 		return <CommentContainer>
+
+			<Comentarios>
+				{postComentarios}
+			</Comentarios>
+			
 			<InputComentario
 				placeholder={'Comentário'}
-				value={this.state.comentario}
+				value={this.state.valorInputComentario}
 				onChange={this.onChangeComentario}
 			/>
-			<button onClick={this.props.aoEnviar}>Enviar</button>
+			<button onClick={this.adicionarComentario}>Enviar</button>
 		</CommentContainer>
 	}
 }
