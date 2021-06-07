@@ -1,16 +1,19 @@
 import React from 'react'
+import { PerguntaAberta } from './PerguntaAberta'
+import { PerguntaOpcoes } from './PerguntaOpcoes'
 
 export class Etapa3 extends React.Component{
     render(){
         return <div>
-            <p>Por que você não terminou um curso de graduação?</p>
-            <input type="text"/>
-            <p>Você fez algum curso complementar?</p>
-            <select>
-                <option value="nenhum">Nenhum</option>
-                <option value="cursoTecnico">Curso Técnico</option>
-                <option value="CursoDeIngles">Curso de Ingles</option>
-            </select>
+            <h1>ETAPA 3 - INFORMAÇÕES GERAIS DE ENSINO</h1>
+            <PerguntaAberta pergunta = "5. Por que você não terminou um curso de graduação?"/>
+            <PerguntaOpcoes pergunta = "6. Você fez algum curso complementar?"
+            opcoes={[
+                "Nenhum",
+                "Curso Técnico",
+                "Curso de Ingles",
+            ]}
+            />
         </div>
     }
 }

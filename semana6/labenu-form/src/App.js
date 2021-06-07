@@ -5,6 +5,10 @@ import { Etapa2 } from './components/Etapa2.js';
 import { Etapa3 } from './components/Etapa3.js';
 import {Final} from './components/Final.js'
 
+const ConteinerGeral = styled.div`
+  text-align: center;
+`
+
 export default class App extends React.Component{
   state ={
     etapa: 1
@@ -29,11 +33,17 @@ export default class App extends React.Component{
     }
   }
 
+  botaoProximaEtapa = () => {
+    while(this.state.etapa < 4){
+      return <button onClick={this.irParaProximaEtapa}>Próxima Etapa</button>
+    }
+  }
+
   render(){
-    return <div>
+    return <ConteinerGeral>
       {this.renderizaEtapa()}
-      <button onClick={this.irParaProximaEtapa}>Próxima Etapa</button>
-    </div>
+      {this.botaoProximaEtapa()}
+    </ConteinerGeral>
 
   }
 }
