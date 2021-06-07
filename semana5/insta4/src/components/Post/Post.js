@@ -51,7 +51,13 @@ class Post extends React.Component {
     comentando: false,
     numeroComentarios: 0,
     salvo: false,
-    compartilhando: false
+    compartilhando: false,
+    comentarios: [
+			{
+				comentario: ""
+			}
+		],
+		valorInputComentario:''
   }
 
   onClickCurtida = () => {
@@ -77,7 +83,8 @@ class Post extends React.Component {
   aoEnviarComentario = () => {
     this.setState({
       comentando: false,
-      numeroComentarios: this.state.numeroComentarios + 1
+      numeroComentarios: this.state.numeroComentarios + 1,
+      valorInputComentario:''
     })
   }
 
@@ -100,6 +107,21 @@ class Post extends React.Component {
       compartilhando: false,
     })
   }
+
+  onChangeComentario = (event) => {
+		this.setState({valorInputComentario: event.target.value})
+	}
+
+	adicionarComentario = () =>{
+		const novoComentario = {
+			comentario: this.state.valorInputComentario
+		}
+		const novosComentarios = [...this.state.comentarios, novoComentario]
+
+		this.setState({comentarios: novosComentarios})
+
+		this.aoEnviarComentario()
+	}
  
   render() {
     let iconeCurtida
@@ -113,13 +135,12 @@ class Post extends React.Component {
     let componenteComentario
 
     if(this.state.comentando) {
-      componenteComentario = <SecaoComentario aoEnviar={this.aoEnviarComentario}/>
-      // componenteComentario = <SecaoComentario 
-      // comentarios ={this.state.comentarios}
-      // valorInputComentario  = {this.state.valorInputComentario}
-      // onChangeComentario = {this.onChangeComentario}  
-      // adicionarComentario ={() => this.aoEnviarComentario()}
-      // />
+      componenteComentario = <SecaoComentario 
+      comentarios ={this.state.comentarios}
+      valorInputComentario  = {this.state.valorInputComentario}
+      onChangeComentario = {this.onChangeComentario}  
+      adicionarComentario ={this.adicionarComentario}
+      />
     }
     
     let iconeSalvarPost
