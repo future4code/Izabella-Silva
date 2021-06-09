@@ -5,6 +5,7 @@ import './styles.css'
 const TarefaList = styled.ul`
   padding: 0;
   width: 200px;
+  display: flex;
 `
 
 const Tarefa = styled.li`
@@ -22,7 +23,8 @@ class App extends React.Component {
     state = {
       tarefas: [],
       inputValue: '',
-      filtro: ''
+      filtro: '',
+      editar: false
     }
 
   componentDidUpdate() {
@@ -69,6 +71,17 @@ class App extends React.Component {
     this.setState({filtro: event.target.value})
   }
 
+  onClickApagarTarefa = (id) => {
+    const novasTarefas = this.state.tarefas.filter((tarefa) =>{
+      return id !== tarefa.id
+    })
+    this.setState({tarefas: novasTarefas})
+  }
+
+  onClickEditarTarefa = (id) =>{
+
+  }
+
   render() {
     const listaFiltrada = this.state.tarefas.filter(tarefa => {
       switch (this.state.filtro) {
@@ -80,6 +93,40 @@ class App extends React.Component {
           return true
       }
     })
+
+    const tarefasCompletas = this.state.tarefas.filter((tarefa)=>{
+      return tarefa.completa === true
+    }).map((tarefa) => {
+      return <div>
+      <Tarefa
+        completa={tarefa.completa}
+        onClick={() => this.selectTarefa(tarefa.id)}
+      >
+        {tarefa.texto}
+      </Tarefa>
+        <button onClick={() => this.onClickApagarTarefa(tarefa.id)}>Apagar</button>
+        <button onClick={() => this.onClickEditarTarefa(tarefa.id)}>Editar</button>
+      </div>
+    })
+
+    const tarefasPendentes = this.state.tarefas.filter((tarefa)=>{
+      return tarefa.completa === false
+    }).map((tarefa) => {
+      return <div>
+      <Tarefa
+        completa={tarefa.completa}
+        onClick={() => this.selectTarefa(tarefa.id)}
+      >
+        {tarefa.texto}
+      </Tarefa>
+        <button onClick={() => this.onClickApagarTarefa(tarefa.id)}>Apagar</button>
+        <button onClick={() => this.onClickEditarTarefa(tarefa.id)}>Editar</button>
+      </div>
+    })
+
+    // const editarTarefa = this.state.tarefas.map((tarefa) => {
+
+    // })
 
     return (
       <div className="App">
@@ -99,16 +146,29 @@ class App extends React.Component {
           </select>
         </InputsContainer>
         <TarefaList>
-          {listaFiltrada.map(tarefa => {
+        <div>
+          <h2>Tarefas Completas</h2>
+          {tarefasCompletas}
+        </div>
+        <div>
+          <h2>Tarefas Pendentes</h2>
+          {tarefasPendentes}
+        </div>
+
+          {/* {listaFiltrada.map(tarefa => {
             return (
-              <Tarefa
-                completa={tarefa.completa}
-                onClick={() => this.selectTarefa(tarefa.id)}
-              >
-                {tarefa.texto}
-              </Tarefa>
+              <div>
+                <Tarefa
+                  completa={tarefa.completa}
+                  onClick={() => this.selectTarefa(tarefa.id)}
+                >
+                  {tarefa.texto}
+                </Tarefa>
+                <button onClick={() => this.onClickApagarTarefa(tarefa.id)}>Apagar</button>
+                <button onClick={() => this.onClickEditarTarefa(tarefa.id)}>Editar</button>
+              </div>
             )
-          })}
+          })} */}
         </TarefaList>
       </div>
     )
