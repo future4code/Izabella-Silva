@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import styled from 'styled-components'
+import React, {Component} from 'react';
+import styled from 'styled-components';
 
 const CommentContainer = styled.div`
     display: flex;
@@ -12,24 +12,37 @@ const InputComentario = styled.input`
     margin-right: 5px;
 `
 
+const Comentarios = styled.p`
+	max-width: 100%
+`
+
 export class SecaoComentario extends Component {
-	state = {
-		comentario:''
-	}
 
-	onChangeComentario = (event) => {
-		this.setState({comentario: event.target.value})
-		console.log(event.target.value)
-	}
+	render(){
+		const postComentarios = this.props.comentarios.filter((comentario) => {
+			return comentario.comentario !== ""
+		}).map((comentario, index) => {
+			return(
+				<p key={index}>
+				{comentario.comentario}
+				</p>
+			)
+		})
 
-	render() {
-		return <CommentContainer>
-			<InputComentario
-				placeholder={'Comentário'}
-				value={this.state.comentario}
-				onChange={this.onChangeComentario}
-			/>
-			<button onClick={this.props.aoEnviar}>Enviar</button>
-		</CommentContainer>
+		return <div>
+			<CommentContainer>
+
+				<InputComentario
+					placeholder={'Comentário'}
+					value={this.props.valorInputComentario}
+					onChange={this.props.onChangeComentario}
+				/>
+				<button onClick={this.props.adicionarComentario}>Enviar</button>
+			</CommentContainer>
+			
+			<Comentarios>
+				{postComentarios}
+			</Comentarios>
+		</div>
 	}
 }

@@ -5,8 +5,12 @@ import {IconeComContador} from '../IconeComContador/IconeComContador'
 
 import iconeCoracaoBranco from '../../img/favorite-white.svg'
 import iconeCoracaoPreto from '../../img/favorite.svg'
-import iconeComentario from '../../img/comment_icon.svg'
+import iconeComentario from '../../img/comentar.svg'
+import iconeCompartilhar from '../../img/compartilhar_icon.svg'
+import iconeSalvar from '../../img/salvar.svg'
+import iconeSalvarPreto from '../../img/salvar_icon_black.svg'
 import {SecaoComentario} from '../SecaoComentario/SecaoComentario'
+import {SecaoCompartilhando} from '../SecaoCompartilhando'
 
 const PostContainer = styled.div`
   border: 1px solid gray;
@@ -45,11 +49,18 @@ class Post extends React.Component {
     curtido: false,
     numeroCurtidas: 0,
     comentando: false,
-    numeroComentarios: 0
+    numeroComentarios: 0,
+    salvo: false,
+    compartilhando: false,
+    comentarios: [
+			{
+				comentario: ""
+			}
+		],
+		valorInputComentario:''
   }
 
   onClickCurtida = () => {
-    console.log('Curtiu!')
     if(!this.state.curtido){
       this.setState({
         numeroCurtidas: this.state.numeroCurtidas + 1,
@@ -72,10 +83,46 @@ class Post extends React.Component {
   aoEnviarComentario = () => {
     this.setState({
       comentando: false,
-      numeroComentarios: this.state.numeroComentarios + 1
+      numeroComentarios: this.state.numeroComentarios + 1,
+      valorInputComentario:''
     })
   }
 
+  onClickSalvar = () => {
+    if(!this.state.salvo){
+      this.setState({salvo: true})
+    }else{
+      this.setState({salvo: false})
+    }
+  }
+
+  onClickCompartilhar = () => {
+    this.setState({
+      compartilhando: !this.state.compartilhando
+    })
+  }
+
+  aoEnviarCompartilhar = () => {
+    this.setState({
+      compartilhando: false,
+    })
+  }
+
+  onChangeComentario = (event) => {
+		this.setState({valorInputComentario: event.target.value})
+	}
+
+	adicionarComentario = () =>{
+		const novoComentario = {
+			comentario: this.state.valorInputComentario
+		}
+		const novosComentarios = [...this.state.comentarios, novoComentario]
+
+		this.setState({comentarios: novosComentarios})
+
+		this.aoEnviarComentario()
+	}
+ 
   render() {
     let iconeCurtida
 
@@ -88,7 +135,26 @@ class Post extends React.Component {
     let componenteComentario
 
     if(this.state.comentando) {
-      componenteComentario = <SecaoComentario aoEnviar={this.aoEnviarComentario}/>
+      componenteComentario = <SecaoComentario 
+      comentarios ={this.state.comentarios}
+      valorInputComentario  = {this.state.valorInputComentario}
+      onChangeComentario = {this.onChangeComentario}  
+      adicionarComentario ={this.adicionarComentario}
+      />
+    }
+    
+    let iconeSalvarPost
+
+    if(this.state.salvo){
+      iconeSalvarPost = iconeSalvarPreto
+    }else{
+      iconeSalvarPost = iconeSalvar
+    }
+
+    let componenteCompartilhamento
+
+    if(this.state.compartilhando){
+      componenteCompartilhamento = <SecaoCompartilhando aoCompartilhar={this.aoEnviarCompartilhar}/>
     }
 
     return <PostContainer>
@@ -111,8 +177,20 @@ class Post extends React.Component {
           onClickIcone={this.onClickComentario}
           valorContador={this.state.numeroComentarios}
         />
+
+        <img
+          src = {iconeCompartilhar}
+          onClick={this.onClickCompartilhar}
+        />
+
+        <img
+          src = {iconeSalvarPost}
+          onClick={this.onClickSalvar}
+        />
+
       </PostFooter>
       {componenteComentario}
+      {componenteCompartilhamento}
     </PostContainer>
   }
 }
