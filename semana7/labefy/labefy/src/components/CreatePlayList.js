@@ -1,6 +1,47 @@
 import React from 'react'
 import axios from 'axios'
 import {AddTrackToPlayList} from './AddTrackToPlayList'
+import styled from 'styled-components'
+
+
+const ContainerPlayList = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+
+`
+
+const Botao = styled.button`
+  margin: 10px;
+  width: 70px;
+  border-radius: 20px;
+  color: white;
+  background-color: black;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+const PlayList = styled.li`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+`
+
+const BotaoDeletar = styled.button`
+  margin: 10px;
+  width: 40px;
+  border-radius: 20px;
+  color: white;
+  background-color: black;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
 
 const url = "https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists"
 
@@ -77,25 +118,29 @@ export class CreatePlayList extends React.Component{
     render(){
         const playLists = this.state.playlist.map((playList) =>{
             return(
-                <li key={playList.id}>
+                <PlayList key={playList.id}>
                     <spam>{playList.name}</spam>
-                    <button onClick={() => this.viewTracks(playList.id)}>PlayLists</button>
-                    <button onClick = {() => this.deletePlaylist(playList.id,playList.name )}>X</button>
-                </li>
+                    <Botao onClick={() => this.viewTracks(playList.id)}>Músicas</Botao>
+                    <BotaoDeletar onClick = {() => this.deletePlaylist(playList.id,playList.name )}>X</BotaoDeletar>
+                </PlayList>
             )
         })
         return(
             <div>
-                <div>
-                    <button onClick={this.props.onClickEnter}>Sair</button>
-                    <label>Insira o nome da play list:</label>
-                    <input type="text" value={this.state.inputPlayList} onChange={this.onChangePlayList}/>
-                    <button onClick={this.creatPlayList}>Enviar</button>
-                    {playLists}
-                </div>
-                <div>
-                    {this.state.viewTracks && <AddTrackToPlayList idSelected = {this.state.idSelected} headers = {headers} url={url}/>}
-                </div>
+                <ContainerPlayList>
+                    <div>
+                        <Botao onClick={this.props.onClickEnter}>Sair</Botao>
+                        <p>Insira o nome da play list:</p>
+                        <input type="text" value={this.state.inputPlayList} onChange={this.onChangePlayList}/>
+                        <Botao onClick={this.creatPlayList}>Enviar</Botao>
+                    </div>
+                    <div>
+                        {playLists}
+                    </div>
+                    <div>
+                        {this.state.viewTracks && <AddTrackToPlayList idSelected = {this.state.idSelected} headers = {headers} url={url}/>}
+                    </div>
+                </ContainerPlayList>
             </div>
         )
     }

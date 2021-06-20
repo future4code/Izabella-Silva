@@ -1,5 +1,35 @@
 import React from 'react'
 import axios from 'axios'
+import styled from 'styled-components'
+
+const Musicas = styled.li`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0;
+`
+
+const Botao = styled.button`
+  margin: 10px;
+  width: 70px;
+  border-radius: 20px;
+  color: white;
+  background-color: black;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+const BotaoDeletar = styled.button`
+  margin: 10px;
+  width: 40px;
+  border-radius: 20px;
+  color: white;
+  background-color: black;
+  &:hover {
+    cursor: pointer;
+  }
+`
 
 export class AddTrackToPlayList extends React.Component{
 
@@ -74,25 +104,27 @@ export class AddTrackToPlayList extends React.Component{
         const tracks = this.state.tracks.map((track) => {
             console.log(track.url)
             return(
-                <div key = {track.id}>
-                    {track.name}
-                    {track.artist}
+                <Musicas key = {track.id}>
+                    <p>{track.name}</p>
+                    <p>{track.artist}</p>
                     <audio controls="controls" class="video-stream" x-webkit-airplay="allow" src={track.url}/>
-                    {/* <iframe title = {track.name} width="420" height="315"src={track.url}/>
-                    <button onClick = {() => this.removeTrackFromPlaylist(track.id, track.name) }>X</button> */}
-                </div>
+                    <BotaoDeletar onClick = {() => this.removeTrackFromPlaylist(track.id, track.name) }>X</BotaoDeletar>
+                </Musicas>
             )
         })
 
         return(
-            <div> 
+            <div>
+
+                <hr/>
+                <hr/>
                 <label>Nome:</label>
                 <input type = "text" value = {this.state.inputName} onChange = {this.onChangeName}/>
                 <label>Artista:</label>
                 <input type = "text" value = {this.state.inputArtist} onChange = {this.onChangeArtist}/>
                 <label>Url:</label>
                 <input type = "text" value = {this.state.inputUrl} onChange = {this.onChangeUrl}/>
-                <button onClick= {this.addTrackToPlaylist}>Enviar</button>
+                <Botao onClick= {this.addTrackToPlaylist}>Enviar</Botao>
                 {tracks}
             </div>
         )
