@@ -63,6 +63,10 @@ export class CreatePlayList extends React.Component{
         this.getAllPlayLists()
     }
 
+    componentDidUpdate(){
+        this.getAllPlayLists()
+    }
+
     onChangePlayList = (event) => {
         this.setState({inputPlayList: event.target.value})
     }
@@ -74,11 +78,13 @@ export class CreatePlayList extends React.Component{
         }
         axios.post(url,body, headers)
         .then((res) => {
-            console.log("res create list", res.data)
+            alert("Play List adicionada com sucesso")
         })
         .catch((err) => {
             alert(err.response.data)
         })
+        this.getAllPlayLists()
+        this.setState({inputPlayList: ""})
     }
 
     getAllPlayLists = () => {

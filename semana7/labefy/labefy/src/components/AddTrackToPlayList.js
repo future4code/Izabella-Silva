@@ -31,6 +31,9 @@ const BotaoDeletar = styled.button`
   }
 `
 
+const AudioPlay = styled.audio`
+`
+
 export class AddTrackToPlayList extends React.Component{
 
     state = {
@@ -41,6 +44,10 @@ export class AddTrackToPlayList extends React.Component{
     }
 
     componentDidMount(){
+        this.getPlaylistTracks();
+    }
+
+    componentDidUpdate(){
         this.getPlaylistTracks();
     }
 
@@ -105,9 +112,9 @@ export class AddTrackToPlayList extends React.Component{
             console.log(track.url)
             return(
                 <Musicas key = {track.id}>
+                    <AudioPlay controls="controls" x-webkit-airplay="allow" src={track.url}/>
                     <p>{track.name}</p>
                     <p>{track.artist}</p>
-                    <audio controls="controls" class="video-stream" x-webkit-airplay="allow" src={track.url}/>
                     <BotaoDeletar onClick = {() => this.removeTrackFromPlaylist(track.id, track.name) }>X</BotaoDeletar>
                 </Musicas>
             )
@@ -115,7 +122,6 @@ export class AddTrackToPlayList extends React.Component{
 
         return(
             <div>
-
                 <hr/>
                 <hr/>
                 <label>Nome:</label>
