@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { baseUrl, user } from '../Config/Config'
+    import { baseUrl, user } from '../Config/Config'
 import {Photos} from './styled'
 
 const Profiles = (props) => {
@@ -31,7 +31,7 @@ const Profiles = (props) => {
             props.changeProfile()
         })
         .catch((error) => {
-
+            console.log(error.response)
         })
     }
 

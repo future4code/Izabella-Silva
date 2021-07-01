@@ -7,7 +7,7 @@ import {baseUrl, user} from '../Config/Config'
 const Body = (props) => {
 
     const[profile, setProfile] = useState({})
-    const[nextProfile, setNextProfile] = useState("1")
+    const[nextProfile, setNextProfile] = useState(1)
     
     useEffect(()=>{
         const params = "/person"
@@ -22,13 +22,19 @@ const Body = (props) => {
 
     const changeProfile = () => {
         setNextProfile(nextProfile + 1)
-        console.log("aqui muda de perfil")
     }
 
     console.log(profile)
     return(
        <div>
-           {props.changeScreen === "home" ? <Profiles profile={profile} changeProfile={changeProfile} /> :  <User/>}
+           {props.changeScreen === "home" ?
+           (profile === null ? 
+            <div>
+                Já foram mostrados todos os perfis
+            </div> :
+           <Profiles profile={profile} changeProfile={changeProfile}/>)
+           : 
+           <User />}
        </div>
     );
 }
