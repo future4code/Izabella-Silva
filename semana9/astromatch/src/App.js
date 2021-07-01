@@ -1,13 +1,10 @@
 import React from 'react'
-import Header from './components/Header/Header'
-import Body from './components/Body/Body'
-import Footer from './components/Footer/Footer'
+import LandingPage from './components/LandingPage/LandingPage'
+
 
 const App = () => {
   return (<div>
-      <Header />
-      <Body />
-      <Footer />
+      <LandingPage/>
     </div>
   );
 }
