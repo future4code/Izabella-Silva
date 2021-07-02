@@ -1,7 +1,7 @@
 import React, { Profiler, useEffect, useState } from 'react'
 import axios from 'axios'
 import { baseUrl, user } from '../Config/Config'
-import {Photos} from './styled'
+import {Matches, Photos} from './styled'
 
 const User = (props) => {
     const[matches, setMatches] = useState([])
@@ -44,17 +44,17 @@ const User = (props) => {
             <div>
                 Nennhum Match
             </div>:
-            <div>
+            <Matches>
                 {matches.map((profile) => {
                     return (
-                        <div key={profile.id}>
-                            <Photos src= {profile.photo} />
-                            <p>{profile.name}</p>
+                        <div id={"imageAndName"} key={profile.id}>
+                            <div id={"photo"} style={{backgroundImage: `url(${profile.photo})`}} />
+                            <p id={"name"}>{profile.name}</p>
                         </div>
                     )
                 })}
                 <button onClick={onClickClearAllMatch}>Limpar tudo</button>
-            </div>
+            </Matches>
             }
         </div>
     )
