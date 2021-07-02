@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+<h1 align="center" id="top">:rocket: == Projeto semana 9 - AstroMatch == :rocket:</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+<p align="center">
+  <a href="#sobre">Sobre</a> &#xa0; | &#xa0; 
+  <a href="#funciona">O que funciona</a> &#xa0; | &#xa0;
+  <a href="#nao-funciona">O que não funciona</a> &#xa0; | &#xa0;
+  <a href="#pendente">Pendências</a> &#xa0; | &#xa0;
+  <a href="#requisitos">Pré requisitos</a> &#xa0; | &#xa0;
+  <a href="#observacoes">Observações</a> &#xa0; | &#xa0;
+  <a href="#desenvolvedores">Desenvolvedores</a>
+</p>
 
-In the project directory, you can run:
+<h2 id="sobre">:notebook: Sobre </h2>
 
-### `yarn start`
+<p align="center">:rocket: Projeto desenvolvido conforme proposta do bootcamp ministrado pela Labenu, para o desenvolvimento de um web site de relacionamentos </p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<h2 id="tecnologias"> 🛠 Tecnologias </h2>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+As seguintes ferramentas foram usadas na construção do projeto:
 
-### `yarn test`
+* React
+* API
+* Styled-components
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+<h2 id="funciona">:heavy_check_mark: O que funciona</h2>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Like
+* mostra fotos e dados de perfis disponiveis
+* mostra perfis que deram match
+* botão de ir e voltar
+* limpar opções
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<h2 id="nao-funciona">:x: O que não funciona</h2>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Resetar visualiação de perfis
+ 
+<h2 id="pendente">:construction: Em desenvolvimento</h2>
 
-### `yarn eject`
+- [ ] Coração Pulsando
+- [ ] Resetar visualização de perfis
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<h2 id="link">:link: Link Surge - link para visualização do site</h2>
+ <a href="http://molina-labeninjas1.surge.sh//">Labeninjas</a>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<h2 id="imagens">:computer: Imagens Desktop</h2>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **Página inicial**
+<!-- <img src="https://github.com/future4code/molina-labe-ninja1/blob/451ac6f9a803959e7fcc20cc53110ede37dd4daf/documents/site_img_overview/04_labeninjas-nav.gif" alt="Navegação Animada" width="500"/> -->
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+para mais imagens do site, poderá ser acessado o diretório de [imagens](https://github.com/future4code/molina-labe-ninja1/tree/451ac6f9a803959e7fcc20cc53110ede37dd4daf/documents/site_img_overview)
 
-## Learn More
+[comment]: <> (<h2>:iphone: Imagens Mobile</h2> - **Página Inicial**<hr></hr>)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<h2 id="requisitos">:leftwards_arrow_with_hook: Pré-requisitos</h2>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/). 
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
-### Code Splitting
+<h4>:checkered_flag: Rodando o projeto </h4>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+# Clone este repositório
 
-### Analyzing the Bundle Size
+# Instale as dependências
+$ npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# Para iniciar o projeto
+$ npm run start
 
-### Making a Progressive Web App
+# O servidor inciará na porta:3000 - acesse <http://localhost:3000>
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+<h2 id="observacoes">:pencil: Observações</h2>
 
-### Advanced Configuration
+- Ícones utilizados para organização de commit's
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+:checkered_flag: release
+:package: nova funcionalidade 
+:arrow_up: atualização 
+:beetle: correção de bug
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+<h2 id="desenvolvedores">:construction_worker: Desenvolvedora</h2>
 
-### `yarn build` fails to minify
+<table> 
+<tr>
+ 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+ <td align="center"><a href="https://github.com/bellacbs"><img style="border-radius: 50%" src="https://avatars.githubusercontent.com/u/35279793?v=4" width="100px" alt=""/>
+ <br />
+ <sub><b>Izabella Brandão</b></sub></a> <a href="https://github.com/bellacbs">🚀</a></td>
+
+
+
+</tr>
+</table>
+
+👋🏽 Entre em contato!
+
+<a href="#top">Voltar para o topo</a>
