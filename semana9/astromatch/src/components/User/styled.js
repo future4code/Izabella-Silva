@@ -1,12 +1,40 @@
 import styled from "styled-components";
 
+export const ConteinerMatches = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+`
+
+export const MatchesEmpty = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+    img{
+        width:50px;
+        height: 50px;
+    }
+
+    p{
+        font-weight: bold;
+    }
+`
+
 export const Matches = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 100%;
     align-self: flex-start;
 
     #imageAndName{
         display: flex;
+        align-self: flex-start;
 
         #photo{
             width: 50px;
@@ -21,6 +49,18 @@ export const Matches = styled.div`
         #name{
             font-size: bold;
             align-self: flex-start;
+        }
+    }
+
+    #clearButton{
+        border-radius: 8px;
+        font-weight: bold;
+        background-color: #f089b4;
+        padding: 8px;
+        margin-top: 16px;
+
+        &:hover{
+            cursor: pointer;
         }
     }
     

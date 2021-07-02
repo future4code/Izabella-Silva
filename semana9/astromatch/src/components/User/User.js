@@ -1,19 +1,17 @@
 import React, { Profiler, useEffect, useState } from 'react'
 import axios from 'axios'
 import { baseUrl, user } from '../Config/Config'
-import {Matches, Photos} from './styled'
+import {ConteinerMatches, MatchesEmpty, Matches} from './styled'
+import twoHearts from '../../img/twoHearts.png'
 
 const User = (props) => {
     const[matches, setMatches] = useState([])
-    // const[quantidadeMatches, setQuantidadeMatches] = useState(0)
 
     const getMatches = () => {
         const params = "/matches"
         axios(baseUrl+user+params)
         .then((response) => {
             setMatches(response.data.matches)
-            // setQuantidadeMatches(matches.length())
-            // console.log("aqui a quantidade de matches", quantidadeMatches)
         })
         .catch((error) => {
             console.log(error.response)
@@ -30,7 +28,6 @@ const User = (props) => {
         axios.put(baseUrl+user+params)
         .then((response)=> {
             getMatches()
-            // setQuantidadeMatches(0)
         })
         .catch((error) => {
             console.log(error.response)
@@ -39,11 +36,12 @@ const User = (props) => {
 
     console.log("aqui estão os maches", matches)
     return (
-        <div>
+        <ConteinerMatches>
             {matches.length === 0 ?
-            <div>
-                Nennhum Match
-            </div>:
+            <MatchesEmpty>
+                <img src={twoHearts} alt={"dois coracoes"}/>
+                <p>Não há Matches</p>
+            </MatchesEmpty>:
             <Matches>
                 {matches.map((profile) => {
                     return (
@@ -53,10 +51,11 @@ const User = (props) => {
                         </div>
                     )
                 })}
-                <button onClick={onClickClearAllMatch}>Limpar tudo</button>
+                <button id={"clearButton"} onClick={onClickClearAllMatch}>
+                    Limpar tudo</button>
             </Matches>
             }
-        </div>
+        </ConteinerMatches>
     )
 }
 
