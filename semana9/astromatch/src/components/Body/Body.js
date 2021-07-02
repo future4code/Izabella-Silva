@@ -24,7 +24,6 @@ const Body = (props) => {
         setNextProfile(nextProfile + 1)
     }
 
-    console.log(profile)
     return(
        <div>
            {props.changeScreen === "home" ?
