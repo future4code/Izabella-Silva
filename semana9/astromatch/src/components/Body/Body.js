@@ -19,7 +19,7 @@ const Body = (props) => {
             setProfile(response.data.profile)
         })
         .catch((error) => {
-            console.log(error.data)
+    
         })
     }
     

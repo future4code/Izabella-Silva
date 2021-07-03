@@ -14,7 +14,7 @@ const User = (props) => {
             setMatches(response.data.matches)
         })
         .catch((error) => {
-            console.log(error.response)
+            alert("Erro, tente mais tarde")
         })
     }
 
@@ -23,18 +23,16 @@ const User = (props) => {
     },[])
 
     const onClickClearAllMatch = () => {
-        console.log("Limpar aqui")
         const params = "/clear"
         axios.put(baseUrl+user+params)
         .then((response)=> {
             getMatches()
         })
         .catch((error) => {
-            console.log(error.response)
+            alert("Erro, tente mais tarde")
         })
     }
 
-    console.log("aqui estão os maches", matches)
     return (
         <ConteinerMatches>
             {matches.length === 0 ?

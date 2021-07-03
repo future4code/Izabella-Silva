@@ -6,7 +6,6 @@ import {ResetButton} from '../Body/styled'
 const ResetProfiles = (props) => {
 
     const onClickClearAllMatch = () => {
-        console.log("Limpar aqui")
         const params = "/clear"
         axios.put(baseUrl+user+params)
         .then((response)=> {

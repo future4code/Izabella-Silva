@@ -11,6 +11,10 @@ export const ConteinerHeader = styled.div`
 export const IconsMatches = styled.img`
     width: 50px;
     height: 50px;
+
+    &:hover{
+        cursor: pointer;
+    }
 `
 
 export const HiddenIcon = styled.div`

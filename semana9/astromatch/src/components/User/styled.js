@@ -35,6 +35,7 @@ export const Matches = styled.div`
     #imageAndName{
         display: flex;
         align-self: flex-start;
+        height: 70%;
 
         #photo{
             width: 50px;
@@ -44,6 +45,7 @@ export const Matches = styled.div`
             background-repeat: no-repeat;
             border-radius: 50px;
             align-self: flex-start;
+            margin: 5px 10px;
         }
 
         #name{

@@ -32,7 +32,7 @@ const Profiles = (props) => {
             props.changeProfile()
         })
         .catch((error) => {
-            console.log(error.response)
+            alert("Erro, tente mais tarde")
         })
     }
 

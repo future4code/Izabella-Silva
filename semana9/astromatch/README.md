@@ -34,15 +34,14 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 <h2 id="nao-funciona">:x: O que não funciona</h2>
 
-* Resetar visualiação de perfis
+* coração pulsando
  
 <h2 id="pendente">:construction: Em desenvolvimento</h2>
 
 - [ ] Coração Pulsando
-- [ ] Resetar visualização de perfis
 
 <h2 id="link">:link: Link Surge - link para visualização do site</h2>
- <a href="http://molina-labeninjas1.surge.sh//">Labeninjas</a>
+ <a href="https://astromatch-izabella.surge.sh/">AstroMatch</a>
 
 <h2 id="imagens">:computer: Imagens Desktop</h2>
 

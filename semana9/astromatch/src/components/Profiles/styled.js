@@ -39,15 +39,6 @@ export const ButtonsLikeUnLike = styled.div`
     justify-content: center;
     margin: 10px 0;
 
-    /* .buttons{
-        width: 50px;
-        height: 50px;
-        margin: 5px 10px 5px 10px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    } */
-
     #buttonUnLike{
         background-image: url(${unLikewhite});
         width: 50px;
@@ -59,6 +50,7 @@ export const ButtonsLikeUnLike = styled.div`
 
         &:hover{
             background-image: url(${unLikePurple});
+            cursor: pointer;
         }
     }
 
@@ -73,6 +65,7 @@ export const ButtonsLikeUnLike = styled.div`
 
         &:hover{
             background-image: url(${heartRed});
+            cursor: pointer;
         }
     }
 `
