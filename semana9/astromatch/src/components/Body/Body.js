@@ -5,13 +5,14 @@ import axios from 'axios'
 import {baseUrl, user} from '../Config/Config'
 import {OptionsEmpty} from './styled'
 import twoHearts from '../../img/twoHearts.png'
+import ResetProfiles from './ResetProfiles'
 
 const Body = (props) => {
 
     const[profile, setProfile] = useState({})
     const[nextProfile, setNextProfile] = useState(1)
-    
-    useEffect(()=>{
+
+    const getProfileTooChoose = () => {
         const params = "/person"
         axios.get(baseUrl+user+params)
         .then((response)=> {
@@ -20,6 +21,10 @@ const Body = (props) => {
         .catch((error) => {
             console.log(error.data)
         })
+    }
+    
+    useEffect(()=>{
+        getProfileTooChoose()
     },[nextProfile])
 
     const changeProfile = () => {
@@ -33,6 +38,7 @@ const Body = (props) => {
             <OptionsEmpty>
                 <img src={twoHearts} alt={"dois coracoes"}/>
                 <p>Já foram mostrados todos os perfis</p>
+                <ResetProfiles getProfileTooChoose = {getProfileTooChoose}/>
             </OptionsEmpty> :
            <Profiles profile={profile} changeProfile={changeProfile}/>)
            : 

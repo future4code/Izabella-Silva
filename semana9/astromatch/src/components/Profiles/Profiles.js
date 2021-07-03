@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { baseUrl, user } from '../Config/Config'
 import {CardProfiles, ConteinerProfiles, ButtonsLikeUnLike} from './styled'
+import ResetProfiles from '../Body/ResetProfiles'
 
 const Profiles = (props) => {
 
@@ -46,6 +47,7 @@ const Profiles = (props) => {
                 <div className="buttons" id="buttonUnLike" onClick={onClickDontLike}></div>
                 <div className="buttons" id="buttonLike"  onClick={onClickLike}></div>
             </ButtonsLikeUnLike>
+            <ResetProfiles/>
         </ConteinerProfiles>
     )
 }

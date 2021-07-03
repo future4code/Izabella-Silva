@@ -15,3 +15,17 @@ export const OptionsEmpty = styled.div`
         font-weight: bold;
     }
 `
+
+export const ResetButton = styled.button`
+    border-radius: 8px;
+    border-color: #f089b4;
+    font-weight: bold;
+    background-color: white;
+    padding: 8px;
+    margin-top: 16px;
+    color: #f089b4;
+
+    &:hover{
+        cursor: pointer;
+    }
+`

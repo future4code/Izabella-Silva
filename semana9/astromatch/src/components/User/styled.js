@@ -54,10 +54,12 @@ export const Matches = styled.div`
 
     #clearButton{
         border-radius: 8px;
+        border-color: #f089b4;
         font-weight: bold;
-        background-color: #f089b4;
+        background-color: white;
         padding: 8px;
         margin-top: 16px;
+        color: #f089b4;
 
         &:hover{
             cursor: pointer;
