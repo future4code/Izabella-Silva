@@ -1,20 +1,20 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import ListTripsPage from './Customer/ListTripsPage'
-import ApplicationFormPage from './Customer/ApplicationFormPage'
-import LoginPage from './Admin/LoginPage'
-import AdminHomePage from './Admin/AdminHomePage'
-import CreateTripPage from './Admin/CreateTripPage'
-import TripDetailsPage from './Admin/TripDetailsPage'
+import { BrowserRouter, Switch, Route, useHistory} from "react-router-dom";
+import {ListTripsPage} from './Customer/ListTripsPage'
+import {ApplicationFormPage} from './Customer/ApplicationFormPage'
+import {LoginPage} from './Admin/LoginPage'
+import {AdminHomePage} from './Admin/AdminHomePage'
+import {CreateTripPage} from './Admin/CreateTripPage'
+import {TripDetailsPage} from './Admin/TripDetailsPage'
 
 export const HomePage = () => {
     return(
-        <BrowserRouter>
+        <div>
             <Switch>
                 <Route exact path={"/"}>
                     <ListTripsPage/>
                 </Route>
-                <Route exact path={"/applicationform"}>
+                <Route exact path={"/applicationform/:id"}>
                     <ApplicationFormPage/>
                 </Route>
                 <Route exact path={"/login"}>
@@ -30,6 +30,6 @@ export const HomePage = () => {
                     <TripDetailsPage/>
                 </Route>
             </Switch>
-        </BrowserRouter>
+        </div>
     )
 }
