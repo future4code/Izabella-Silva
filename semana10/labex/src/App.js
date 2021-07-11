@@ -1,13 +1,22 @@
 import {Header} from './components/Header/Header'
 import {HomePage} from './components/HomePage/HomePage'
 import {Footer} from './components/Footer/Footer'
-import { BrowserRouter, Switch, Route} from 'react-router-dom';
+import { BrowserRouter} from 'react-router-dom';
+import styled from 'styled-components';
+
+const ContainerPage = styled.div`
+  height: 100vh;
+`
 
 export default function App() {
 
-  return <BrowserRouter>
-    <Header/>
-    <HomePage/>
-    <Footer/>
-  </BrowserRouter>;
+  return (
+    <ContainerPage>
+      <BrowserRouter>
+        <Header/>
+        <HomePage/>
+        <Footer/>
+      </BrowserRouter>;
+    </ContainerPage>
+  )
 }

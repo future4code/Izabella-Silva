@@ -10,11 +10,9 @@ const GetTrips = (url, initialState) => {
             setData(response.data.trips)
         })
         .catch((error) => {
-            console.log(error.response)
+            alert("Erro, tente mais tarde")
         })
     }, [])
-
-    console.log("getTrips", data)
 
     return data
 }
