@@ -1,9 +1,11 @@
 import React from 'react'
+import CardPost from '../../Components/CardPost.js/CardPost'
 
-const PostPage = () => {
+const PostPage = ({detailPost}) => {
+
     return(
         <div>
-            PostPage
+            <CardPost post={detailPost}/>
         </div>
     )
 }
