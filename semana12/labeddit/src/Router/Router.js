@@ -5,30 +5,31 @@ import FeedPage from '../Pages/FeedPage/FeedPage'
 import PostPage from '../Pages/PostPage/PostPage'
 import RegisterPage from '../Pages/RegisterPage/RegisterPage.js'
 import ErrorPage from '../Pages/ErrorPage/ErrorPage'
+import {ContainerRouter} from './styled'
 
-const Router = () => {
-    const[detailPost, setDetailPost] = useState({})
+const Router = ({setRightButtonText}) => {
+    const[feed, setFeed] = useState([])
 
     return(
-        <div>
+        <ContainerRouter>
             <Switch>
                 <Route exact path={"/"}>
-                    <LoginPage/>
+                    <LoginPage setRightButtonText= {setRightButtonText}/>
                 </Route>
                 <Route exact path={"/feed"}>
-                    <FeedPage detailPost={detailPost} setDetailPost={setDetailPost}/>
+                    <FeedPage feed = {feed} setFeed={setFeed}/>
                 </Route>
-                <Route exact path={`/post`}>
-                    <PostPage detailPost={detailPost}/>
+                <Route exact path={`/post/:id`}>
+                    <PostPage feed = {feed}/>
                 </Route>
                 <Route exact path={"/cadastro"}>
-                    <RegisterPage/>
+                    <RegisterPage setRightButtonText= {setRightButtonText}/>
                 </Route>
                 <Route>
                     <ErrorPage/>
                 </Route>
             </Switch>
-        </div>
+        </ContainerRouter>
     )
 }
 

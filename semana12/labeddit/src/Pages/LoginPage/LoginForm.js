@@ -5,14 +5,14 @@ import { TextField } from '@material-ui/core'
 import { Button } from '@material-ui/core'
 import { login } from '../../services/users'
 
-const LoginForm = () => {
+const LoginForm = ({setRightButtonText}) => {
     const [form, onChange, clear] = useForm({email: "", password:""})
     const history = useHistory()
 
     const onSubmitForm = (event) => {
         event.preventDefault()
         console.log(form)
-        login(form, history)
+        login(form, history, clear, setRightButtonText)
     }
 
     return(

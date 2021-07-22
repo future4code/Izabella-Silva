@@ -5,13 +5,13 @@ import useUnprotectedPage from '../../Hooks/useUnprotectedPage'
 import LoginForm from './LoginForm'
 import {goToRegisterPage} from '../../Router/coordinator'
 
-const LoginPage = () => {
-    // useUnprotectedPage()
+const LoginPage = ({setRightButtonText}) => {
+    useUnprotectedPage()
     const history = useHistory()
 
     return(
         <div>
-            <LoginForm/>
+            <LoginForm setRightButtonText= {setRightButtonText}/>
             <Button
                 onClick={() => goToRegisterPage(history)}
             >

@@ -1,18 +1,22 @@
 import React from 'react'
-import useRequestData from '../../Hooks/useRequestData'
-import { BASE_URL } from '../../constants/url'
 import { useHistory } from 'react-router-dom'
 import {goToPostPage} from '../../Router/coordinator'
 import CardPost from '../../Components/CardPost.js/CardPost'
+import CreatePost from './CreatePost'
+import useProtectedPage from '../../Hooks/useProtectedPage'
+import useRequestData from '../../Hooks/useRequestData'
+import { BASE_URL } from '../../constants/url'
 
-const FeedPage = ({setDetailPost}) => {
+const FeedPage = ({feed, setFeed}) => {
+    useProtectedPage()
+    setFeed(useRequestData([], `${BASE_URL}/posts?page=1&size=20`))
     const history = useHistory()
-    const feed = useRequestData([], `${BASE_URL}/posts?page=1&size=20`)
-    console.log(feed)
+
+    console.log("feed page", feed)
 
     const allPosts = feed.map((post) => {
         return(
-            <div onClick={ () => goToPostPage(history, setDetailPost(post))} key={post.id}>
+            <div key={post.id}>
                 <CardPost post={post}/>
             </div>
         )
@@ -20,6 +24,7 @@ const FeedPage = ({setDetailPost}) => {
 
     return(
         <div>
+            <CreatePost/>
             {allPosts}
         </div>
     )

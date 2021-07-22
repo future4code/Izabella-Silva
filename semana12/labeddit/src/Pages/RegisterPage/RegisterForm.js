@@ -4,13 +4,13 @@ import { useHistory } from 'react-router-dom'
 import useForm from '../../Hooks/useForm'
 import {register} from '../../services/users'
 
-const RegisterForm = () => {
+const RegisterForm = ({setRightButtonText}) => {
     const history = useHistory()
     const[form, onChange, clear] = useForm({username: "",email:"", password:"" })
 
     const onSubmitRegisterForm = (event) => {
         event.preventDefault()
-        register(form, history, clear)
+        register(form, history, clear, setRightButtonText)
     }
 
 
