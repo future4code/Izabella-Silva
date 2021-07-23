@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { BASE_URL } from '../constants/url'
 
-export const createPostVote = (postId) =>{
+export const createPostVote = (postId, getData) =>{
     const body= {
         "direction": 1
     }
@@ -12,14 +12,15 @@ export const createPostVote = (postId) =>{
         }
     })
     .then((response)=>{
-        console.log(response.data)
+        console.log("Posto Vote",response.data)
+        getData()
     })
     .catch((error) => {
-        console.log(error.response.data.message)
+        console.log(error.response)
     })
 }
 
-export const createCommentVote = (commentId) =>{
+export const createCommentVote = (commentId, getData) =>{
     const body= {
         "direction": 1
     }
@@ -30,14 +31,16 @@ export const createCommentVote = (commentId) =>{
         }
     })
     .then((response)=>{
-        console.log(response.data)
+        console.log("Comment Vote",response.data)
+        getData()
     })
     .catch((error) => {
         console.log(error.response.data.message)
     })
 }
 
-export const changePostVote = (postId) =>{
+export const changePostVote = (postId, getData) =>{
+    console.log("Change Vote post", postId)
     const body= {
         "direction": -1
     }
@@ -48,14 +51,15 @@ export const changePostVote = (postId) =>{
         }
     })
     .then((response)=>{
-        console.log(response.data)
+        console.log("Modificacao Posto Vote",response.data)
+        getData()
     })
     .catch((error) => {
         console.log(error.response.data.message)
     })
 }
 
-export const changeCommentVote = (commentId) =>{
+export const changeCommentVote = (commentId, getData) =>{
     const body= {
         "direction": -1
     }
@@ -66,14 +70,16 @@ export const changeCommentVote = (commentId) =>{
         }
     })
     .then((response)=>{
-        console.log(response.data)
+        console.log("Modificacao comment Vote",response.data)
+        getData()
     })
     .catch((error) => {
         console.log(error.response.data.message)
     })
 }
 
-export const deletePostVote = (postId) =>{
+export const deletePostVote = (postId, getData) =>{
+    console.log("Delete Vote post", postId)
     axios.delete(`${BASE_URL}/posts/${postId}/votes`,
     {
         headers:{
@@ -81,14 +87,15 @@ export const deletePostVote = (postId) =>{
         }
     })
     .then((response)=>{
-        console.log(response.data)
+        console.log("Detele Posto Vote",response.data)
+        getData()
     })
     .catch((error) => {
         console.log(error.response.data.message)
     })
 }
 
-export const deleteCommentVote = (commentId) =>{
+export const deleteCommentVote = (commentId, getData) =>{
     axios.delete(`${BASE_URL}/comments/${commentId}/votes`,
     {
         headers:{
@@ -96,7 +103,8 @@ export const deleteCommentVote = (commentId) =>{
         }
     })
     .then((response)=>{
-        console.log(response.data)
+        console.log("Delete comment Vote",response.data)
+        getData()
     })
     .catch((error) => {
         console.log(error.response.data.message)

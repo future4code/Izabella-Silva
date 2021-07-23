@@ -3,7 +3,6 @@ import Votes from '../Votes/Votes'
 import {ContainerPost} from './styled'
 
 const CardPostDetail = ({post}) => {
-    console.log(post)
 
     const detailPost = post.map((post) =>{
         return(

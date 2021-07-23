@@ -1,29 +1,29 @@
-import React from 'react'
+import React, {useState} from 'react'
 import uparrow from '../../assets/uparrow.png'
 import downarrow from '../../assets/downarrow.png'
 import {createCommentVote, changeCommentVote, deleteCommentVote, } from '../../services/votes'
 import {ContainerVotesPost} from './styled'
 
-const CommentsVoltes = ({voteSum, id}) => {
-    let upVote = false
+const CommentsVoltes = ({voteSum, id, getData}) => {
+    const[upVote, setUpVote] = useState(false)
 
     const onClickUpVote = () => {
         if(upVote){
-            upVote = false
-            deleteCommentVote(id)
+            setUpVote(false)
+            deleteCommentVote(id, getData)
         }else{
-            upVote = true
-            createCommentVote(id)
+            setUpVote(true)
+            createCommentVote(id, getData)
         }
     }
 
     const onClickDownVote = () =>{
         if(upVote){
-            upVote = false
-            deleteCommentVote(id)
+            setUpVote(false)
+            deleteCommentVote(id, getData)
         }else{
-            upVote = true
-            changeCommentVote(id)
+            setUpVote(true)
+            changeCommentVote(id, getData)
         }
     }
 

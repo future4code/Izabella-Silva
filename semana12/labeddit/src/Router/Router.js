@@ -17,10 +17,10 @@ const Router = ({setRightButtonText}) => {
                     <LoginPage setRightButtonText= {setRightButtonText}/>
                 </Route>
                 <Route exact path={"/feed"}>
-                    <FeedPage feed = {feed} setFeed={setFeed}/>
+                    <FeedPage feed = {feed} setFeed={setFeed} />
                 </Route>
                 <Route exact path={`/post/:id`}>
-                    <PostPage feed = {feed}/>
+                    <PostPage feed = {feed} />
                 </Route>
                 <Route exact path={"/cadastro"}>
                     <RegisterPage setRightButtonText= {setRightButtonText}/>

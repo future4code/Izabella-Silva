@@ -1,17 +1,16 @@
 import { Button, TextField } from '@material-ui/core'
-import Icon from '@material-ui/core/Icon';
 import React from 'react'
 import { useHistory } from 'react-router-dom';
 import useForm from '../../Hooks/useForm'
 import { createComment } from '../../services/contentCreate';
 
-const CreateComment = ({postId}) => {
+const CreateComment = ({postId, getData}) => {
     const history = useHistory()
     const[form, onChange, clear] = useForm({body:""})
 
     const onSubmitComment = (event) => {
         event.preventDefault()
-        createComment(postId, form, clear, history)
+        createComment(postId, form, clear, history, getData)
     }
 
     return(

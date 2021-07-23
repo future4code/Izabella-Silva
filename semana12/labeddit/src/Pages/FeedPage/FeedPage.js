@@ -9,22 +9,20 @@ import { BASE_URL } from '../../constants/url'
 
 const FeedPage = ({feed, setFeed}) => {
     useProtectedPage()
-    setFeed(useRequestData([], `${BASE_URL}/posts?page=1&size=20`))
-    const history = useHistory()
-
-    console.log("feed page", feed)
+    const {data, getData} = useRequestData([], `${BASE_URL}/posts?page=1&size=20`)
+    setFeed(data)
 
     const allPosts = feed.map((post) => {
         return(
             <div key={post.id}>
-                <CardPost post={post}/>
+                <CardPost post={post} getData={getData}/>
             </div>
         )
     })
 
     return(
         <div>
-            <CreatePost/>
+            <CreatePost getData={getData}/>
             {allPosts}
         </div>
     )

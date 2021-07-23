@@ -4,13 +4,13 @@ import { useHistory } from 'react-router'
 import useForm from '../../Hooks/useForm'
 import { createPost } from '../../services/contentCreate'
 
-const CreatePost = () => {
+const CreatePost = ({getData}) => {
     const history = useHistory()
     const[form, onChange, clear] = useForm({title: "", body:""})
 
     const onSubmitCreatePostForm = (event) => {
         event.preventDefault()
-        createPost(form, clear, history)
+        createPost(form, clear, history, getData)
     }
 
     return(

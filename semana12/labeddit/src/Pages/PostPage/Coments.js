@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import CommentsVoltes from '../../Components/Votes/CommentsVotes'
 import { BASE_URL } from '../../constants/url'
 import useRequestData from '../../Hooks/useRequestData'
@@ -6,23 +6,23 @@ import CreateComment from './CreateComents'
 
 const Coments = ({postId}) => {
     
-    const coments = useRequestData([], `${BASE_URL}/posts/${postId}/comments`)
-    console.log("comentarios",coments)
+    const {data, getData} = useRequestData([], `${BASE_URL}/posts/${postId}/comments`)
 
-    const allComents = coments.map((coment) => {
+
+    const allComents = data.map((comment) => {
         return(
-            <div>
-                <p>{coment.body}</p>
-                <p>{coment.username}</p>
-                <p>{coment.createdAt}</p>
-                <CommentsVoltes voteSum={coment.voteSum} id={coment.id}/>
+            <div key={comment.id}>
+                <p>{comment.body}</p>
+                <p>{comment.username}</p>
+                <p>{comment.createdAt}</p>
+                <CommentsVoltes voteSum={comment.voteSum} id={comment.id} getData={getData}/>
             </div>
         )
     })
 
     return(
         <div>
-            <CreateComment postId = {postId}/>
+            <CreateComment postId = {postId} getData={getData}/>
             {allComents}
         </div>
     )

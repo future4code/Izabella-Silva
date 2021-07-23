@@ -16,7 +16,7 @@ const PostPage = ({feed}) => {
     return(
         <div>
             <CardPostDetail post={detailPost}/>
-            <Coments postId={postId}/>
+            <Coments postId={postId} />
         </div>
     )
 }
