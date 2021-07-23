@@ -12,11 +12,10 @@ export const createPostVote = (postId, getData) =>{
         }
     })
     .then((response)=>{
-        console.log("Posto Vote",response.data)
         getData()
     })
     .catch((error) => {
-        console.log(error.response)
+        alert("Erro, tente novamente")
     })
 }
 
@@ -31,16 +30,14 @@ export const createCommentVote = (commentId, getData) =>{
         }
     })
     .then((response)=>{
-        console.log("Comment Vote",response.data)
         getData()
     })
     .catch((error) => {
-        console.log(error.response.data.message)
+        alert("Erro, tente novamente")
     })
 }
 
 export const changePostVote = (postId, getData) =>{
-    console.log("Change Vote post", postId)
     const body= {
         "direction": -1
     }
@@ -51,11 +48,10 @@ export const changePostVote = (postId, getData) =>{
         }
     })
     .then((response)=>{
-        console.log("Modificacao Posto Vote",response.data)
         getData()
     })
     .catch((error) => {
-        console.log(error.response.data.message)
+        alert("Erro, tente novamente")
     })
 }
 
@@ -70,16 +66,14 @@ export const changeCommentVote = (commentId, getData) =>{
         }
     })
     .then((response)=>{
-        console.log("Modificacao comment Vote",response.data)
         getData()
     })
     .catch((error) => {
-        console.log(error.response.data.message)
+        alert("Erro, tente novamente")
     })
 }
 
 export const deletePostVote = (postId, getData) =>{
-    console.log("Delete Vote post", postId)
     axios.delete(`${BASE_URL}/posts/${postId}/votes`,
     {
         headers:{
@@ -87,11 +81,10 @@ export const deletePostVote = (postId, getData) =>{
         }
     })
     .then((response)=>{
-        console.log("Detele Posto Vote",response.data)
         getData()
     })
     .catch((error) => {
-        console.log(error.response.data.message)
+        alert("Erro, tente novamente")
     })
 }
 
@@ -103,10 +96,9 @@ export const deleteCommentVote = (commentId, getData) =>{
         }
     })
     .then((response)=>{
-        console.log("Delete comment Vote",response.data)
         getData()
     })
     .catch((error) => {
-        console.log(error.response.data.message)
+        alert("Erro, tente novamente")
     })
 }

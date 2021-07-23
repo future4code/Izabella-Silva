@@ -1,16 +1,18 @@
 import { Button, TextField } from '@material-ui/core'
-import React from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import useForm from '../../Hooks/useForm'
 import {register} from '../../services/users'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const RegisterForm = ({setRightButtonText}) => {
     const history = useHistory()
     const[form, onChange, clear] = useForm({username: "",email:"", password:"" })
+    const[isLoading, setIsLoading] = useState(false)
 
     const onSubmitRegisterForm = (event) => {
         event.preventDefault()
-        register(form, history, clear, setRightButtonText)
+        register(form, history, clear, setRightButtonText, setIsLoading)
     }
 
 
@@ -52,7 +54,9 @@ const RegisterForm = ({setRightButtonText}) => {
                     fullWidth
                     variant={"contained"}
                     color={"primary"}
-                >Cadastrar</Button>
+                >
+                    {isLoading ? <CircularProgress color={'inherit'} size={24}/>: <>Cadastrar</>}
+                </Button>
             </form>
         </div>
     )

@@ -3,6 +3,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom';
 import useForm from '../../Hooks/useForm'
 import { createComment } from '../../services/contentCreate';
+import {ContainerButtons} from './styled'
 
 const CreateComment = ({postId, getData}) => {
     const history = useHistory()
@@ -11,6 +12,10 @@ const CreateComment = ({postId, getData}) => {
     const onSubmitComment = (event) => {
         event.preventDefault()
         createComment(postId, form, clear, history, getData)
+    }
+
+    const goBack = () =>{
+        history.goBack()
     }
 
     return(
@@ -26,13 +31,22 @@ const CreateComment = ({postId, getData}) => {
                     fullWidth
                     margin={"dense"}
                 />
-                <Button
-                    type={"submit"}
-                    variant="contained"
-                    color="primary"
-                >
-                Enviar
-                </Button>
+                <ContainerButtons>
+                    <Button
+                        type={"submit"}
+                        variant="contained"
+                        color="primary"
+                    >
+                    Enviar
+                    </Button>
+                    <Button
+                        onClick={goBack}
+                        variant="contained"
+                        color="primary"
+                    >
+                    Voltar
+                    </Button>
+                </ContainerButtons>
             </form>
             
         </div>

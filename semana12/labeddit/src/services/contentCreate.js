@@ -15,7 +15,7 @@ export const createPost = (body, clear, history, getData) => {
         getData()
     })
     .catch((error) => {
-        console.log(error.response.data.message)
+        alert(`Erro: ${error.response.data.message}, tente novamente`)
     })
 }
 
@@ -32,7 +32,6 @@ export const createComment = (postId, body, clear, history, getData) =>{
         getData()
     })
     .catch((error) => {
-        console.log(error.response.data.message)
         alert(`${error.response.data.message}, tente novamente`)
     })
 }

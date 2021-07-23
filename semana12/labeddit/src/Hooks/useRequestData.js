@@ -11,12 +11,10 @@ const useRequestData = (initialData, url) =>{
             }
         })
         .then((response) =>{
-            console.log(response.data)
             setData(response.data)
         })
         .catch((error) =>{
-            console.log(error.response.data.message)
-            alert("Erro, tente novamente")
+            alert(`Erro: ${error.response.data.message}, tente novamente`)
         })
     }
 

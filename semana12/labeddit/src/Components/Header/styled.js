@@ -7,6 +7,7 @@ export const Navigation = styled.header`
     align-items: center;
     background-color: ${neutralColor};
     width: 100vw;
+    padding: 10px;
     #buttonleft{
         margin-left: 20px;
         color: white;
