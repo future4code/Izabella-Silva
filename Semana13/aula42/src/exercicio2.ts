@@ -1,6 +1,12 @@
-function obterEstatisticas(numeros: Array<number>) {
+type Estatistica = {
+    maior: number,
+    menor: number,
+    media: number
+}
 
-    const numerosOrdenados: Array<number> = numeros.sort(
+function obterEstatisticas(numeros: Array<number>): Estatistica {
+
+    const numerosOrdenados: number[] = numeros.sort(
         (a, b) => a - b
     )
 
@@ -20,4 +26,12 @@ function obterEstatisticas(numeros: Array<number>) {
     return estatisticas
 }
 
-console.log(obterEstatisticas([1,5,6,9,7,10]))
+type AmostraDeIdades = {
+    numeros: number[],
+    obterEstatisticas: (number: number[]) => Estatistica
+}
+
+const amostraDeIdades: AmostraDeIdades = {
+    numeros:[21, 18, 65, 44, 15, 18],
+    obterEstatisticas
+}
