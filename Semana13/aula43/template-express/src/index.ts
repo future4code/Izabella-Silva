@@ -46,9 +46,26 @@ app.get("/countries/search", (req:Request, res: Response) => {
 })
 
 app.get("/countries/:id", (req: Request, res: Response) => {
-    const result = countries.find(
-        (country) => {return country.id === Number(req.params.id)}
-    )
+    let errorCode: number = 400
+
+    try{
+        const result = countries.find(
+            (country) => {return country.id === Number(req.params.id)}
+        )
+
+        if(!result){
+            errorCode = 404
+            throw new Error()
+        }
+
+        res.status(200).send(result)
+
+    }catch(error){
+        console.log(error)
+        res.status(errorCode).send(error.message)
+    }
+
+    
 
     if(result === undefined){
         res.status(404).send("country not found")
@@ -110,6 +127,44 @@ app.delete("/countries/:id", (req:Request, res:Response)=>{
 
         res.status(200).send("País Deletado com sucesso")
 
+    }catch(error){
+        console.log(error)
+        res.status(errorCode).send(error.message)
+    }
+})
+
+app.post("/countries", (req:Request, res:Response)=>{
+    let errorCode = 400
+
+    try{
+        const authorization = req.headers.authorization as string
+
+        if(!authorization || authorization.length < 10){
+            throw new Error("Sem autorização")
+        }
+
+        if(!req.body.name && !req.body.capital && !req.body.continent){
+            throw new Error("Todos os parâmetros devem ser preenchidos")
+        }
+
+        const findCountry = countries.find(
+            (country) => country.name === req.body.name
+        )
+
+        if(findCountry){
+            errorCode = 409
+            throw new Error("País já existe")
+        }
+
+        const newCountry: country = {
+            id: countries[countries.length-1].id + 1,
+            name:req.body.name,
+            capital: req.body.capital,
+            continent: req.body.continent,
+        }
+        countries.push(newCountry)
+
+        res.status(200).send({message:"Success!", country: newCountry})
     }catch(error){
         console.log(error)
         res.status(errorCode).send(error.message)
