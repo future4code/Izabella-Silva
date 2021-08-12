@@ -17,7 +17,7 @@ function obterEstatisticas(numeros: Array<number>): Estatistica {
         soma += num
     }
 
-    const estatisticas: {maior: number, menor: number, media: number} = {
+    const estatisticas: Estatistica = {
         maior: numerosOrdenados[numeros.length - 1],
         menor: numerosOrdenados[0],
         media: soma / numeros.length
@@ -28,7 +28,7 @@ function obterEstatisticas(numeros: Array<number>): Estatistica {
 
 type AmostraDeIdades = {
     numeros: number[],
-    obterEstatisticas: (number: number[]) => Estatistica
+    obterEstatisticas: (numeros: number[]) => Estatistica
 }
 
 const amostraDeIdades: AmostraDeIdades = {
