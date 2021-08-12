@@ -64,6 +64,8 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
+//Exercicio 1,2 e 3
+
 app.get("/users", (req: Request, res: Response) => {
   let errorCode: number = 400
 
@@ -106,11 +108,13 @@ app.get("/users", (req: Request, res: Response) => {
   }
 })
 
+//Exercicio 4
+
 app.post("/users", (req: Request, res: Response) => {
   let errorCode: number = 400
   try{
     const {name,email,age, type} = req.body
-    // const type = req.body.type as string
+
     if(!name || !email || !age || !type){
       throw new Error("Falta parametros")
     }
@@ -121,6 +125,12 @@ app.post("/users", (req: Request, res: Response) => {
     if(!(type.toUpperCase() in USER_TYPE)){
       throw new Error("Tipo Inválido, informe ADMIN ou NORMAL")
     }
+
+    users.forEach((user)=>{
+      if(user.email === email){
+        throw new Error("E-mail já existe")
+      }
+    })
 
     const user: User ={
       id: users[users.length-1].id + 1,
@@ -136,6 +146,53 @@ app.post("/users", (req: Request, res: Response) => {
 
   }catch(error){
     res.status(errorCode).send(error.message)
+  }
+})
+
+//Exercicio 5
+
+app.put("/users/:id", (req:Request, res: Response)=>{
+  let errorCode: number = 400
+  try{
+    const id = Number(req.params.id)
+
+    if(isNaN(id)){
+      throw new Error("Insira um id válido")
+    }
+
+    users.forEach((user)=>{
+      if(user.id === id){
+        user.name += "-ALTERADO"
+        return res.status(200).end()
+      }
+    })
+
+    res.status(204).send("Usuário não encontrado")
+  }catch(error){
+    res.status(errorCode).send(error.message)
+  }
+})
+
+//Exercicio 6
+
+app.patch("/users/:id", (req: Request, res:Response)=>{
+  try{
+    const id = Number(req.params.id)
+
+    if(isNaN(id)){
+      throw new Error("Id Inválido")
+    }
+
+    users.forEach((user)=>{
+      if(user.id === id){
+        user.name += "-REALTERADO"
+      }
+      return res.status(200).end()
+    })
+
+    res.status(204).send("Usuário não encontrado")
+  }catch(error){
+    res.status(400).send(error.message)
   }
 })
 
