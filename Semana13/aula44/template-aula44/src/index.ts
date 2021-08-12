@@ -196,6 +196,29 @@ app.patch("/users/:id", (req: Request, res:Response)=>{
   }
 })
 
+//Exercicio 7
+
+app.delete("/users/:id", (req: Request, res: Response) =>{
+  try{
+    const id = Number(req.params.id)
+
+    if(isNaN(id)){
+      throw new Error("Id Inválido")
+    }
+
+    for(let i =0; i < users.length; i++){
+      if(users[i].id === id){
+        users.splice(i,1)
+        return res.status(200).send("Usuário deletado com sucesso")
+      }
+    }
+
+    res.status(204).send("Usuário não encontrado")
+  }catch(error){
+    res.status(400).send(error.message)
+  }
+})
+
 app.listen(3003, () => {
   console.log('Server is running at port 3003')
 })
