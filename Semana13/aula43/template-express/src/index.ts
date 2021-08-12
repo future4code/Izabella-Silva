@@ -57,6 +57,65 @@ app.get("/countries/:id", (req: Request, res: Response) => {
     }
 })
 
+app.post("/countries/:id", (req:Request, res: Response) =>{
+    let errorCode: number = 400
+
+    try{
+        const countryIndex = countries.findIndex(
+            (country) => country.id === Number(req.params.id)
+        )
+
+        if(countryIndex === -1){
+            errorCode = 404
+            throw new Error()
+        }
+
+        if(!req.body.name && !req.body.capital){
+            throw new Error("Parametro Inválido")
+        }
+
+        if(req.body.name){
+            countries[countryIndex].name = req.body.name
+        }
+        if(req.body.capital){
+            countries[countryIndex].capital = req.body.capital
+        }
+
+        res.status(200).send("País Atualizado com sucesso!")
+
+    }catch(error){
+        console.log(error)
+        res.status(errorCode).send(error.message)
+    }
+})
+
+app.delete("/countries/:id", (req:Request, res:Response)=>{
+    let errorCode: number = 400
+
+    try{
+        const authorization = req.headers.authorization as string
+        if(!authorization || authorization.length<10){
+            errorCode = 401
+            throw new Error("Sem autorização")
+        }
+        const countryIndex: number = countries.findIndex(
+            (country) => country.id === Number(req.params.id)
+        )
+
+        if (countryIndex === -1){
+            errorCode = 404
+            throw new Error();
+        }
+        countries.splice(countryIndex,1)
+
+        res.status(200).send("País Deletado com sucesso")
+
+    }catch(error){
+        console.log(error)
+        res.status(errorCode).send(error.message)
+    }
+})
+
 
 app.listen(3003, () =>{
     console.log("Servidor Pronto! em  http://localhost:3003")
