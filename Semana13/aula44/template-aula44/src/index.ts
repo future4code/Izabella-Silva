@@ -106,6 +106,39 @@ app.get("/users", (req: Request, res: Response) => {
   }
 })
 
+app.post("/users", (req: Request, res: Response) => {
+  let errorCode: number = 400
+  try{
+    const {name,email,age, type} = req.body
+    // const type = req.body.type as string
+    if(!name || !email || !age || !type){
+      throw new Error("Falta parametros")
+    }
+    if(typeof name !== "string" || typeof email !== "string" || typeof age !== "number"){
+      throw new Error("Parâmetro Inválido")
+    }
+
+    if(!(type.toUpperCase() in USER_TYPE)){
+      throw new Error("Tipo Inválido, informe ADMIN ou NORMAL")
+    }
+
+    const user: User ={
+      id: users[users.length-1].id + 1,
+      name,
+      email,
+      type,
+      age
+    }
+
+    users.push(user)
+
+    res.status(200).send("Usuário Adicionado com sucesso")
+
+  }catch(error){
+    res.status(errorCode).send(error.message)
+  }
+})
+
 app.listen(3003, () => {
   console.log('Server is running at port 3003')
 })
