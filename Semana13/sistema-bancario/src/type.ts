@@ -1,13 +1,15 @@
 export enum TYPE_TRANSACTION {
-    TRANSFERENCIA = "transferência",
-    PAGAMENTO = "pagamento",
-    DEPOSITO = "deposito"
+    TRANSFERENCIA_EFETUADA = "D - Transferência Efetuada",
+    TRANSFERENCIA_RECEBIDA = "C - Transferência Recebida",
+    PAGAMENTO = "D - Pagamento",
+    DEPOSITO = "C - Depósito em dinheiro"
 }
 
 export type Transaction ={
     value: number,
     date: Date,
-    description: TYPE_TRANSACTION
+    description: TYPE_TRANSACTION,
+    consolidated: boolean
 }
 
 export type Account = {
@@ -15,5 +17,5 @@ export type Account = {
     cpf: string,
     birthDate: Date,
     balance: number,
-    extraxt: Array<Transaction>
+    extract: Array<Transaction>
 }

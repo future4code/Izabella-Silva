@@ -148,7 +148,8 @@ app.put("/users/payment", (req:Request, res: Response) => {
                 const transaction: Transaction = {
                     value: value,
                     date: newDate,
-                    description: TYPE_TRANSACTION.PAGAMENTO
+                    description: TYPE_TRANSACTION.PAGAMENTO,
+                    consolidated: false
                 }
                 user.extract.push(transaction)
                 return res.status(200).send("Pagamento efetuado com sucesso!")
