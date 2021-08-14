@@ -43,7 +43,7 @@ app.post("/users", (req: Request, res: Response) => {
             cpf: req.body.cpf,
             birthDate: newBirthDate,
             balance: 0,
-            extract: []
+            statement: []
         }
 
         users.push(newUser)
@@ -103,7 +103,7 @@ app.put("/users", (req: Request, res: Response) => {
                     description: TYPE_TRANSACTION.DEPOSITO,
                     consolidated: false
                 }
-                user.extract.push(transaction)
+                user.statement.push(transaction)
                 return res.status(200).send("Depósito Realizado com sucesso")
             }
         })
@@ -151,7 +151,7 @@ app.put("/users/payment", (req:Request, res: Response) => {
                     description: TYPE_TRANSACTION.PAGAMENTO,
                     consolidated: false
                 }
-                user.extract.push(transaction)
+                user.statement.push(transaction)
                 return res.status(200).send("Pagamento efetuado com sucesso!")
             }
         })
@@ -177,7 +177,7 @@ app.put("/users/updatebalance/:cpf", (req: Request, res: Response) => {
         users.forEach((user) =>{
             if(user.cpf === req.params.cpf){
                 let sum = 0
-                user.extract.forEach((transaction) => {
+                user.statement.forEach((transaction) => {
                     const verifyDate: number = transaction.date.getTime() - Date.now()
                     if(verifyDate < 0 && !transaction.consolidated){
 
@@ -245,10 +245,10 @@ app.post("/users/transfer", (req: Request, res: Response) => {
 
         users.forEach((user) =>{
             if(user.name.includes(nameUser) && user.cpf === cpfUser){
-                user.extract.push(transactionUser)
+                user.statement.push(transactionUser)
             }
             if(user.name.includes(recipientsName) && user.cpf === recipientsCPF){
-                user.extract.push(transactionRecipient)
+                user.statement.push(transactionRecipient)
             }
         })
 

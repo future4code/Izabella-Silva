@@ -17,5 +17,5 @@ export type Account = {
     cpf: string,
     birthDate: Date,
     balance: number,
-    extract: Array<Transaction>
+    statement: Array<Transaction>
 }
