@@ -1,0 +1,44 @@
+~~~ sql
+
+-- 1) CRIAR TABELA
+CREATE TABLE Actor(
+id VARCHAR(255) PRIMARY KEY,
+name VARCHAR (255) NOT NULL,
+salary FLOAT NOT NULL,
+birth_date DATE NOT NULL,
+gender VARCHAR(6) NOT NULL
+);
+
+SHOW TABLES;
+
+SHOW DATABASES;
+
+DESCRIBE Actor;
+
+
+-- A) VARCGAR-> CARACTERES PARA OCUPAR APENAS AS POSIÇÕES PREENCHIDAS, DATE--> DATAS, NOT NULL --> PARA SER UM TEMO OBRIGATÓRIO, PRIMARY KEY --> CHAVE PRIMNÁRIA
+-- B) SHOW TABLES MOSTRA AS TABELAS NO BANCO DE DADOS, SHOW DATABASES MOSTRA A BASSE DE DADOS
+-- C) DESCRIBE Actor descreve a estrutura da tabela e o tipo de dados
+
+
+-- 02)
+INSERT INTO Actor (id,name,salary, birth_date, gender)
+VALUE(
+"001",
+"Tony Ramos",
+400000,
+"1948-08-05",
+"male"
+);
+
+
+-- A)
+INSERT INTO Actor VALUE (
+"002",
+ "Glória Pires",
+ 1200000,
+ "1963-08-23",
+ "female"
+ );
+
+~~~
