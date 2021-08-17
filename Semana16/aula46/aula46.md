@@ -54,5 +54,51 @@ SELECT * FROM Actor ORDER BY salary DESC LIMIT 3;
 -- E)
 SELECT AVG(salary) FROM Actor GROUP BY gender;
 
+-- 06)
+-- A)
+ALTER TABLE movies ADD playing_limit_date DATE;
 
+-- B)
+ALTER TABLE movies MODIFY avaliacao FLOAT;
+
+-- C)
+UPDATE movies SET playing_limit_date = "2021-01-30" WHERE id = "001";
+UPDATE movies SET playing_limit_date = "2021-09-02" WHERE id = "002";
+
+-- D) deletou apenas a linha que tinha o dados
+DELETE FROM movies WHERE id = "003";
+
+-- 07)
+-- A)
+SELECT COUNT(*) FROM movies WHERE avaliacao > 7.5;
+
+-- B)
+SELECT AVG(avaliacao) FROM movies;
+
+-- C)
+SELECT COUNT(*) FROM movies WHERE playing_limit_date > CURDATE();
+
+-- D)
+SELECT COUNT(*) FROM movies WHERE data_lancamento > CURDATE();
+
+-- E)
+SELECT MAX(avaliacao) FROM movies;
+
+-- F)
+SELECT MIN(avaliacao) FROM movies;
+
+-- 8)
+-- A)
+SELECT * FROM movies ORDER BY nome ASC;
+
+-- B)
+SELECT * FROM movies ORDER BY nome DESC;
+
+-- C)
+SELECT * FROM movies WHERE data_lancamento < CURDATE()
+ORDER BY data_lancamento DESC
+LIMIT 3;
+
+-- D)
+SELECT * FROM movies ORDER BY avaliacao DESC LIMIT 3;
 ~~~
