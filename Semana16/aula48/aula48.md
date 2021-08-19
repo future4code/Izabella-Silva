@@ -103,5 +103,28 @@ DELETE FROM Actor WHERE id = "002";
  -- B)
  SELECT nome, movies.id, rate FROM movies
  INNER JOIN Rating ON movies.id = Rating.movie_id;
+
+
+ -- 04)
+ -- A)
+ SELECT movies.id,nome, rate, comment
+ FROM movies
+ LEFT JOIN Rating ON movies.id = Rating.movie_id;
  
+SELECT m.id as movie_id, m.nome, r.rate as rating, r.comment as rating_comment
+FROM movies m
+LEFT JOIN Rating r ON m.id = r.movie_id;
+
+-- B)
+SELECT movies.id as id_movie, movies.nome as name_movie, MovieCast.actor_id as id_actor
+FROM movies
+RIGHT JOIN MovieCast ON movies.id = MovieCast.movie_id;
+
+-- C)
+SELECT AVG(r.rate), m.id, m.nome
+FROM movies m
+LEFT JOIN Rating r ON m.id = r.movie_id
+GROUP BY (m.id);
+
+
 ~~~
