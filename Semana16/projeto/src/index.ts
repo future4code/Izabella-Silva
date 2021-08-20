@@ -146,7 +146,8 @@ app.get("/task", async(req: Request, res: Response) => {
         const result = await connection.raw(`SELECT t.id as taskId, title,
         description, limiteDate, creatorUserId, status, u.nickname as creatorUserNickname
         FROM ToDoListTask t
-        RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id`)
+        RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
+        WHERE creatorUserId = "${req.query.creatorUserId}"`)
 
         const tasks = result[0]
 
@@ -159,6 +160,63 @@ app.get("/task", async(req: Request, res: Response) => {
 
     }catch(error){
         res.status(500).send("Unexpected Error")
+    }
+})
+
+// 08 Pesquisar Usuário
+app.get("/user", async(req: Request, res: Response) => {
+    try{
+        const name = req.query.query
+        const result = await connection.raw(`SELECT id, nickname
+        FROM ToDoListUser 
+        WHERE name LIKE "%${name}%" || nickname LIKE "%${name}%";`)
+
+        const users = result[0]
+
+        res.status(200).send({users: users})
+
+    }catch(error){
+        res.status(500).send("Unexpected Error")
+    }
+})
+
+// 09 Atribuir um usuário responsável a uma tarefa
+app.post("/task/responsible", async(req:Request, res: Response) => {
+    try{
+        const {taskId,responsibleUserId} = req.body
+
+        if(!taskId || !responsibleUserId){
+            throw new Error("Missing filled field")
+        }
+
+        await connection.raw(`INSERT INTO TodoListResponsibleUserTaskRelation
+        VALUES(
+            "${taskId}",
+            "${responsibleUserId}"
+        );`)
+
+        res.status(200).send("Successfully assigned responsibility")
+
+    }catch(error){
+        res.status(400).send(error.message)
+    }
+})
+
+// 10 Pegar usuários responsáveis por uma tarefa
+app.get("/task/:id/responsible", async(req: Request, res: Response) => {
+    try{
+        const result = await connection.raw(`SELECT u.id, u.name
+        FROM TodoListResponsibleUserTaskRelation r
+        LEFT JOIN ToDoListTask t ON t.id = r.task_id
+        JOIN ToDoListUser u ON u.id = t.id
+        WHERE task_id = "${req.params.id}";
+        `)
+
+        const users = result[0]
+
+        res.status(200).send({users: users})
+    }catch(error){
+        res.status(400).send(error.message)
     }
 })
 
