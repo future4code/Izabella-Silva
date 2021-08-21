@@ -208,8 +208,8 @@ app.get("/task/:id/responsible", async(req: Request, res: Response) => {
         const result = await connection.raw(`SELECT u.id, u.name
         FROM TodoListResponsibleUserTaskRelation r
         LEFT JOIN ToDoListTask t ON t.id = r.task_id
-        JOIN ToDoListUser u ON u.id = t.id
-        WHERE task_id = "${req.params.id}";
+        JOIN ToDoListUser u ON u.id = t.creatorUserId
+        WHERE r.task_id = "${req.params.id}";
         `)
 
         const users = result[0]
@@ -219,6 +219,8 @@ app.get("/task/:id/responsible", async(req: Request, res: Response) => {
         res.status(400).send(error.message)
     }
 })
+
+// 11)
 
 const server = app.listen(process.env.PORT || 3003, () => {
     if(server){
