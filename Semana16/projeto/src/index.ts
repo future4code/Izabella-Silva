@@ -8,6 +8,30 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 
+// função para verificar se existe o usuário informado
+const verifyUser = async (id: string): Promise<any> => {
+    const result = await connection.raw(`SELECT * FROM ToDoListUser
+    WHERE id = "${id}"`)
+    const findUser = result[0].length ?  true :  false
+    return findUser
+}
+
+// Verificar se existe a tarefa informada
+const verifyTask = async (id: string): Promise<any> => {
+    const result = await connection.raw(`SELECT * FROM ToDoListTask
+    WHERE id = "${id}"`)
+    const findTask = result[0].length ? true : false
+    return findTask
+}
+
+// verificar se há relacionamento entre a tarefa e o usuario digitado
+const verifyResponsibleUserTaskRelation = async (taskId: string, userId: string): Promise<any> =>{
+    const result = await connection.raw(`SELECT * FROM TodoListResponsibleUserTaskRelation
+    WHERE task_id = "${taskId}" AND responsible_user_id = "${userId}"`)
+    const relation = result[0].length ? true : false
+    return relation
+}
+
 //01 criar usuário
 app.post("/user", async(req: Request, res: Response)=>{
     try{
@@ -82,6 +106,10 @@ app.put("/user/edit/:id", async(req: Request, res: Response) => {
             throw new Error("Missing filled field")
         }
 
+        if(await verifyUser(req.params.id) === false){
+            throw new Error("No user")
+        }
+
         await connection.raw(`UPDATE ToDoListUser
         SET name="${name}", nickname="${nickname}"
         WHERE id="${req.params.id}";
@@ -101,6 +129,10 @@ app.post("/task", async(req: Request, res: Response) => {
 
         if(!title || !description || !limitDate || !creatorUserId){
             throw new Error("Missing filled field")
+        }
+
+        if(await verifyUser(creatorUserId) === false){
+            throw new Error("User doesn't registered")
         }
 
         await connection.raw(` INSERT INTO ToDoListTask (id, title, description, limiteDate, creatorUserId)
@@ -142,49 +174,45 @@ app.get("/task/delayed", async(req: Request, res: Response) => {
     }
 })
 
-//05 Pegar Tarefa por id
-// app.get("/task/:id", async(req: Request, res: Response) => {
-//     try{
-//         const result = await connection.raw(`SELECT * FROM ToDoListTask
-//         WHERE id = "${req.params.id}";`)
-
-//         const task = result[0]
-
-//         if(!task.length){
-//             throw new Error("No task found")
-//         }
-
-//         res.status(200).send(task)
-
-//     }catch(error){
-//         res.status(400).send(error.message)
-//     }
-// })
-
+// 05) Pegar Tarefa por id
 // 11) Pegar tarefa pelo id
 app.get("/task/:id", async(req: Request, res: Response) => {
     try{
-        console.log("aquii")
+
+        if(await verifyTask(req.params.id) === false){
+            throw new Error("task does not exist")
+        }
+        
         const result = await connection.raw(`SELECT t.id as taskId, title,
         description, limiteDate, creatorUserId, status, u.nickname as creatorUserNickname
         FROM ToDoListTask t
         RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
         WHERE t.id = "${req.params.id}"`)
 
-        const responsibleUser = await connection.raw(`SELECT u.id, u.name
-        FROM TodoListResponsibleUserTaskRelation r
-        LEFT JOIN ToDoListTask t ON t.id = "${req.params.id}"
-        JOIN ToDoListUser u ON u.id = t.creatorUserId ;
-        `)
+        const responsibleUserRelation = await connection.raw(`SELECT * FROM TodoListResponsibleUserTaskRelation
+        WHERE task_id = "${req.params.id}"`)
 
-        const task =  result[0][0]
+        const responsibleUser: Array<Object> = []
 
-        res.status(200).send({taskId: task.taskId, title: task.title, description: task.description,
-            limitDate: task.limiteDate, creatorUserId: task.creatorUserId, status: task.status,
-            creatorUserNickname: task.creatorUserNickname, responsibleUser: responsibleUser[0]})
+        await Promise.all(responsibleUserRelation[0].map(async (user: any) => {
+            const data = await connection.raw(`SELECT id, name
+            FROM ToDoListUser WHERE id = "${user.responsible_user_id}";
+            `)
+            responsibleUser.push(data[0][0])
+        }))
+
+        const task =  result[0]
+
+        if(!task.length){
+            throw new Error("No task")
+        }
+
+        res.status(200).send({taskId: task[0].taskId, title: task[0].title, description: task[0].description,
+            limitDate: task[0].limiteDate, creatorUserId: task[0].creatorUserId, status: task[0].status,
+            creatorUserNickname: task[0].creatorUserNickname, responsibleUser: responsibleUser})
 
     }catch(error){
-        res.status(500).send("Unexpected Error")
+        res.status(400).send(error.message)
     }
 })
 
@@ -196,6 +224,10 @@ app.get("/task/:id", async(req: Request, res: Response) => {
 app.get("/task", async(req: Request, res: Response) => {
     try{
         let result = []
+
+        if(await verifyUser(req.query.creatorUserId as string) === false){
+            throw new Error("User Doesn't exist")
+        }
 
         if(req.query.creatorUserId){
             result = await connection.raw(`SELECT t.id as taskId, title,
@@ -223,11 +255,6 @@ app.get("/task", async(req: Request, res: Response) => {
         }
         
         const tasks = result[0]
-
-        // tasks.map((task : any) => {
-        //     const newDate = task.limiteDate.split("T")[0]
-        //     task.limiteDate = newDate.split("/").reverse().join("/")
-        // })
 
         res.status(200).send({tasks: tasks})
 
@@ -257,20 +284,27 @@ app.get("/user", async(req: Request, res: Response) => {
 // 16) Atribuir mais de um responsável a uma tarefa
 app.post("/task/responsible", async(req:Request, res: Response) => {
     try{
-        let responsible_user_ids = []
         const {taskId,responsibleUserId} = req.body
 
         if(!taskId || !responsibleUserId){
             throw new Error("Missing filled field")
         }
 
-        responsible_user_ids.push(responsibleUserId)
+        await responsibleUserId.map(async(user: string) => {
+            if(await verifyResponsibleUserTaskRelation(taskId, user) === true){
+                throw new Error("UserId already linked to task")
+            }
 
-        await connection.raw(`INSERT INTO TodoListResponsibleUserTaskRelation
-        VALUES(
+            if(await verifyUser(user) === false){
+                throw new Error("User dosen't exist")
+            }
+
+            await connection.raw(`INSERT INTO TodoListResponsibleUserTaskRelation
+            VALUES(
             "${taskId}",
-            "${responsible_user_ids}"
-        );`)
+            "${user}"
+            );`)
+        })
 
         res.status(200).send("Successfully assigned responsibility")
 
@@ -282,6 +316,11 @@ app.post("/task/responsible", async(req:Request, res: Response) => {
 // 10 Pegar usuários responsáveis por uma tarefa
 app.get("/task/:id/responsible", async(req: Request, res: Response) => {
     try{
+
+        if(await verifyTask(req.params.id) === false){
+            throw new Error("task does not exist")
+        }
+
         const result = await connection.raw(`SELECT u.id, u.name
         FROM TodoListResponsibleUserTaskRelation r
         LEFT JOIN ToDoListTask t ON t.id = r.task_id
@@ -298,10 +337,22 @@ app.get("/task/:id/responsible", async(req: Request, res: Response) => {
 })
 
 // 12) Atualizar o status da tarefa pelo id
-app.put("/task/status/:id/", async(req: Request, res: Response) => {
+// 18) Atualizar o status de várias tarefas
+app.put("/task/status/edit", async(req: Request, res: Response) => {
     try{
-        await connection.raw(`UPDATE ToDoListTask SET status = "doing"
-        WHERE id = "${req.params.id}"`)
+        const {task_id, status} = req.body
+
+        if(!task_id || !status){
+            throw new Error("Missing filled field")
+        }
+        if(await verifyTask(task_id) === false){
+            throw new Error("task does not exist")
+        }
+
+        await task_id.map(async (task : any) => {
+            await connection.raw(`UPDATE ToDoListTask SET status="${status}"
+            WHERE id = "${task}"`)
+        })
 
         res.status(200).send("Update Successfully")
     }catch(error){
@@ -312,6 +363,16 @@ app.put("/task/status/:id/", async(req: Request, res: Response) => {
 // 15) Retirar um usuário responsável de uma tarefa
 app.delete("/task/:taskId/responsible/:responsibleUserId", async(req: Request, res: Response) => {
     try{
+        if(await verifyTask(req.params.taskId) === false){
+            throw new Error("task does not exist")
+        }
+        if(await verifyUser(req.params.responsibleUserId) === false){
+            throw new Error("User does not exist")
+        }
+        if(await verifyResponsibleUserTaskRelation(req.params.taskId, req.params.responsibleUserId) === false){
+            throw new Error("Task and user are not related")
+        }
+
         await connection.raw(`DELETE FROM TodoListResponsibleUserTaskRelation
         WHERE task_id = "${req.params.taskId}" AND responsible_user_id = "${req.params.responsibleUserId}"`)
 
@@ -324,26 +385,46 @@ app.delete("/task/:taskId/responsible/:responsibleUserId", async(req: Request, r
 // 19) Deletar tarefa
 app.delete("/task/:id", async(req: Request, res: Response) => {
     try{
+        if(await verifyTask(req.params.id) === false){
+            throw new Error("task does not exist")
+        }
+
         await connection.raw(`DELETE FROM ToDoListTask
         WHERE id = "${req.params.id}"`)
 
         res.status(200).send("Delete task successfully")
 
     }catch(error){
-        res.status(400).send(error.message)
+        switch(error.code){
+            case "ER_ROW_IS_REFERENCED_2":
+                res.status(409).send("Task linked to a user, delete the relationship")
+                break
+            default:
+                res.status(400).send(error.message)
+        }
     }
 })
 
 // 20) Deletar Usuário
 app.delete("/user/:id", async(req: Request, res: Response) => {
     try{
+        if(await verifyUser(req.params.id) === false){
+            throw new Error("No user")
+        }
+
         await connection.raw(`DELETE FROM ToDoListUser
         WHERE id = "${req.params.id}"`)
 
         res.status(200).send("Delete user successfully")
 
     }catch(error){
-        res.status(400).send(error.message)
+        switch(error.code){
+            case "ER_ROW_IS_REFERENCED_2":
+                res.status(409).send("User linked to some task(s)")
+                break
+            default:
+                res.status(400).send(error.message)
+        }
     }
 })
 
