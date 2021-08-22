@@ -231,8 +231,7 @@ app.get("/task/:id", async(req: Request, res: Response) => {
 app.get("/task", async(req: Request, res: Response) => {
     try{
         let result = []
-
-        if(await verifyUser(req.query.creatorUserId as string) === false){
+        if(req.query.creatorUserId && await verifyUser(req.query.creatorUserId as string) === false){
             throw new Error("User Doesn't exist")
         }
 
@@ -271,7 +270,7 @@ app.get("/task", async(req: Request, res: Response) => {
         res.status(200).send({tasks: tasks})
 
     }catch(error){
-        res.status(500).send("Unexpected Error")
+        res.status(400).send(error.message)
     }
 })
 
