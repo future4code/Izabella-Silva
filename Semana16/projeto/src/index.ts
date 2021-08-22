@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 
-// função para verificar se existe o usuário informado
+// Verificar se existe o usuário informado
 const verifyUser = async (id: string): Promise<any> => {
     const result = await connection.raw(`SELECT * FROM ToDoListUser
     WHERE id = "${id}"`)
@@ -30,6 +30,23 @@ const verifyResponsibleUserTaskRelation = async (taskId: string, userId: string)
     WHERE task_id = "${taskId}" AND responsible_user_id = "${userId}"`)
     const relation = result[0].length ? true : false
     return relation
+}
+
+// Pegar dados de responsáveis por uma tarefa
+const getResponsibleUserRelation = async(taskId: string): Promise<any> => {
+    const responsibleUserRelation = await connection.raw(`SELECT * FROM TodoListResponsibleUserTaskRelation
+    WHERE task_id = "${taskId}"`)
+
+    const responsibleUser: Array<Object> = []
+
+    await Promise.all(responsibleUserRelation[0].map(async (user: any) => {
+        const data = await connection.raw(`SELECT id, name
+        FROM ToDoListUser WHERE id = "${user.responsible_user_id}";
+        `)
+        responsibleUser.push(data[0][0])
+    }))
+
+    return responsibleUser
 }
 
 //01 criar usuário
@@ -189,17 +206,7 @@ app.get("/task/:id", async(req: Request, res: Response) => {
         RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
         WHERE t.id = "${req.params.id}"`)
 
-        const responsibleUserRelation = await connection.raw(`SELECT * FROM TodoListResponsibleUserTaskRelation
-        WHERE task_id = "${req.params.id}"`)
-
-        const responsibleUser: Array<Object> = []
-
-        await Promise.all(responsibleUserRelation[0].map(async (user: any) => {
-            const data = await connection.raw(`SELECT id, name
-            FROM ToDoListUser WHERE id = "${user.responsible_user_id}";
-            `)
-            responsibleUser.push(data[0][0])
-        }))
+        const responsibleUser = await getResponsibleUserRelation(req.params.id)
 
         const task =  result[0]
 
@@ -290,7 +297,7 @@ app.post("/task/responsible", async(req:Request, res: Response) => {
             throw new Error("Missing filled field")
         }
 
-        await responsibleUserId.map(async(user: string) => {
+        await Promise.all (responsibleUserId.map(async (user: string) => {
             if(await verifyResponsibleUserTaskRelation(taskId, user) === true){
                 throw new Error("UserId already linked to task")
             }
@@ -304,7 +311,7 @@ app.post("/task/responsible", async(req:Request, res: Response) => {
             "${taskId}",
             "${user}"
             );`)
-        })
+        }))
 
         res.status(200).send("Successfully assigned responsibility")
 
@@ -321,14 +328,7 @@ app.get("/task/:id/responsible", async(req: Request, res: Response) => {
             throw new Error("task does not exist")
         }
 
-        const result = await connection.raw(`SELECT u.id, u.name
-        FROM TodoListResponsibleUserTaskRelation r
-        LEFT JOIN ToDoListTask t ON t.id = r.task_id
-        JOIN ToDoListUser u ON u.id = t.creatorUserId
-        WHERE r.task_id = "${req.params.id}";
-        `)
-
-        const users = result[0]
+        const users = await getResponsibleUserRelation(req.params.id)
 
         res.status(200).send({users: users})
     }catch(error){
