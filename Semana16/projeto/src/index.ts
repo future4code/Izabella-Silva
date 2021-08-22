@@ -152,7 +152,7 @@ app.post("/task", async(req: Request, res: Response) => {
             throw new Error("User doesn't registered")
         }
 
-        await connection.raw(` INSERT INTO ToDoListTask (id, title, description, limiteDate, creatorUserId)
+        await connection.raw(` INSERT INTO ToDoListTask (id, title, description, limitDate, creatorUserId)
         VALUES(
             ${Date.now().toString()},
             "${title}",
@@ -172,10 +172,10 @@ app.post("/task", async(req: Request, res: Response) => {
 app.get("/task/delayed", async(req: Request, res: Response) => {
     try{
         const result = await connection.raw(`SELECT t.id as taskId, title,
-        description, limiteDate as limitDate,status, creatorUserId, u.nickname as creatorUserNickname
+        description, limitDate as limitDate,status, creatorUserId, u.nickname as creatorUserNickname
         FROM ToDoListTask t
         RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
-        WHERE limiteDate < CURDATE() AND status = "to_do";`)
+        WHERE limitDate < CURDATE() AND (status = "to_do" OR status = "doing");`)
 
         const task = result[0]
 
@@ -201,7 +201,7 @@ app.get("/task/:id", async(req: Request, res: Response) => {
         }
         
         const result = await connection.raw(`SELECT t.id as taskId, title,
-        description, limiteDate, creatorUserId, status, u.nickname as creatorUserNickname
+        description, limitDate, creatorUserId, status, u.nickname as creatorUserNickname
         FROM ToDoListTask t
         RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
         WHERE t.id = "${req.params.id}"`)
@@ -215,7 +215,7 @@ app.get("/task/:id", async(req: Request, res: Response) => {
         }
 
         res.status(200).send({taskId: task[0].taskId, title: task[0].title, description: task[0].description,
-            limitDate: task[0].limiteDate, creatorUserId: task[0].creatorUserId, status: task[0].status,
+            limitDate: task[0].limitDate, creatorUserId: task[0].creatorUserId, status: task[0].status,
             creatorUserNickname: task[0].creatorUserNickname, responsibleUser: responsibleUser})
 
     }catch(error){
@@ -238,23 +238,28 @@ app.get("/task", async(req: Request, res: Response) => {
 
         if(req.query.creatorUserId){
             result = await connection.raw(`SELECT t.id as taskId, title,
-            description, limiteDate, creatorUserId, status, u.nickname as creatorUserNickname
+            description, limitDate, creatorUserId, status, u.nickname as creatorUserNickname
             FROM ToDoListTask t
             RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
             WHERE creatorUserId = "${req.query.creatorUserId}"`)
         }
 
         if(req.query.status){
+            const status = req.query.status as string
+            
+            if(status !== "to_do" && status !== "doing" && status !== "done"){
+                throw new Error("Use 'to_do', 'doing' or 'done'")
+            }
             result = await connection.raw(`SELECT t.id as taskId, title,
-            description, limiteDate, creatorUserId, u.nickname as creatorUserNickname
+            description, limitDate, creatorUserId, u.nickname as creatorUserNickname
             FROM ToDoListTask t
             RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
-            WHERE status = "${req.query.status}"`)
+            WHERE status = "${status}"`)
         }
 
         if(req.query.query){
             result = await connection.raw(`SELECT t.id as taskId, title,
-            description, limiteDate, creatorUserId, u.nickname as creatorUserNickname
+            description, limitDate, creatorUserId, u.nickname as creatorUserNickname
             FROM ToDoListTask t
             RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
             WHERE name LIKE "%${req.query.query}%" OR nickname LIKE "%${req.query.query}%"
@@ -345,18 +350,23 @@ app.put("/task/status/edit", async(req: Request, res: Response) => {
         if(!task_id || !status){
             throw new Error("Missing filled field")
         }
+
         if(await verifyTask(task_id) === false){
             throw new Error("task does not exist")
         }
 
-        await task_id.map(async (task : any) => {
+        if(status !== "to_do" && status !== "doing" && status !== "done"){
+            throw new Error("Use 'to_do', 'doing' or 'done'")
+        }
+
+        task_id.map(async (task : any) => {
             await connection.raw(`UPDATE ToDoListTask SET status="${status}"
             WHERE id = "${task}"`)
         })
 
         res.status(200).send("Update Successfully")
     }catch(error){
-        res.status(500).send("Unexpected Error")
+        res.status(400).send(error.message)
     }
 })
 
