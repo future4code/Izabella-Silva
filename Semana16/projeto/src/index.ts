@@ -119,36 +119,109 @@ app.post("/task", async(req: Request, res: Response) => {
     }
 })
 
-//05 Pegar Tarefa por id
-app.get("/task/:id", async(req: Request, res: Response) => {
+// 14) Pegar todas as tarefas atrasadas
+app.get("/task/delayed", async(req: Request, res: Response) => {
     try{
-        const result = await connection.raw(`SELECT * FROM ToDoListTask
-        WHERE id = "${req.params.id}";`)
+        const result = await connection.raw(`SELECT t.id as taskId, title,
+        description, limiteDate as limitDate,status, creatorUserId, u.nickname as creatorUserNickname
+        FROM ToDoListTask t
+        RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
+        WHERE limiteDate < CURDATE() AND status = "to_do";`)
 
         const task = result[0]
 
         if(!task.length){
-            throw new Error("No task found")
+            throw new Error("No Tasks")
         }
 
-        res.status(200).send(task)
+        res.status(200).send({task: task})
+
 
     }catch(error){
         res.status(400).send(error.message)
     }
 })
 
+//05 Pegar Tarefa por id
+// app.get("/task/:id", async(req: Request, res: Response) => {
+//     try{
+//         const result = await connection.raw(`SELECT * FROM ToDoListTask
+//         WHERE id = "${req.params.id}";`)
 
+//         const task = result[0]
 
-// 07) Pegar tarefas criadas por um usuário
-app.get("/task", async(req: Request, res: Response) => {
+//         if(!task.length){
+//             throw new Error("No task found")
+//         }
+
+//         res.status(200).send(task)
+
+//     }catch(error){
+//         res.status(400).send(error.message)
+//     }
+// })
+
+// 11) Pegar tarefa pelo id
+app.get("/task/:id", async(req: Request, res: Response) => {
     try{
+        console.log("aquii")
         const result = await connection.raw(`SELECT t.id as taskId, title,
         description, limiteDate, creatorUserId, status, u.nickname as creatorUserNickname
         FROM ToDoListTask t
         RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
-        WHERE creatorUserId = "${req.query.creatorUserId}"`)
+        WHERE t.id = "${req.params.id}"`)
 
+        const responsibleUser = await connection.raw(`SELECT u.id, u.name
+        FROM TodoListResponsibleUserTaskRelation r
+        LEFT JOIN ToDoListTask t ON t.id = "${req.params.id}"
+        JOIN ToDoListUser u ON u.id = t.creatorUserId ;
+        `)
+
+        const task =  result[0][0]
+
+        res.status(200).send({taskId: task.taskId, title: task.title, description: task.description,
+            limitDate: task.limiteDate, creatorUserId: task.creatorUserId, status: task.status,
+            creatorUserNickname: task.creatorUserNickname, responsibleUser: responsibleUser[0]})
+
+    }catch(error){
+        res.status(500).send("Unexpected Error")
+    }
+})
+
+
+
+// 07) Pegar tarefas criadas por um usuário
+// 13) Pegar todas as tarefas por status
+// 17) Procurar tarefa por termos
+app.get("/task", async(req: Request, res: Response) => {
+    try{
+        let result = []
+
+        if(req.query.creatorUserId){
+            result = await connection.raw(`SELECT t.id as taskId, title,
+            description, limiteDate, creatorUserId, status, u.nickname as creatorUserNickname
+            FROM ToDoListTask t
+            RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
+            WHERE creatorUserId = "${req.query.creatorUserId}"`)
+        }
+
+        if(req.query.status){
+            result = await connection.raw(`SELECT t.id as taskId, title,
+            description, limiteDate, creatorUserId, u.nickname as creatorUserNickname
+            FROM ToDoListTask t
+            RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
+            WHERE status = "${req.query.status}"`)
+        }
+
+        if(req.query.query){
+            result = await connection.raw(`SELECT t.id as taskId, title,
+            description, limiteDate, creatorUserId, u.nickname as creatorUserNickname
+            FROM ToDoListTask t
+            RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
+            WHERE name LIKE "%${req.query.query}%" OR nickname LIKE "%${req.query.query}%"
+            OR title LIKE "%${req.query.query}%" OR description LIKE "%${req.query.query}%"`)
+        }
+        
         const tasks = result[0]
 
         // tasks.map((task : any) => {
@@ -181,18 +254,22 @@ app.get("/user", async(req: Request, res: Response) => {
 })
 
 // 09 Atribuir um usuário responsável a uma tarefa
+// 16) Atribuir mais de um responsável a uma tarefa
 app.post("/task/responsible", async(req:Request, res: Response) => {
     try{
+        let responsible_user_ids = []
         const {taskId,responsibleUserId} = req.body
 
         if(!taskId || !responsibleUserId){
             throw new Error("Missing filled field")
         }
 
+        responsible_user_ids.push(responsibleUserId)
+
         await connection.raw(`INSERT INTO TodoListResponsibleUserTaskRelation
         VALUES(
             "${taskId}",
-            "${responsibleUserId}"
+            "${responsible_user_ids}"
         );`)
 
         res.status(200).send("Successfully assigned responsibility")
@@ -220,7 +297,55 @@ app.get("/task/:id/responsible", async(req: Request, res: Response) => {
     }
 })
 
-// 11)
+// 12) Atualizar o status da tarefa pelo id
+app.put("/task/status/:id/", async(req: Request, res: Response) => {
+    try{
+        await connection.raw(`UPDATE ToDoListTask SET status = "doing"
+        WHERE id = "${req.params.id}"`)
+
+        res.status(200).send("Update Successfully")
+    }catch(error){
+        res.status(500).send("Unexpected Error")
+    }
+})
+
+// 15) Retirar um usuário responsável de uma tarefa
+app.delete("/task/:taskId/responsible/:responsibleUserId", async(req: Request, res: Response) => {
+    try{
+        await connection.raw(`DELETE FROM TodoListResponsibleUserTaskRelation
+        WHERE task_id = "${req.params.taskId}" AND responsible_user_id = "${req.params.responsibleUserId}"`)
+
+        res.status(200).send("Delete Successfully!")
+    }catch(error){
+        res.status(400).send(error.message)
+    }
+})
+
+// 19) Deletar tarefa
+app.delete("/task/:id", async(req: Request, res: Response) => {
+    try{
+        await connection.raw(`DELETE FROM ToDoListTask
+        WHERE id = "${req.params.id}"`)
+
+        res.status(200).send("Delete task successfully")
+
+    }catch(error){
+        res.status(400).send(error.message)
+    }
+})
+
+// 20) Deletar Usuário
+app.delete("/user/:id", async(req: Request, res: Response) => {
+    try{
+        await connection.raw(`DELETE FROM ToDoListUser
+        WHERE id = "${req.params.id}"`)
+
+        res.status(200).send("Delete user successfully")
+
+    }catch(error){
+        res.status(400).send(error.message)
+    }
+})
 
 const server = app.listen(process.env.PORT || 3003, () => {
     if(server){
