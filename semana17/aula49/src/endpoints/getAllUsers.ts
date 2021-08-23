@@ -5,6 +5,8 @@ export const getAllUsers = async(req: Request,res: Response): Promise<void> =>{
     try {
        const sort = req.query.sort || "email"
        const order = req.query.order || "asc"
+       const page = Number(req.query.page) || 1
+       const size = Number(req.query.size) || 3
 
        if(sort !== "name" && sort !== "email"){
           res.statusCode = 422
@@ -16,7 +18,9 @@ export const getAllUsers = async(req: Request,res: Response): Promise<void> =>{
          throw new Error("Expected 'desc' or 'asc'")
       }
 
-       const users = await selectAllUsers(sort,order)
+      const offset = size * (page -1);
+
+       const users = await selectAllUsers(sort,order, size, offset)
  
        if(!users.length){
           res.statusCode = 404
@@ -32,6 +36,6 @@ export const getAllUsers = async(req: Request,res: Response): Promise<void> =>{
       }else{
          res.send(error.message || error.sqlMessage)
       }
-             
+
     }
  }
