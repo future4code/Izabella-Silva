@@ -147,7 +147,6 @@ app.get("/task/delayed", async(req: Request, res: Response) => {
 
         res.status(200).send({task: newTasks})
 
-
     }catch(error){
         res.status(400).send(error.message)
     }
@@ -185,8 +184,6 @@ app.get("/task/:id", async(req: Request, res: Response) => {
         res.status(400).send(error.message)
     }
 })
-
-
 
 // 07) Pegar tarefas criadas por um usuário
 // 13) Pegar todas as tarefas por status
