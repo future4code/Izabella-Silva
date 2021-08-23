@@ -2,52 +2,12 @@ import express, {Request, Response} from "express";
 import cors from 'cors';
 import { AddressInfo } from "net";
 import connection from './connection'
-import { now } from "tarn/dist/utils";
+import {verifyUser, verifyTask, verifyResponsibleUserTaskRelation, getResponsibleUserRelation,
+    convertDate, printTasks} from './functions'
 
 const app = express();
 app.use(express.json());
 app.use(cors())
-
-// Verificar se existe o usuário informado
-const verifyUser = async (id: string): Promise<any> => {
-    const result = await connection.raw(`SELECT * FROM ToDoListUser
-    WHERE id = "${id}"`)
-    const findUser = result[0].length ?  true :  false
-    return findUser
-}
-
-// Verificar se existe a tarefa informada
-const verifyTask = async (id: string): Promise<any> => {
-    const result = await connection.raw(`SELECT * FROM ToDoListTask
-    WHERE id = "${id}"`)
-    const findTask = result[0].length ? true : false
-    return findTask
-}
-
-// verificar se há relacionamento entre a tarefa e o usuario digitado
-const verifyResponsibleUserTaskRelation = async (taskId: string, userId: string): Promise<any> =>{
-    const result = await connection.raw(`SELECT * FROM TodoListResponsibleUserTaskRelation
-    WHERE task_id = "${taskId}" AND responsible_user_id = "${userId}"`)
-    const relation = result[0].length ? true : false
-    return relation
-}
-
-// Pegar dados de responsáveis por uma tarefa
-const getResponsibleUserRelation = async(taskId: string): Promise<any> => {
-    const responsibleUserRelation = await connection.raw(`SELECT * FROM TodoListResponsibleUserTaskRelation
-    WHERE task_id = "${taskId}"`)
-
-    const responsibleUser: Array<Object> = []
-
-    await Promise.all(responsibleUserRelation[0].map(async (user: any) => {
-        const data = await connection.raw(`SELECT id, name
-        FROM ToDoListUser WHERE id = "${user.responsible_user_id}";
-        `)
-        responsibleUser.push(data[0][0])
-    }))
-
-    return responsibleUser
-}
 
 //01 criar usuário
 app.post("/user", async(req: Request, res: Response)=>{
@@ -183,7 +143,9 @@ app.get("/task/delayed", async(req: Request, res: Response) => {
             throw new Error("No Tasks")
         }
 
-        res.status(200).send({task: task})
+        const newTasks = await printTasks(result[0])
+
+        res.status(200).send({task: newTasks})
 
 
     }catch(error){
@@ -213,9 +175,10 @@ app.get("/task/:id", async(req: Request, res: Response) => {
         if(!task.length){
             throw new Error("No task")
         }
+        const limitDate = await convertDate(task[0].limitDate)
 
         res.status(200).send({taskId: task[0].taskId, title: task[0].title, description: task[0].description,
-            limitDate: task[0].limitDate, creatorUserId: task[0].creatorUserId, status: task[0].status,
+            limitDate: limitDate, creatorUserId: task[0].creatorUserId, status: task[0].status,
             creatorUserNickname: task[0].creatorUserNickname, responsibleUser: responsibleUser})
 
     }catch(error){
@@ -250,7 +213,7 @@ app.get("/task", async(req: Request, res: Response) => {
                 throw new Error("Use 'to_do', 'doing' or 'done'")
             }
             result = await connection.raw(`SELECT t.id as taskId, title,
-            description, limitDate, creatorUserId, u.nickname as creatorUserNickname
+            description, limitDate, creatorUserId,status, u.nickname as creatorUserNickname
             FROM ToDoListTask t
             RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
             WHERE status = "${status}"`)
@@ -258,14 +221,14 @@ app.get("/task", async(req: Request, res: Response) => {
 
         if(req.query.query){
             result = await connection.raw(`SELECT t.id as taskId, title,
-            description, limitDate, creatorUserId, u.nickname as creatorUserNickname
+            description, limitDate, creatorUserId, status, u.nickname as creatorUserNickname
             FROM ToDoListTask t
             RIGHT JOIN ToDoListUser u ON t.creatorUserId = u.id
             WHERE name LIKE "%${req.query.query}%" OR nickname LIKE "%${req.query.query}%"
             OR title LIKE "%${req.query.query}%" OR description LIKE "%${req.query.query}%"`)
         }
         
-        const tasks = result[0]
+        const tasks = await printTasks(result[0])
 
         res.status(200).send({tasks: tasks})
 
