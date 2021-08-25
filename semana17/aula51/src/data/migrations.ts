@@ -17,6 +17,22 @@ const createTables = () => connection
    .then(() => { console.log("Tabelas criadas") })
    .catch(printError)
 
+const createTableAddress = () => connection.raw(`
+   CREATE TABLE IF NOT EXISTS userAddress(
+      id VARCHAR(255) PRIMARY KEY,
+      zip_code VARCHAR(255) NOT NULL,
+      street VARCHAR(255) NOT NULL,
+      number VARCHAR(255) NOT NULL,
+      complement VARCHAR(255),
+      neighborhood VARCHAR(255) NOT NULL,
+      city VARCHAR(255) NOT NULL,
+      state VARCHAR(255) NOT NULL,
+      user_id VARCHAR(255) NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES aula51_users(id)
+   );
+`)
+
+
 const insertUsers = () => connection("aula51_users")
    .insert(users)
    .then(() => { console.log("Usuários criados") })
@@ -25,5 +41,6 @@ const insertUsers = () => connection("aula51_users")
 const closeConnection = () => { connection.destroy() }
 
 createTables()
+   .then(createTableAddress)
    .then(insertUsers)
    .finally(closeConnection)
