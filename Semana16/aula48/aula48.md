@@ -126,5 +126,24 @@ FROM movies m
 LEFT JOIN Rating r ON m.id = r.movie_id
 GROUP BY (m.id);
 
+-- 05)
+-- A) Os dois JOIN serão para 1º unir a tabela movies na MovieCast e depois unir o MovieCast a Actor. MovieCast tem dados em comum às outras duas tabelas
+SELECT * FROM movies m
+LEFT JOIN MovieCast mc ON m.id = mc.movie_id
+JOIN Actor a ON a.id = mc.actor_id;
+
+-- B) e C)
+SELECT m.id as movie_id, m.nome as movie_name,a.id as actor_id, a.name as actor_name
+FROM movies m
+LEFT JOIN MovieCast mc ON mc.movie_id = m.id
+JOIN Actor a ON mc.actor_id = a.id;
+
+-- D)
+SELECT m.id as movie_id, m.nome as movie_name, a.name as actor_name, r.rate, r.comment
+FROM movies m
+LEFT JOIN Rating r ON r.movie_id = m.id
+LEFT JOIN MovieCast mc ON mc.movie_id = m.id
+JOIN Actor a ON a.id = mc.actor_id;
+
 
 ~~~
