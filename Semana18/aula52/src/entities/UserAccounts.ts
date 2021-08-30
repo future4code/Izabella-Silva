@@ -1,3 +1,4 @@
+import { Transaction } from "../types/transactions";
 export class UserAccount {
     private cpf: string;
     private name: string;
@@ -14,6 +15,38 @@ export class UserAccount {
        this.cpf = cpf;
        this.name = name;
        this.age = age;
+    }
+
+    getCpf(){
+       return this.cpf
+    }
+
+    getName(){
+       return this.name
+    }
+
+    getAge(){
+       return this.age
+    }
+
+    getBalance(){
+       return this.balance
+    }
+
+    setCpf(newCPF: string){
+       this.cpf = newCPF
+    }
+
+    setName(newName: string){
+       this.name = newName
+    }
+
+    setAge(newAge: number){
+       this.age = newAge
+    }
+
+    setBalance(newBalance: number){
+       this.balance = newBalance
     }
   
   }
