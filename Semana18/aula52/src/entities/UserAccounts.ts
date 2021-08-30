@@ -1,10 +1,10 @@
-import { Transaction } from "../types/transactions";
+import { Transaction } from "./Transaction";
 export class UserAccount {
     private cpf: string;
     private name: string;
     private age: number;
     private balance: number = 0;
-   //  private transactions: Transaction[] = [];
+    private transactions: Transaction[] = [];
   
     constructor(
        cpf: string,
@@ -17,20 +17,24 @@ export class UserAccount {
        this.age = age;
     }
 
-    getCpf(){
+    getCpf(): string{
        return this.cpf
     }
 
-    getName(){
+    getName(): string{
        return this.name
     }
 
-    getAge(){
+    getAge(): number{
        return this.age
     }
 
-    getBalance(){
+    getBalance(): number{
        return this.balance
+    }
+
+    getTransactions(): Transaction[]{
+       return this.transactions
     }
 
     setCpf(newCPF: string){
@@ -47,6 +51,10 @@ export class UserAccount {
 
     setBalance(newBalance: number){
        this.balance = newBalance
+    }
+
+    setTransactions(newTransaction: Transaction[]){
+      this.transactions = newTransaction
     }
   
   }
