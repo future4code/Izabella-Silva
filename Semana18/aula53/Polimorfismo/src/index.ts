@@ -1,8 +1,6 @@
-import app from "./app"
-import createCharacter from "./endpoints/createCharacter"
-import deleteCharacter from "./endpoints/deleteCharacter"
-import getAllCharacters from "./endpoints/getAllCharacters"
+import { Residence } from "./entities/Residence";
+import { Commerce } from "./entities/Commerce";
+import { Industry } from "./entities/Industry";
 
-app.get("/character", getAllCharacters)
-app.post("/character", createCharacter)
-app.delete("/character/:id", deleteCharacter)
+const residence = new Residence(4, "39390000")
+console.log(residence.getCep)
