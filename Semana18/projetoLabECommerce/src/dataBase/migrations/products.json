@@ -1,0 +1,16 @@
+[
+    {
+        "id": "1",
+        "name": "Celular",
+        "description": "sansung",
+        "price": 1300
+    },
+    {
+        "id": "2",
+        "name": "Viagem Nacional",
+        "description": "duração 7 dias",
+        "price": 5000,
+        "travel_origin": "São Paulo",
+        "travel_destination": "Belo Horizonte"
+    }
+]
