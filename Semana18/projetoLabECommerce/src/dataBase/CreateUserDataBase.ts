@@ -10,7 +10,6 @@ export class CreateUserDataBase extends BaseDataBase{
     }
 
     async getAll(){
-        return BaseDataBase.connection(this.TABLE_NAME)
-        .select()
+        return BaseDataBase.connection(this.TABLE_NAME).select()
     }
 }

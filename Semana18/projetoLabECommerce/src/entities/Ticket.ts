@@ -4,12 +4,12 @@ export class Ticket extends Product{
     constructor(
         protected travelOrigin: string,
         protected travelDestination: string,
-        productId: string,
-        productName: string,
-        productDescription: string,
-        productPrice: number
+        id: string,
+        name: string,
+        description: string,
+        price: number
     ){
-        super(productId, productName, productDescription, productPrice)
+        super(id, name, description, price)
     }
 
     public getTravelOrigin(): string{

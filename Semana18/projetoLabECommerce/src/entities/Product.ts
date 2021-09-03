@@ -1,26 +1,26 @@
 export class Product{
     constructor(
-        protected productId: string,
-        protected productName: string,
-        protected productDescription: string,
-        protected productPrice: number
+        protected id: string,
+        protected name: string,
+        protected description: string,
+        protected price: number
     ){
 
     }
     
     public getProductId(): string{
-        return this.productId
+        return this.id
     }
 
     public getProductName(): string{
-        return this.productName
+        return this.name
     }
 
     public getProductDescription(): string{
-        return this.productDescription
+        return this.description
     }
 
     public getProductPrice(): number {
-        return this.productPrice
+        return this.price
     }
 }
