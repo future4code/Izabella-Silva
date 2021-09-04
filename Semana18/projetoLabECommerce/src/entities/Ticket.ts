@@ -2,8 +2,8 @@ import { Product } from "./Product";
 
 export class Ticket extends Product{
     constructor(
-        protected travelOrigin: string,
-        protected travelDestination: string,
+        protected travel_origin: string,
+        protected travel_destination: string,
         id: string,
         name: string,
         description: string,
@@ -13,10 +13,10 @@ export class Ticket extends Product{
     }
 
     public getTravelOrigin(): string{
-        return this.travelOrigin
+        return this.travel_origin
     }
 
     public getTravelDestination(): string{
-        return this.travelDestination
+        return this.travel_destination
     }
 }

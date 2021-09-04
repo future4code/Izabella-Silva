@@ -14,4 +14,10 @@ export class CreateProductDataBase extends BaseDataBase{
     async getAll(){
         return  BaseDataBase.connection(this.TABLE_NAME).select()
     }
+
+    async getAllTravels(){
+        return BaseDataBase.connection(this.TABLE_NAME)
+        .where("travel_origin", "<>", "NULL")
+        .where("travel_destination", "<>", "NULL")
+    }
 }

@@ -1,21 +1,22 @@
 import { Request, Response } from "express";
 import { CreateProductDataBase } from "../dataBase/CreateProductDataBase";
-import { Product } from "../entities/Product";
+import { Ticket } from "../entities/Ticket";
+import { ProductDB } from "../types";
 
-export const createProduct = async(
+const createTiket = async(
     req: Request,
     res: Response
 ): Promise<void> => {
-
     try{
-        const {name, description, price} = req.body
+        const {name, description, price, travelOrigin, travelDestination} = req.body
 
-        if(!name || !description || !price){
+        if(!name || !description || !price  || !travelOrigin || !travelDestination){
             throw new Error("Todos os itens deve ser preenchidos")
         }
 
-        if(typeof name !== "string" || typeof description !== "string"){
-            throw new Error("As variáveis 'name' e 'description' devem ser do tipo string")
+        if(typeof name !== "string" || typeof description !== "string"
+        || typeof travelOrigin !== "string" || typeof travelDestination !== "string"){
+            throw new Error("As variáveis 'name', 'description', 'travelOrigin' e 'travelDestination' devem ser do tipo string")
         }
 
         if(typeof price !== "number"){
@@ -24,18 +25,17 @@ export const createProduct = async(
 
         const id: string = (Date.now() + Math.random().toString())
 
-        const product= new Product(id, name, description, price)
+        const product = new Ticket(travelOrigin, travelDestination, id, name, description, price)
 
         const createProductDataBase = new CreateProductDataBase()
         createProductDataBase.create(product)
 
         res.status(200).send("Produto criado com sucesso")
 
-    }catch (error: any){
+    }catch(error: any){
         res.status(error.statusCode || 400)
         .send(error.message || "Error inesperado")
     }
-    
 }
 
-export default createProduct
+export default createTiket
