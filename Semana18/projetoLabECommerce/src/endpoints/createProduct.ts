@@ -14,6 +14,14 @@ export const createProduct = async(
             throw new Error("Todos os itens deve ser preenchidos")
         }
 
+        if(typeof name !== "string" || typeof description !== "string"){
+            throw new Error("As variáveis 'name' e 'description' devem ser do tipo string")
+        }
+
+        if(typeof price !== "number"){
+            throw new Error("A variável 'price' deve ser do tipo 'number'")
+        }
+
         const id: string = (Date.now() + Math.random().toString())
 
         const product = new Product(id, name, description, price)
