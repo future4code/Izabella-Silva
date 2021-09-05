@@ -12,4 +12,10 @@ export class PurchaseDataBase extends BaseDataBase{
     async getAllPurchase(){
         return await BaseDataBase.connection(this.TABLE_NAME).select()
     }
+
+    async getPuchasesByUser(userId: string){
+        return await BaseDataBase.connection(this.TABLE_NAME)
+        .select()
+        .where("user_id", "=", `${userId}`)
+    }
 }
