@@ -8,4 +8,8 @@ export class PurchaseDataBase extends BaseDataBase{
         await BaseDataBase.connection(this.TABLE_NAME)
         .insert(purchase)
     }
+
+    async getAllPurchase(){
+        return await BaseDataBase.connection(this.TABLE_NAME).select()
+    }
 }
