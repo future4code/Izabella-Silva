@@ -13,3 +13,11 @@ export type ProductDB = {
     travelOrigin?: string,
     travelDestination?: string
 }
+
+export type PuchasesDB = {
+    "purchase_id": string,
+    "product_id": string,
+    "user_id": string,
+    "quantity": number,
+    "total_amount": number
+}

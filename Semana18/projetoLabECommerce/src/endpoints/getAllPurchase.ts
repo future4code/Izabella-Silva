@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { PurchaseDataBase } from "../dataBase/PurchaseDataBase";
-import { Purchase } from "../entities/Purchase";
+import { PuchasesDB } from "../types";
 
 const getAllPurchase = async(
     req: Request,
@@ -8,7 +8,7 @@ const getAllPurchase = async(
 ): Promise<void> => {
     try{
         const purchaseDataBase = new PurchaseDataBase()
-        const allPurchase= await purchaseDataBase.getAllPurchase()
+        const allPurchase: PuchasesDB[]= await purchaseDataBase.getAllPurchase()
 
         console.log(allPurchase)
         res.status(200).send(allPurchase)
