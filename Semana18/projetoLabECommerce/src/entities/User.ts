@@ -1,12 +1,14 @@
 import { PuchasesDB } from "../types"
+import { Purchase } from "./Purchase"
 
 export class User{
     protected id: string = (Date.now() + Math.random().toString())
+    protected purchases: PuchasesDB[] = []
 
     constructor(
         protected name: string,
         protected email: string,
-        protected age: number
+        protected age: number,
     ){
 
     }
@@ -25,5 +27,13 @@ export class User{
 
     public getId(): string{
         return this.id
+    }
+
+    public addPurchases(purchase: PuchasesDB){
+        this.purchases.push(purchase)
+    }
+
+    public getAllPurchases(): PuchasesDB[]{
+        return this.purchases
     }
 }
