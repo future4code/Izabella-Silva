@@ -24,7 +24,7 @@ export class BaseDataBase{
         CREATE TABLE lab_e_commerce_user(
             id VARCHAR(255) PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
-            email VARCHAR(255) NOT NULL,
+            email VARCHAR(255) UNIQUE NOT NULL,
             age INT NOT NULL
         );
 

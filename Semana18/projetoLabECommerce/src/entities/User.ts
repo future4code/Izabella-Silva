@@ -1,10 +1,12 @@
+import { PuchasesDB } from "../types"
+
 export class User{
     protected id: string = (Date.now() + Math.random().toString())
 
     constructor(
         protected name: string,
         protected email: string,
-        protected age: number,
+        protected age: number
     ){
 
     }

@@ -33,6 +33,9 @@ const createUser = async(
         res.status(200).send("Usuário criado com sucesso")
 
     }catch(error: any){
+        if(error.code === "ER_DUP_ENTRY"){
+            error.message = "Email já cadastrado"
+        }
         res.status(error.statusCode || 400)
         .send(error.message || "Error inesperado")
     }

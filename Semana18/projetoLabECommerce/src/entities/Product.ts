@@ -3,7 +3,7 @@ export class Product{
         protected id: string,
         protected name: string,
         protected description: string,
-        protected price: number
+        protected price: number,
     ){
 
     }
