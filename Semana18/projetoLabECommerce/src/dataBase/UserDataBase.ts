@@ -1,7 +1,7 @@
 import { BaseDataBase } from "./BaseDataBase";
 import { User } from "../entities/User";
 
-export class CreateUserDataBase extends BaseDataBase{
+export class UserDataBase extends BaseDataBase{
     private TABLE_NAME = "lab_e_commerce_user"
 
     async create(user: User){

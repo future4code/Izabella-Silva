@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateUserDataBase } from "../dataBase/CreateUserDataBase";
+import { UserDataBase } from "../dataBase/UserDataBase";
 import { UserDb } from "../types";
 
 const getAllUsers = async(
@@ -7,7 +7,7 @@ const getAllUsers = async(
     res: Response
 ): Promise<void> => {
     try{
-        const users = new CreateUserDataBase()
+        const users = new UserDataBase()
         const getUsers: UserDb[] = await users.getAll()
 
         res.status(200).send(getUsers)

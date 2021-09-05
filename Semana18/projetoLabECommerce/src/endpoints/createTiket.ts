@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateProductDataBase } from "../dataBase/CreateProductDataBase";
+import { ProductDataBase } from "../dataBase/ProductDataBase";
 import { Ticket } from "../entities/Ticket";
 import { ProductDB } from "../types";
 
@@ -27,7 +27,7 @@ const createTiket = async(
 
         const product = new Ticket(travelOrigin, travelDestination, id, name, description, price)
 
-        const createProductDataBase = new CreateProductDataBase()
+        const createProductDataBase = new ProductDataBase()
         createProductDataBase.create(product)
 
         res.status(200).send("Produto criado com sucesso")

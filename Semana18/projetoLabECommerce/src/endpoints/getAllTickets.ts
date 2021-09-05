@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateProductDataBase } from "../dataBase/CreateProductDataBase";
+import { ProductDataBase } from "../dataBase/ProductDataBase";
 import { ProductDB } from "../types";
 
 const getAllTickets = async(
@@ -7,7 +7,7 @@ const getAllTickets = async(
     res: Response
 ): Promise<void> => {
     try{
-        const tickets = new CreateProductDataBase()
+        const tickets = new ProductDataBase()
         const allTickets: ProductDB[] = await tickets.getAllTravels()
 
         res.status(200).send(allTickets)

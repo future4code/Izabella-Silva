@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { User } from "../entities/User";
-import { CreateUserDataBase } from "../dataBase/CreateUserDataBase";
+import { UserDataBase } from "../dataBase/UserDataBase";
 
 const createUser = async(
     req: Request,
@@ -27,7 +27,7 @@ const createUser = async(
 
         const user = new User(name,email,age)
 
-        const createUserDataBase = new CreateUserDataBase()
+        const createUserDataBase = new UserDataBase()
         await createUserDataBase.create(user)
 
         res.status(200).send("Usuário criado com sucesso")
