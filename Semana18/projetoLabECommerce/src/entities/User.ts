@@ -3,12 +3,13 @@ import { Purchase } from "./Purchase"
 
 export class User{
     protected id: string = (Date.now() + Math.random().toString())
-    protected purchases: PuchasesDB[] = []
+    
 
     constructor(
         protected name: string,
         protected email: string,
         protected age: number,
+        readonly purchases: PuchasesDB[] = []
     ){
 
     }

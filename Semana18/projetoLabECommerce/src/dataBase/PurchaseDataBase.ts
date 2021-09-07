@@ -13,9 +13,8 @@ export class PurchaseDataBase extends BaseDataBase{
         return await BaseDataBase.connection(this.TABLE_NAME).select()
     }
 
-    async getPuchasesByUser(userId: string){
-        return await BaseDataBase.connection(this.TABLE_NAME)
-        .select()
-        .where("user_id", "=", `${userId}`)
+    async getPuchasesByUser(userId: string): Promise<any>{
+        return await BaseDataBase.connection (this.TABLE_NAME)
+            .select().where("user_id", "=", `${userId}`)
     }
 }
