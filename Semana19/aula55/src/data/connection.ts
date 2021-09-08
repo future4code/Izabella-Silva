@@ -17,7 +17,7 @@ export const connection = knex({
 
 const userTableName = "User"
 
-const createUser = async(
+export const createUserDB = async (
     id: string,
     email: string,
     password: string
@@ -27,5 +27,23 @@ const createUser = async(
         email,
         password
     })
-    .into(userTableName)
+        .into(userTableName)
+}
+
+export const getUserByEmail = async (email: string): Promise<any> => {
+    const result = await connection
+        .select("*")
+        .from(userTableName)
+        .where({ email });
+
+    return result[0];
+}
+
+export const getUserById = async (id: string): Promise<any> => {
+    const result = await connection
+        .select("*")
+        .from(userTableName)
+        .where({ id });
+
+    return result[0];
 }

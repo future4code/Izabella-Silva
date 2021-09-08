@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import { generateId } from "../services/generateId";
-import { createUserDB } from "../data/connection";
+import { getUserByEmail } from "../data/connection";
 import { generateToken } from "../services/generateToken";
 
-export default async function createUser(
+export default async function userLogin(
    req: Request,
    res: Response
 ): Promise<void> {
@@ -15,13 +14,15 @@ export default async function createUser(
          throw new Error("Senha Iválida");
       }
 
-      const id = generateId()
+      const userData = await getUserByEmail(req.body.email)
 
-      await createUserDB(id, req.body.email, req.body.password)
+      if(userData.password !== req.body.password || !userData){
+          throw new Error("E-mail ou senha inválidos")
+      }
 
-      const token = generateToken({id})
-      
-      res.status(201).send({ token })
+      const token = generateToken({id: userData.id})
+
+      res.status(200).send(token)
 
    } catch (error) {
 

@@ -1,12 +1,10 @@
-// import app from "./app"
-// import editUser from './endpoints/editUser'
-// import createUser from './endpoints/createUser'
-import {v4} from 'uuid'
+import app from "./app"
+import createUser from './endpoints/createUser'
+import userLogin from "./endpoints/userLogin"
+import userProfile from "./endpoints/userProfile"
 
-const id = v4()
+app.get("/user/profile", userProfile)
 
-console.log("Generated Id", id)
-
-// app.post('/users/signup', createUser)
-// app.put('/users/:id', editUser)
+app.post('/users/signup', createUser)
+app.post('/users/login', userLogin)
 
