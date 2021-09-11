@@ -34,6 +34,11 @@ export class BaseDataBase{
         user_id VARCHAR(255) NOT NULL,
         FOREIGN KEY (user_id) REFERENCES cookenu_user(id)
     );
+
+    CREATE TABLE cookenu_follow(
+        id_user VARCHAR(255) NOT NULL,
+        id_user_follow VARCHAR(255) NOT NULL
+    );
     `)
     .then(() => {console.log("Created Tables cookenu_user and cookenu_recipe")})
     .catch(this.printError)
