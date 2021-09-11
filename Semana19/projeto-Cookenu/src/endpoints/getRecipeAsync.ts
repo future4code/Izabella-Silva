@@ -24,7 +24,9 @@ const getRecipeAsync = async(
         const recipesDataBase = new RecipesDataBase()
         const recipe = await recipesDataBase.getRecipe(id)
 
-        console.log(recipe)
+        if(!recipe){
+            throw new Error("Receita não encontrada")
+        }
 
         res.status(200).send(recipe)
 

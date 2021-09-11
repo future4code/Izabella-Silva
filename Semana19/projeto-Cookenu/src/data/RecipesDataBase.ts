@@ -9,10 +9,10 @@ export class RecipesDataBase extends BaseDataBase {
         .insert(recipes)
     }
 
-    async getRecipe(id: string){
+    async getRecipe(id: string): Promise<any>{
         const recipe = await BaseDataBase.connection(this.TABLE_NAME)
         .select().where("id", "=", `${id}`)
 
-        return recipe[0] && Recipes.toRecipesModel(recipe[0])
+        return recipe[0]
     }
 }
