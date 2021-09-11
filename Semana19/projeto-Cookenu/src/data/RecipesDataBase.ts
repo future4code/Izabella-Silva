@@ -16,6 +16,13 @@ export class RecipesDataBase extends BaseDataBase {
         return recipe[0]
     }
 
+    async getRecipeByUserId(id: string): Promise<any> {
+        const recipe = await BaseDataBase.connection(this.TABLE_NAME)
+        .select().where("user_id", "=", `${id}`)
+
+        return recipe
+    }
+
     async getFeedRecipes(followId: string): Promise<any>{
         const recipe = await BaseDataBase.connection.raw(`
         SELECT r.id, r.title, r.description, r.createdAt, r.user_id as userId, u.name FROM ${this.TABLE_NAME} r
@@ -27,7 +34,25 @@ export class RecipesDataBase extends BaseDataBase {
         return recipe[0]
     }
 
-    async editRecipe(recipeId: string, userId:string){
-        
+    async getRecipeByIdAndUserId(recipeId: string, userId: string): Promise<any>{
+        const recipe = await BaseDataBase.connection.raw(`
+        SELECT * FROM ${this.TABLE_NAME}
+        WHERE id = '${recipeId}' AND user_id = '${userId}';
+        `)
+
+        return recipe[0]
+    }
+
+    async editRecipe(recipeId: string, title: string, description: string){
+        await BaseDataBase.connection.raw(`
+        UPDATE cookenu_recipe
+        SET title = '${title}', description='${description}'
+        WHERE id='${recipeId}';
+        `)
+    }
+
+    async deleteRecipe(recipeId: string){
+        await BaseDataBase.connection(this.TABLE_NAME)
+        .delete().where("id", "=", `${recipeId}`)
     }
 }

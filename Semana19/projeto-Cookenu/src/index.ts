@@ -3,6 +3,9 @@ import createdFollowAsync from "./endpoints/createdFollowAsync";
 import createRecipesAsync from "./endpoints/createRecipesAsync";
 import createUserAsync from "./endpoints/createUserAsync";
 import deleteFollowAsync from "./endpoints/deleteFollowAsync";
+import deleteRecipeAsync from "./endpoints/deleteRecipeAsync";
+import deleteUserAsync from "./endpoints/deleteUserAsync";
+import editeRecipeAsync from "./endpoints/editeRecipeAsync";
 import getAllFeedAsync from "./endpoints/getAllFeedAsync";
 import getOtherProfileAsync from "./endpoints/getOtherProfileAsync";
 import getOwnProfileAsync from "./endpoints/getOwnProfileAsync";
@@ -19,4 +22,8 @@ app.post("/login", loginUserAsync)
 app.post("/recipe", createRecipesAsync)
 app.post("/user/follow", createdFollowAsync)
 
+app.put("/editrecipe/:id", editeRecipeAsync)
+
 app.delete("/user/unfollow", deleteFollowAsync)
+app.delete("/deleteRecipe/:id", deleteRecipeAsync)
+app.delete("/deleteuser/:id", deleteUserAsync)

@@ -22,4 +22,9 @@ export class UserDataBase extends BaseDataBase{
         
         return user[0] && User.toUserModel(user[0]);
     }
+
+    async deleteUserById(id: string){
+        await BaseDataBase.connection(this.TABLE_NAME)
+        .delete().where("id", "=", `${id}`)
+    }
 }
