@@ -28,6 +28,10 @@ const createUserAsync = async(
             throw new Error("Todos os campos devem ser do tipo string")
         }
 
+        if(password.length < 6){
+            throw new Error("Senha deve ter no minimo 6 caracteres")
+        }
+
         const id = new IdGenerator().generateId()
 
         const hashPassword = new HashManager()
@@ -35,7 +39,8 @@ const createUserAsync = async(
         
         const user = new User(id,name,email,newHashPassword,newRole)
 
-        const userDataBase = new UserDataBase().createUser(user)
+        const userDataBase = new UserDataBase()
+        await userDataBase.createUser(user)
 
         const token = new Authenticator().generate({id: id, role: newRole})
 
@@ -43,7 +48,11 @@ const createUserAsync = async(
         res.status(200).send({message: "usuário criado com sucesso", token: token})
 
     }catch(error: any){
-        res.status(error.statusCode || 400).send(error.sqlMessage || error.message)
+        if(error.code === "ER_DUP_ENTRY"){
+            res.status(402).send("E-mail já cadastrado")
+        }else{
+            res.status(error.statusCode || 400).send(error.sqlMessage || error.message)
+        }
     }
 }
 

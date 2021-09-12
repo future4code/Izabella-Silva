@@ -29,10 +29,12 @@ export class UserDataBase extends BaseDataBase{
     }
 
     async changePassword(id: string, password: string){
+        console.log(id)
+        console.log(password)
         await BaseDataBase.connection.raw(`
         UPDATE ${this.TABLE_NAME}
-        SET password = "${password}"
-        WHERE id = "${id}"
+        SET password = '${password}'
+        WHERE id = '${id}'
         `)
     }
 }

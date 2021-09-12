@@ -15,6 +15,18 @@ const changePasswordAsync = async(
             throw new Error("Deve estar logado")
         }
 
+        if(!password){
+            throw new Error("O campo 'password' é obrigatorio")
+        }
+
+        if(typeof password !== "string" ){
+            throw new Error("Todos os campos devem ser do tipo string")
+        }
+
+        if(password.length < 6){
+            throw new Error("Senha deve ter no minimo 6 caracteres")
+        }
+
         const authenticator = new Authenticator()
         const user = await authenticator.getTokenData(token)
 

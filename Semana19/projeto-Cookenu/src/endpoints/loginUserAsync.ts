@@ -24,7 +24,8 @@ const loginUserAsync = async(
             throw new Error("E-mail e ou senha inválidos")
         }
 
-        const token = new Authenticator().generate({id: user.getId(), role: user.getRole()})
+        const generateToken = new Authenticator()
+        const token = await generateToken.generate({id: user.getId(), role: user.getRole()})
 
         res.status(200).send({message: "Login efetuado com sucesso", token: token})
 
