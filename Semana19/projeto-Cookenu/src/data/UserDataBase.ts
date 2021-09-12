@@ -27,4 +27,12 @@ export class UserDataBase extends BaseDataBase{
         await BaseDataBase.connection(this.TABLE_NAME)
         .delete().where("id", "=", `${id}`)
     }
+
+    async changePassword(id: string, password: string){
+        await BaseDataBase.connection.raw(`
+        UPDATE ${this.TABLE_NAME}
+        SET password = "${password}"
+        WHERE id = "${id}"
+        `)
+    }
 }

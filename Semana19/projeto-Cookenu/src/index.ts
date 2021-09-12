@@ -1,4 +1,5 @@
 import app from "./app";
+import changePasswordAsync from "./endpoints/changePasswordAsync";
 import createdFollowAsync from "./endpoints/createdFollowAsync";
 import createRecipesAsync from "./endpoints/createRecipesAsync";
 import createUserAsync from "./endpoints/createUserAsync";
@@ -11,6 +12,7 @@ import getOtherProfileAsync from "./endpoints/getOtherProfileAsync";
 import getOwnProfileAsync from "./endpoints/getOwnProfileAsync";
 import getRecipeAsync from "./endpoints/getRecipeAsync";
 import loginUserAsync from "./endpoints/loginUserAsync";
+import sendEmailChangePasswordAsync from "./endpoints/sendEmailChangePasswordAsync";
 
 app.get("/user/profile", getOwnProfileAsync)
 app.get("/user/feed", getAllFeedAsync)
@@ -21,6 +23,8 @@ app.post("/signup", createUserAsync)
 app.post("/login", loginUserAsync)
 app.post("/recipe", createRecipesAsync)
 app.post("/user/follow", createdFollowAsync)
+app.post("/sendemail", sendEmailChangePasswordAsync)
+app.post("/changepassword", changePasswordAsync)
 
 app.put("/editrecipe/:id", editeRecipeAsync)
 
