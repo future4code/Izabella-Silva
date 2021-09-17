@@ -1,17 +1,21 @@
-import {UserRepository} from '../../business/UserRepository'
+import { UserRepository } from '../../business/user/UserRepository';
 import {User} from '../../model/User'
 import * as admin from 'firebase-admin'
 
 admin.initializeApp({
-    credential: admin.credential.applicationDefault(),
-    databaseURL: 'https://labook-izabella.firebaseio.com'
+  credential: admin.credential.applicationDefault(),
+  databaseURL: "https://labook-izabella-default-rtdb.firebaseio.com",
+  projectId: "labook-izabella"
 });
 
-export class FireStroreDataBase implements UserRepository{
+export class FireStoreDataBase implements UserRepository{
     private TABLE_NAME: string = "labook_user"
     
     async save(user: User): Promise<User>{
         try{
+            console.log(user)
+            console.log("aquii")
+
             await admin.firestore()
             .collection(this.TABLE_NAME)
             .doc(user.id)
@@ -30,6 +34,7 @@ export class FireStroreDataBase implements UserRepository{
 
     async findUserByEmail(email: string): Promise<User | null> {
         try{
+            console.log("aquii firestore", email)
             const query = await admin.firestore()
             .collection(this.TABLE_NAME)
             .where("email", "==", email)

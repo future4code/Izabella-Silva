@@ -1,7 +1,7 @@
-import { User } from "../model/User";
-import { Authenticator } from "../services/Autenticator";
-import { HashManager } from "../services/HashManager";
-import { IdGenerator } from "../services/IdGeneratos";
+import { User } from "../../model/User";
+import { Authenticator } from "../../services/Autenticator";
+import { HashManager } from "../../services/HashManager";
+import { IdGenerator } from "../../services/IdGeneratos";
 import { UserRepository } from "./UserRepository";
 
 export interface SignupDTO{

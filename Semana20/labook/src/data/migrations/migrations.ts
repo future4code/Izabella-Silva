@@ -1,4 +1,4 @@
-import { BaseDataBase } from "../BaseDataBase";
+import { BaseDataBase } from "../SQL/BaseDataBase";
 
 const baseDataBase = new BaseDataBase()
 

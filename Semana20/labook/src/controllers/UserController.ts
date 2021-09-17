@@ -1,12 +1,14 @@
 import {Request, Response} from 'express'
-import { SignupDTO, UserBusiness } from '../business/UserBusiness'
+import { SignupDTO, UserBusiness } from '../business/user/UserBusiness'
+import { FireStoreDataBase } from '../data/firestore/FireStoreDataBase'
 import { MemoryUserDataBase } from '../data/memory/MemoryUserDataBase'
+import { SqlUserDataBase } from '../data/SQL/SQLUserDataBase'
 
 export class UserController{
     private userBusiness: UserBusiness
 
     constructor(){
-        this.userBusiness = new UserBusiness(new MemoryUserDataBase())
+        this.userBusiness = new UserBusiness(new SqlUserDataBase())
     }
 
     async signup(req: Request, res: Response){

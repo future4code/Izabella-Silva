@@ -1,7 +1,8 @@
-import { Post } from "../model/Post";
+import { PostRepository } from "../../business/post/PostRepository";
+import { Post } from "../../model/Post";
 import { BaseDataBase } from "./BaseDataBase";
 
-export class PostDataBase extends BaseDataBase{
+export class PostDataBase extends BaseDataBase implements PostRepository{
     private TABLE_NAME: string = "labook_post"
 
     async createPost(post: Post){

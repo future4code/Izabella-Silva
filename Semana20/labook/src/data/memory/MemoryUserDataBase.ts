@@ -1,4 +1,4 @@
-import { UserRepository } from "../../business/UserRepository";
+import { UserRepository } from "../../business/user/UserRepository";
 import { User } from "../../model/User";
 
 export class MemoryUserDataBase implements UserRepository{
@@ -15,6 +15,7 @@ export class MemoryUserDataBase implements UserRepository{
     }
 
     async findUserByEmail(email: string): Promise<any>{
+        
         return this.users.find(user => user.email === email)
     }
 }
