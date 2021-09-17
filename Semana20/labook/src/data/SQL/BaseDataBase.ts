@@ -35,6 +35,11 @@ export class BaseDataBase{
         user_id VARCHAR(255) NOT NULL,
         FOREIGN KEY (user_id) REFERENCES labook_user(id)
     );
+
+    CREATE TABLE labook_friendship (
+		friend_id_1 VARCHAR(255) NOT NULL,
+        friend_id_2 VARCHAR(255) NOT NULL
+    );
     `)
     .then(() => console.log(`create tables labook_user and labook_post`))
     .catch(this.printError)

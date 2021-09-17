@@ -13,9 +13,6 @@ export class FireStoreDataBase implements UserRepository{
     
     async save(user: User): Promise<User>{
         try{
-            console.log(user)
-            console.log("aquii")
-
             await admin.firestore()
             .collection(this.TABLE_NAME)
             .doc(user.id)
@@ -34,7 +31,6 @@ export class FireStoreDataBase implements UserRepository{
 
     async findUserByEmail(email: string): Promise<User | null> {
         try{
-            console.log("aquii firestore", email)
             const query = await admin.firestore()
             .collection(this.TABLE_NAME)
             .where("email", "==", email)
@@ -56,5 +52,9 @@ export class FireStoreDataBase implements UserRepository{
         }catch(error: any){
             throw new Error(error.message)
         }
+    }
+
+    async findUserById(id: string): Promise<User | null>{
+        
     }
 }

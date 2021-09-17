@@ -2,7 +2,7 @@ import {Request, Response} from 'express'
 import { SignupDTO, UserBusiness } from '../business/user/UserBusiness'
 import { FireStoreDataBase } from '../data/firestore/FireStoreDataBase'
 import { MemoryUserDataBase } from '../data/memory/MemoryUserDataBase'
-import { SqlUserDataBase } from '../data/SQL/SQLUserDataBase'
+import { SqlUserDataBase } from '../data/SQL/SqlUserDataBase'
 
 export class UserController{
     private userBusiness: UserBusiness

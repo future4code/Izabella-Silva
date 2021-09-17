@@ -16,7 +16,6 @@ export class Authenticator {
     }
 
     getTokenData(token: string): any{
-        console.log(token)
         const payload = jwt.verify(
             token,
             process.env.JWT_KEY as string
