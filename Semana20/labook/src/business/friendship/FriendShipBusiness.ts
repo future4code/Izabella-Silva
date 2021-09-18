@@ -1,6 +1,6 @@
 import { Authenticator } from "../../services/Autenticator"
 import {UserRepository} from '../user/UserRepository'
-import { FriendshipRepository } from "./FriendShipRepository"
+import { FriendshipRepository } from "./FriendshipRepository"
 
 export class FriendShipBusiness{
     private userDataBase: UserRepository

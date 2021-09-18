@@ -1,4 +1,4 @@
-import { FriendshipRepository } from "../../business/friendship/FriendShipRepository";
+import { FriendshipRepository } from "../../business/friendship/FriendshipRepository";
 import { BaseDataBase } from "./BaseDataBase";
 
 export class SqlFriendshipDataBase extends BaseDataBase implements FriendshipRepository{
@@ -27,4 +27,14 @@ export class SqlFriendshipDataBase extends BaseDataBase implements FriendshipRep
 
         return friendId1
     }
+
+    async findFriendship(userId: string): Promise<any>{
+        
+        const friendships = await BaseDataBase.connection(this.TABLE_NAME)
+        .where("friend_id_1" , "=", `${userId}`)
+        .orWhere("friend_id_2" , "=", `${userId}`)
+
+        return friendships
+    } 
+
 }
