@@ -28,6 +28,8 @@ export class PaymentsController{
                 throw new Error("Os parâmetros clienteId, buyerName, buyerEmail, buyerCpf, paymentAmount e paymentType são obrigatórios")
             }
 
+            const payment = new PaymentBusiness()
+
             if(type === TYPE.BOLETO){
                 inputPayment = {
                     amount,
@@ -41,6 +43,12 @@ export class PaymentsController{
                     cvv: req.body.cardCvv
                 }
                 const cvvStrng = inputCard.cvv.toString()
+
+                const validatedCard = await payment.validate_creditcardnumber(inputCard.number)
+
+                if(!validatedCard){
+                    throw new Error("Número de cartão inválido")
+                }
 
                 if(cvvStrng.length !== 3){
                     throw new Error("Código CVV deve conter 3 números")
@@ -63,13 +71,12 @@ export class PaymentsController{
 
             const buyer = new Buyer(inputBuyer.name, inputBuyer.email, inputBuyer.cpf)
 
-            const payment = new PaymentBusiness()
             const result = await payment.createPayment(clientId, buyer, inputPayment)
 
             res.status(200).send(result)
 
         }catch(error: any){
-            res.status(400).send("Unexpected Error")
+            res.status(400).send(error.message)
         }
     }
 }

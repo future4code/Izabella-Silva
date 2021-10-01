@@ -3,8 +3,7 @@ import { payment, TYPE } from "../model/payment";
 
 export class PaymentBusiness{
 
-    async createPayment(clienteId: string, buyer: Buyer, payment: payment){
-        console.log(payment)
+    async createPayment(clienteId: string, buyer: Buyer, payment: payment): Promise<any>{
         if(payment.type === TYPE.BOLETO){
             const amountString = payment.amount.toString()
             const field8Complement = Math.floor(100000000000 + Math.random() * 900000000000)
@@ -25,7 +24,45 @@ export class PaymentBusiness{
 
             return {boletoNumber: boletoNumber}
         }else{
+            const date = payment.card && payment.card.getExpirationDate()
+            const validateDate = await this.toValidateDate(date as string)
+
+            if(!validateDate){
+                throw new Error ("Cartão vencido")
+            }
+            
             return {message: "Cartão de crédito validado com sucesso"}
         }
+    }
+
+    async validate_creditcardnumber(inputNum: number) {       
+        var digit, digits, flag, sum, _i, _len;
+        flag = true;
+        sum = 0;
+        digits = (inputNum + '').split('').reverse();        
+        for (_i = 0, _len = digits.length; _i < _len; _i++) {       
+          digit = digits[_i];      
+          digit = parseInt(digit, 10);          
+          if ((flag = !flag)) {                      
+            digit *= 2;               
+          }
+          if (digit > 9) {               
+            digit -= 9;                    
+          }      
+          sum += digit;          
+        }    
+        return sum % 10 === 0;
+    };
+
+    async toValidateDate(date: string): Promise<boolean>{
+        const newDate = new Date(date.split("/").reverse().join("/"))
+        const dateInMilliseconds = newDate.getTime()
+        const dateNow = Date.now()
+
+        const difDates = dateInMilliseconds - dateNow
+
+        const validateDate = difDates < 0 ? false : true
+
+        return validateDate
     }
 }

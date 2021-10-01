@@ -2,7 +2,7 @@ export class Card {
     constructor(
         private holderName: string,
         private number: number,
-        private expirationDate: Date,
+        private expirationDate: string,
         private cvv: number
     ){}
 
@@ -14,7 +14,7 @@ export class Card {
         return this.number
     }
 
-    public getExpirationDate(): Date{
+    public getExpirationDate(): string{
         return this.expirationDate
     }
 
@@ -26,7 +26,7 @@ export class Card {
         this.number = number
     }
 
-    public setExpirationsDate(expirationDate: Date){
+    public setExpirationsDate(expirationDate: string){
         this.expirationDate = expirationDate
     }
 
