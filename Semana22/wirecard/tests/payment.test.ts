@@ -1,7 +1,7 @@
 const request = require("supertest")
 const app = require("../src/server")
 
-describe.skip("Test payment with boleto",() => {
+describe("Test payment with boleto",() => {
 
     it("Error when clientId field is empty", async() => {
         expect.assertions(2)
@@ -82,7 +82,7 @@ describe.skip("Test payment with boleto",() => {
     })
 })
 
-describe.skip("Test oayment with credit card", () => {
+describe("Test oayment with credit card", () => {
     it("when paymentType is chosen credit cards, but no credit card details are filled in", async() => {
         expect.assertions(2)
 
