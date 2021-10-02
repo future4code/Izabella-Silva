@@ -3,7 +3,7 @@ import { payment, TYPE } from "../model/payment";
 
 export class PaymentBusiness{
 
-    async createPayment(clienteId: string, buyer: Buyer, payment: payment): Promise<any>{
+    async createPayment(payment: payment): Promise<any>{
         if(payment.type === TYPE.BOLETO){
             const amountString = payment.amount.toString()
             const field8Complement = Math.floor(100000000000 + Math.random() * 900000000000)
@@ -28,7 +28,7 @@ export class PaymentBusiness{
             const validateDate = await this.toValidateDate(date as string)
 
             if(!validateDate){
-                throw new Error ("Cartão vencido")
+                throw new Error("Cartão vencido")
             }
             
             return {message: "Cartão de crédito validado com sucesso"}

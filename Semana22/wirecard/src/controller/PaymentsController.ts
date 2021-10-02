@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { PaymentBusiness } from "../business/PaymentBusiness"; 
+import { InvalidInputError } from "../error/InvalidInputError";
 import { Buyer } from "../model/Buyer";
 import { Card } from "../model/Card";
 import { payment, TYPE } from "../model/payment";
@@ -42,7 +43,12 @@ export class PaymentsController{
                     expirationDate: req.body.cardExpirationDate,
                     cvv: req.body.cardCvv
                 }
-                const cvvStrng = inputCard.cvv.toString()
+
+                if(!inputCard.holderName || !inputCard.number || !inputCard.expirationDate || !inputCard.cvv){
+                    throw new Error("Para type igual a 'CREDIT CARD' os campos 'cardHolderName', 'cardNumber', 'cardExpirationDate' e 'cardCvv' são obrigatórios")
+                }
+
+                const cvvStrng = inputCard.cvv && inputCard.cvv.toString()
 
                 const validatedCard = await payment.validate_creditcardnumber(inputCard.number)
 
@@ -52,10 +58,6 @@ export class PaymentsController{
 
                 if(cvvStrng.length !== 3){
                     throw new Error("Código CVV deve conter 3 números")
-                }
-
-                if(!inputCard.holderName || !inputCard.number || !inputCard.expirationDate || !inputCard.cvv){
-                    throw new Error("Para type igual a 'CREDIT CARD' os campos 'cardHolderName', 'cardNumber', 'cardExpirationDate' e 'cardCvv' são obrigatórios")
                 }
 
                 card = new Card(inputCard.holderName, inputCard.number, inputCard.expirationDate, inputCard.cvv)
@@ -71,12 +73,12 @@ export class PaymentsController{
 
             const buyer = new Buyer(inputBuyer.name, inputBuyer.email, inputBuyer.cpf)
 
-            const result = await payment.createPayment(clientId, buyer, inputPayment)
+            const result = await payment.createPayment(inputPayment)
 
             res.status(200).send(result)
 
         }catch(error: any){
-            res.status(400).send(error.message)
+            res.status(error.statusCode || 400).send(error.message || "Unexpected Error")
         }
     }
 }
