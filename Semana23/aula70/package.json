@@ -6,7 +6,9 @@
       "exercise1": "clear && tsnd --transpile-only --ignore-watch node_modules src/exercise1",
       "exercise2": "clear && tsnd --transpile-only --ignore-watch node_modules src/exercise2",
       "exercise3": "clear && tsnd --transpile-only --ignore-watch node_modules src/exercise3",
-      "exercise4": "clear && tsnd --transpile-only --ignore-watch node_modules src/exercise4"
+      "exercise4": "clear && tsnd --transpile-only --ignore-watch node_modules src/exercise4",
+      "exercise5": "clear && tsnd --transpile-only --ignore-watch node_modules src/exercise5",
+      "exercise6": "clear && tsnd --transpile-only --ignore-watch node_modules src/exercise6"
    },
    "license": "ISC",
    "devDependencies": {
