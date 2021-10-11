@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import {showRouter} from './routes/showRouter'
+import {walkRouter} from './routes/walkRouter'
+import { createRouter } from "./routes/createRouter";
 
 dotenv.config();
 
@@ -8,6 +9,8 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/payment", showRouter);
+app.use("/dog-walk", createRouter);
+app.use("/walk", walkRouter);
 
 module.exports = app
+
