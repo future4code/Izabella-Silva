@@ -10,7 +10,7 @@ export class WalkController{
 
     async startWalking(req: Request, res: Response){
         try{
-            const walkId = req.params.id
+            const walkId = req.body.walkId
 
             const result = await this.walkBusiness.startWalk(walkId)
             

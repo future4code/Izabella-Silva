@@ -10,21 +10,8 @@ export class CreateBusiness {
 
     async createWalk(input: DogWalkInputDTO): Promise<any> {
 
-        let price = 0
-
-        if(input.duration === 30){
-            if(input.numberOfPets === 1){
-                price === 25
-            }else{
-                price === 25 + 15*(input.numberOfPets-1)
-            }
-        }else if(input.duration === 60){
-            if(input.numberOfPets === 1){
-                price === 35
-            }else{
-                price === 35 + 20*(input.numberOfPets-1)
-            }
-        }
+        const price = await this.calculatePrice(input)
+        input.date = input.date.split("/").reverse().join("/")
 
         await this.dogWalkDataBase.createWalk(
             DogWalk.toDogWalk({
@@ -35,5 +22,22 @@ export class CreateBusiness {
         )
 
         return {message: "Passeio criado com sucesso"}
+    }
+
+    async calculatePrice(input: DogWalkInputDTO): Promise<number | undefined>{
+
+        if(input.duration === 30){
+            if(input.numberOfPets === 1){
+                return 25
+            }else{
+                return 25 + 15*(input.numberOfPets-1)
+            }
+        }else if(input.duration === 60){
+            if(input.numberOfPets === 1){
+                return 35
+            }else{
+                return 35 + 20*(input.numberOfPets-1)
+            }
+        }
     }
 }

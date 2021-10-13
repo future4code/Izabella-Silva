@@ -52,6 +52,18 @@ export class DogWalk {
         return this.endTime
     }
 
+    public getStatus(): string | undefined{
+        return this.status
+    }
+
+    public getStartWalk(): Date | undefined{
+        return this.startWalk
+    }
+
+    public getFinishWalk(): Date | undefined{
+        return this.finishWalk
+    }
+
     public static toDogWalk(data?: any): DogWalk{
         return(data && new DogWalk(
             data.id,
@@ -63,9 +75,9 @@ export class DogWalk {
             data.numberOfPets || data.number_of_pets,
             data.startTime || data.start_time,
             data.endTime || data.end_time,
-            data.status || data.start_walk,
-            data.startWalk || data.finish_walk,
-            data.finishWalk,
+            data.status,
+            data.startWalk || data.start_walk,
+            data.finishWalk || data.finish_walk,
         ))
     }
 }

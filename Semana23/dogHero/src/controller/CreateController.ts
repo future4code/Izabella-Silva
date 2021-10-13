@@ -24,11 +24,11 @@ export class CreateController {
                 endTime: req.body.endTime
             }
 
-            if(input.date || input.duration || input.latitude || input.longitude || input.numberOfPets || input.startTime || input.endTime){
+            if(!input.date || !input.duration || !input.latitude || !input.longitude || !input.numberOfPets || !input.startTime || !input.endTime){
                 throw new Error("Os campos 'date', 'duration', 'latitude', 'longitude', 'numberOfPets', 'startTime' e 'endTime' são obrigatórios")
             }
 
-            const result = await this.createBusiness.createWalk
+            const result = await this.createBusiness.createWalk(input)
 
             res.status(200).send(result)
 

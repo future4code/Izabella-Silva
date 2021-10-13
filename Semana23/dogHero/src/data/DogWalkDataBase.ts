@@ -31,10 +31,10 @@ export class DogWalkDataBase extends BaseDataBase{
         return DogWalk.toDogWalk(walk[0])
     }
 
-    async insertStartWalk(id: string, startWalk: Date): Promise<void>{
+    async insertStartWalk(id: string, startWalk: string): Promise<void>{
         await this.getConnection()
         .insert({
-            start_walk: startWalk
+            start_walk: `${startWalk}`
         })
         .into(this.tableNames.dogWalking)
         .where("id", "=", `${id}`)
