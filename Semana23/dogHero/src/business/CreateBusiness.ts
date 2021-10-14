@@ -1,11 +1,12 @@
 import { DogWalkDataBase } from "../data/DogWalkDataBase";
 import { DogWalk, DogWalkInputDTO } from "../model/DogWalk";
 import { IdGenerator } from "../services/IdGenerator";
+import { WalkRepository } from "./WalkRepository";
 
 export class CreateBusiness {
     constructor(
         private idGenerator: IdGenerator,
-        private dogWalkDataBase: DogWalkDataBase
+        private dogWalkDataBase: WalkRepository
     ){}
 
     async createWalk(input: DogWalkInputDTO): Promise<any> {

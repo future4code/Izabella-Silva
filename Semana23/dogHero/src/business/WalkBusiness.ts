@@ -1,11 +1,12 @@
 import { DogWalkDataBase } from "../data/DogWalkDataBase";
 import { DogWalk, DogWalkOutputDTO } from "../model/DogWalk";
+import { WalkRepository } from "./WalkRepository";
 
 
 export class WalkBusiness{
 
     constructor(
-        private dogWalkDataBase: DogWalkDataBase
+        private dogWalkDataBase: WalkRepository
     ){
     }
 
