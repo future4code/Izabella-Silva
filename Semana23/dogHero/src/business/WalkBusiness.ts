@@ -12,7 +12,7 @@ export class WalkBusiness{
     async startWalk(walkId: string): Promise<any>{
         const dogWalk = await this.dogWalkDataBase.getElementById(walkId)
 
-        const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
+        const date = Number(new Date())
 
         await this.dogWalkDataBase.insertStartWalk(walkId, date)
         await this.dogWalkDataBase.updateStatus(walkId,"PASSEANDO")
@@ -21,9 +21,9 @@ export class WalkBusiness{
     }
 
     async finishWalk(walkId: string): Promise<any>{
-        const dogWalk = this.dogWalkDataBase.getElementById(walkId)
+        const dogWalk = await this.dogWalkDataBase.getElementById(walkId)
 
-        const date = new Date(Date.now())
+        const date = Number(new Date())
 
         await this.dogWalkDataBase.insertFinishWalk(walkId, date)
         await this.dogWalkDataBase.updateStatus(walkId,"FINALIZADO")
@@ -32,9 +32,11 @@ export class WalkBusiness{
     }
 
     async showWalking(walkId: string): Promise<any>{
-        const dogWalk = this.dogWalkDataBase.getElementById(walkId)
+        const dogWalk = await this.dogWalkDataBase.getElementById(walkId)
+        const finishDate = Number(dogWalk?.getFinishWalk())
+        const startDate = Number(dogWalk?.getStartWalk())
 
-        const walkDuration = dogWalk
+        const walkDuration = (new Date(finishDate - startDate)).toISOString().slice(0, 19).split("T")[1]
 
         return {walkDuration: walkDuration}
     }

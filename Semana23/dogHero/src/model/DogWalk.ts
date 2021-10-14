@@ -8,11 +8,11 @@ export class DogWalk {
         private latitude: string,
         private longitude: string,
         private numberOfPets: number,
-        private startTime: number,
-        private endTime: number,
+        private startTime: string,
+        private endTime: string,
         private status?: string,
-        private startWalk?: Date,
-        private finishWalk?: Date,
+        private startWalk?: number,
+        private finishWalk?: number,
 
     ){}
 
@@ -44,11 +44,11 @@ export class DogWalk {
         return this.numberOfPets
     }
 
-    public getStartTime(): number{
+    public getStartTime(): string{
         return this.startTime
     }
 
-    public getEndTime(): number{
+    public getEndTime(): string{
         return this.endTime
     }
 
@@ -56,11 +56,11 @@ export class DogWalk {
         return this.status
     }
 
-    public getStartWalk(): Date | undefined{
+    public getStartWalk(): number | undefined{
         return this.startWalk
     }
 
-    public getFinishWalk(): Date | undefined{
+    public getFinishWalk(): number | undefined{
         return this.finishWalk
     }
 
@@ -88,8 +88,8 @@ export interface DogWalkInputDTO{
     latitude: string,
     longitude: string,
     numberOfPets: number,
-    startTime: number,
-    endTime: number
+    startTime: string,
+    endTime: string
 }
 
 
@@ -101,9 +101,9 @@ export interface DogWalkOutputDTO{
     latitude: string,
     longitude: string,
     number_of_pets: number,
-    start_time: number,
-    end_time: number,
+    start_time: string,
+    end_time: string,
     status: string,
-    start_walk?: Date,
-    finish_walk?: Date
+    start_walk?: number,
+    finish_walk?: number
 }

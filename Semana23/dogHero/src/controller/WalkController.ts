@@ -23,7 +23,7 @@ export class WalkController{
 
     async finishWalking(req: Request, res: Response){
         try{
-            const walkId = req.params.id
+            const walkId = req.body.walkId
 
             const result = await this.walkBusiness.finishWalk(walkId)
             
@@ -36,7 +36,7 @@ export class WalkController{
 
     async showWalking(req: Request, res: Response){
         try{
-            const walkId = req.params.id
+            const walkId = req.body.walkId
 
             const result = await this.walkBusiness.showWalking(walkId)
             

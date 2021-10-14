@@ -31,22 +31,22 @@ export class DogWalkDataBase extends BaseDataBase{
         return DogWalk.toDogWalk(walk[0])
     }
 
-    async insertStartWalk(id: string, startWalk: string): Promise<void>{
+    async insertStartWalk(id: string, startWalk: number): Promise<void>{
         await this.getConnection()
-        .insert({
-            start_walk: `${startWalk}`
-        })
-        .into(this.tableNames.dogWalking)
-        .where("id", "=", `${id}`)
+        .raw(`
+            UPDATE ${this.tableNames.dogWalking}
+            SET start_walk = '${startWalk}'
+            WHERE id = '${id}'
+        `)
     }
 
-    async insertFinishWalk(id: string, finishWalk: Date): Promise<void>{
+    async insertFinishWalk(id: string, finishWalk: number): Promise<void>{
         await this.getConnection()
-        .insert({
-            finish_walk: finishWalk
-        })
-        .into(this.tableNames.dogWalking)
-        .where("id", "=", `${id}`)
+        .raw(`
+            UPDATE ${this.tableNames.dogWalking}
+            SET finish_walk = '${finishWalk}'
+            WHERE id = '${id}'
+        `)
     }
 
     async updateStatus(id:string, status: string): Promise<void>{

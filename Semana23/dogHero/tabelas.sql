@@ -6,9 +6,9 @@ CREATE TABLE dog_walking(
     latitude VARCHAR(255) NOT NULL,
     longitude VARCHAR(255) NOT NULL,
     number_of_pets INT NOT NULL,
-    start_time DOUBLE NULL,
-    end_time DOUBLE NOT NULL,
+    start_time TIME NULL,
+    end_time TIME NOT NULL,
     status ENUM("PENDENTE", "PASSEANDO", "FINALIZADO") DEFAULT "PENDENTE",
-    start_walk DATE,
-    finish_walk DATE
+    start_walk INT(14),
+    finish_walk INT(14)
 );
