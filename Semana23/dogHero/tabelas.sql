@@ -1,5 +1,5 @@
 CREATE TABLE dog_walking(
-    id VARCHAR(255) NOT NULL,
+    id VARCHAR(255) PRIMARY KEY,
     date DATE NOT NULL,
     price INT NOT NULL,
     duration INT NOT NULL,
