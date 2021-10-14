@@ -15,14 +15,15 @@
 
 <h2 id="funciona">:heavy_check_mark: O que funciona</h2>
 
-<!-- * Receber pagamentos;
-* validar dados recebidos;
-* validar dados do cartão de crédito;
-* gerar dados de boleto; -->
+* cadastrar passeio;
+* iniciar passeio;
+* terminar passeio;
+* mostrar tempo real do passeio;
+* Banco de Dados;
  
 <h2 id="pendente">:construction: Em desenvolvimento</h2>
 
-<!-- - [x] Banco de Dados -->
+- [x] Testes
 
 
 <h2 id="desenvolvedores">:construction_worker: Desenvolvedores</h2>
