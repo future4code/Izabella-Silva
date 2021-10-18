@@ -1,6 +1,8 @@
 import { Request, Response } from "express"
 import { OrderBusiness } from "../business/OrderBusiness"
+import { IngredientDataBase } from "../data/IngredientsDataBase"
 import { OrderDataBase } from "../data/OrderDataBase"
+import { PizzaDataBase } from "../data/PizzaDataBase"
 import { OrderInputDTO } from "../model/Order"
 import { Authenticator } from "../services/Authenticator"
 import { IdGenerator } from "../services/IdGenerator"
@@ -12,7 +14,9 @@ export class OrderController{
         this.orderBusiness = new OrderBusiness(
             new OrderDataBase(),
             new IdGenerator(),
-            new Authenticator()
+            new Authenticator(),
+            new PizzaDataBase(),
+            new IngredientDataBase()
         )
     }
 
@@ -24,6 +28,10 @@ export class OrderController{
 
             if(!token){
                 throw new Error("Login Obrigatório")
+            }
+
+            if(typeof(input) !== "object"){
+                throw new Error(`O tipo do campo 'itens' deve ser um array de objetos com as propriedades 'pizzaId' e 'quantity'`)
             }
 
             const result = await this.orderBusiness.createOrder(input, token)

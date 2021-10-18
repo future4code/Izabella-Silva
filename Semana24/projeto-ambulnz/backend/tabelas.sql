@@ -40,6 +40,7 @@ CREATE TABLE restaurant_user_order(
 CREATE TABLE order_pizza(
     order_id VARCHAR(255) NOT NULL,
     pizza_id VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL,
     FOREIGN KEY (order_id) REFERENCES restaurant_order(id),
     FOREIGN KEY (pizza_id) REFERENCES pizza(id)
 );
