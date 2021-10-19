@@ -27,17 +27,12 @@ CREATE TABLE restaurant_user(
 CREATE TABLE restaurant_order(
     id VARCHAR(255) PRIMARY KEY,
     date DATE NOT NULL,
-    price FLOAT NOT NULL
-);
-
-CREATE TABLE restaurant_user_order(
-    order_id VARCHAR(255) NOT NULL,
+    price FLOAT NOT NULL,
     user_id VARCHAR(255) NOT NULL,
-    FOREIGN KEY (order_id) REFERENCES restaurant_order(id),
     FOREIGN KEY (user_id) REFERENCES restaurant_user(id)
 );
 
-CREATE TABLE order_pizza(
+CREATE TABLE restaurant_order_pizza(
     order_id VARCHAR(255) NOT NULL,
     pizza_id VARCHAR(255) NOT NULL,
     quantity INT NOT NULL,

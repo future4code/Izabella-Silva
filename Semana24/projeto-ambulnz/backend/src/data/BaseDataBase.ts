@@ -9,8 +9,7 @@ export class BaseDataBase{
         pizzaIngredient: "pizza_ingredient",
         restaurantUser: "restaurant_user",
         restaurantOrder: "restaurant_order",
-        restaurantUserOrder: "restaurant_user_order",
-        orderPizza: "order_pizza"
+        orderPizza: "restaurant_order_pizza"
     }
 
     protected getConnection(): any{

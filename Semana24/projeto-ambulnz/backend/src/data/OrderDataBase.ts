@@ -7,18 +7,10 @@ export class OrderDataBase extends BaseDataBase{
         .insert({
             id: order.getId(),
             date: order.getDate(),
-            price: order.getPrice()
+            price: order.getPrice(),
+            user_id: order.getUserId()
         })
         .into(this.tableNames.restaurantOrder)
-    }
-
-    async relationOrderAndUser(orderId: string, userId: string){
-        await this.getConnection()
-        .insert({
-            order_id: orderId,
-            user_id: userId
-        })
-        .into(this.tableNames.restaurantUserOrder)
     }
 
     async relationOrderAndPizza(orderId: string, pizzaId: string, quantity: number){
@@ -31,11 +23,12 @@ export class OrderDataBase extends BaseDataBase{
         .into(this.tableNames.orderPizza)
     }
 
-    async getOrderById(orderId: string): Promise<any>{
+    async getOrderByIdAndUserId(orderId: string, userId: string): Promise<any>{
         const order = await this.getConnection()
         .select("*")
         .from(this.tableNames.restaurantOrder)
         .where("id", "=", `${orderId}`)
+        .where("user_id", "=", `${userId}`)
 
         return order[0]
     }
@@ -45,9 +38,8 @@ export class OrderDataBase extends BaseDataBase{
         .raw(`
         SELECT p.pizza_id as pizzaId, quantity
         FROM ${this.tableNames.orderPizza} p
-        LEFT JOIN ${this.tableNames.restaurantUserOrder} u
-        ON u.order_id = '${orderId}'
-        WHERE u.user_id = '${userId}'
+        LEFT JOIN ${this.tableNames.restaurantOrder} o
+        ON o.id = '${orderId}'
         `)
 
         return pizzas[0]

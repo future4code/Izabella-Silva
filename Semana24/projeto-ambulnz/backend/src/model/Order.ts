@@ -2,7 +2,8 @@ export class Order{
     constructor(
         private id: string,
         private date: Date,
-        private price: number
+        private price: number,
+        private userId: string
     ){}
 
     public getId(): string{
@@ -15,6 +16,10 @@ export class Order{
 
     public getPrice(): number{
         return this.price
+    }
+
+    public getUserId(): string{
+        return this.userId
     }
 
 

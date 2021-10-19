@@ -37,13 +37,12 @@ export class OrderBusiness{
             })
         )
 
-        const order = new Order(orderId, new Date(), total)
+        const order = new Order(orderId, new Date(), total, user.id)
 
         await this.orderDataBase.createOrder(order)
 
         await Promise.all(
             input.map(async(item) => {
-                await this.orderDataBase.relationOrderAndUser(orderId,user.id)
                 await this.orderDataBase.relationOrderAndPizza(orderId,item.pizzaId, item.quantity)
             })
         )
@@ -59,7 +58,11 @@ export class OrderBusiness{
              throw new Error("Usuário não encontrado")
         }
 
-        const order = await this.orderDataBase.getOrderById(orderId)
+        const order = await this.orderDataBase.getOrderByIdAndUserId(orderId, user.id)
+
+        if(!order){
+            throw new Error("Essa ordem não pertence a esse usuário")
+        }
         const getPizza = await this.orderDataBase.getPizzaIdByOrderAndUserId(orderId, user.id)
         
         let itens: Array<object> = []
