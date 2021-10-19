@@ -6,4 +6,4 @@ export const orderRouter = express.Router()
 const orderController = new OrderController()
 
 orderRouter.post("/create", (request, response) => orderController.createOrder(request, response))
-orderRouter.get("/:orderId", (request, response) => orderController.getOrder(request, response))
+orderRouter.get("/:orderId", (request, response) => orderController.getOrderById(request, response))

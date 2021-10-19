@@ -51,7 +51,7 @@ export class OrderBusiness{
 
     }
 
-    async getOrder(orderId: string, token: string): Promise<any>{
+    async getOrderById(orderId: string, token: string): Promise<any>{
         const user = this.authenticator.getData(token)
 
         if(!user){
@@ -63,7 +63,7 @@ export class OrderBusiness{
         if(!order){
             throw new Error("Essa ordem não pertence a esse usuário")
         }
-        const getPizza = await this.orderDataBase.getPizzaIdByOrderAndUserId(orderId, user.id)
+        const getPizza = await this.orderDataBase.getPizzaIdByOrderId(orderId)
         
         let itens: Array<object> = []
         await Promise.all(

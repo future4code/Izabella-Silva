@@ -33,7 +33,7 @@ export class OrderDataBase extends BaseDataBase{
         return order[0]
     }
 
-    async getPizzaIdByOrderAndUserId(orderId: string, userId: string){
+    async getPizzaIdByOrderId(orderId: string){
         const pizzas = await this.getConnection()
         .raw(`
         SELECT p.pizza_id as pizzaId, quantity

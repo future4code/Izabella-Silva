@@ -43,7 +43,7 @@ export class OrderController{
         }
     }
 
-    async getOrder(req: Request, res: Response){
+    async getOrderById(req: Request, res: Response){
         try{
             const orderId = req.params.orderId
 
@@ -53,7 +53,7 @@ export class OrderController{
                 throw new Error("Login Obrigatório")
             }
 
-            const result = await this.orderBusiness.getOrder(orderId, token)
+            const result = await this.orderBusiness.getOrderById(orderId, token)
 
             res.status(200).send(result)
 
