@@ -43,6 +43,25 @@ export class OrderController{
         }
     }
 
+    async getOrders(req: Request, res: Response){
+        try{
+            const clienteId = req.query.clientId as string
+
+            const token = req.headers.authorization
+
+            if(!token){
+                throw new Error("Login Obrigatório")
+            }
+
+            const result = await this.orderBusiness.getOrders(token, clienteId)
+
+            res.status(200).send(result)
+
+        }catch(error: any){
+            res.status(400).send(error.message)
+        }
+    }
+
     async getOrderById(req: Request, res: Response){
         try{
             const orderId = req.params.orderId

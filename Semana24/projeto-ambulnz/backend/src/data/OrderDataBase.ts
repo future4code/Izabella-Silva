@@ -44,4 +44,15 @@ export class OrderDataBase extends BaseDataBase{
 
         return pizzas[0]
     }
+
+    async getOrdersByUserId(userId: string): Promise<any>{
+        const orders = await this.getConnection()
+        .select("*")
+        .from(this.tableNames.restaurantOrder)
+        .where("user_id", "=", `${userId}`)
+        .orderBy("date")
+
+        return orders
+
+    }
 }

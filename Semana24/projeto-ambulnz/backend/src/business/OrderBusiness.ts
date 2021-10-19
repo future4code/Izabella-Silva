@@ -51,6 +51,30 @@ export class OrderBusiness{
 
     }
 
+    async getOrders(token: string, clientId?: string){
+        const user = this.authenticator.getData(token)
+        if(!user){
+             throw new Error("Usuário não encontrado")
+        }
+
+        if(user.role !== UserRole.ADMIN && user.role !== UserRole.NORMAL){
+            throw new Error("Login Obrigatorio")
+        }
+
+        let userId: string
+
+        if(clientId && user.role === UserRole.ADMIN){
+            userId = clientId
+        }else{
+            userId = user.id
+        }
+
+        const orders = await this.orderDataBase.getOrdersByUserId(userId)
+
+        return ({message: orders})
+        
+    }
+
     async getOrderById(orderId: string, token: string): Promise<any>{
         const user = this.authenticator.getData(token)
 
