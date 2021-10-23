@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {primaryColor} from '../../constants/colors'
+import {primaryColor, secondColor} from '../../constants/colors'
 
 
 export const Container = styled.div`
@@ -10,8 +10,8 @@ export const Container = styled.div`
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    background-color: ${primaryColor};
+    background: linear-gradient(45deg, ${primaryColor} 50%, ${secondColor} 50%);
     background-position: center;
-    background-size: 32%;
+    background-size: 100%;
     background-repeat:no-repeat;
 `
