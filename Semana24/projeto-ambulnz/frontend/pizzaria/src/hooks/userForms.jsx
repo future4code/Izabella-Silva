@@ -7,6 +7,7 @@ const useForm = (initialState) => {
     const [span, setSpan] = useState('')
 
     const onChangeInput = (event) => {
+        console.log("event",event)
         const {name, value} = event.target
         setForm({...input, [name]: value})
     }
