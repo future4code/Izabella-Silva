@@ -1,23 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GlobalStateContext } from "./GlobalStateContext";
-import { BASE_URL } from "../constants/urls";
-import axios from 'axios'
 
 const GlobalState = (props) => {
-    const[pizzas, setPizzas] = useState()
+    const[cart, setCart] = useState([])
 
-    const getPizzas = () => {
-        axios.get(`${BASE_URL}/pizza/get`)
-        .then((res) => {
-            setPizzas(res.data.message) 
-        }).catch((error) => {
-            console.log(error.data)
-            window.alert('Erro ao realizar solicitação.\n Tente novamente.')
+    const addPizzaToCart = (pizza) => {
+        const newCart = cart
+        newCart.push(pizza)
+        setCart(newCart)
+    }
+
+    const removePizzaToCart = (pizzaId) => {
+        const newCart = cart
+        newCart.forEach((pizza, index) => {
+            if(pizza.id === pizzaId ){
+                newCart.slice(index, 1)
+            }
         })
+        setCart(newCart)
+    }
+
+    useEffect(() => {
+        addPizzaToCart()
+    }, [cart])
+
+    const getCart = () => {
+        return cart
     }
 
     return(
-        <GlobalStateContext.Provider value={{getPizzas, pizzas}}>
+        <GlobalStateContext.Provider value={{cart, setCart, addPizzaToCart, removePizzaToCart, getCart}}>
             {props.children}
         </GlobalStateContext.Provider>
     )
