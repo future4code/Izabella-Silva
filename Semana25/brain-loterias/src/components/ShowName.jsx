@@ -1,8 +1,10 @@
+import { StyledName } from "./styled"
+
 const ShowName = (props) => {
     return(
-        <div>
+        <StyledName>
             <p>{props.lotteryName}</p>
-        </div>
+        </StyledName>
     )
 }
 

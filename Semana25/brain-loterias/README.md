@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# Brain-Loterias
+Link do Surge: <a href="https://izabella-loterias.surge.sh">Brain-Loterias</a>
+<h1 align="center" id="top">:rocket: == Brain-Loterias == :rocket:</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <a href="#sobre">Sobre</a> &#xa0; | &#xa0; 
+  <a href="#funciona">O que funciona</a> &#xa0; | &#xa0;
+  <!--<a href="#nao-funciona">O que não funciona</a> &#xa0; | &#xa0;-->
+  <a href="#pendente">Pendências</a> &#xa0; | &#xa0;
+  <a href="#observacoes">Observações</a> &#xa0; | &#xa0;
+  <a href="#desenvolvedores">Desenvolvedores</a>
+</p>
 
-## Available Scripts
+<h2 id="sobre">:notebook: Sobre </h2>
 
-In the project directory, you can run:
+<p align="center">:rocket: Projeto desenvolvido conforme proposta do bootcamp ministrado pela Labenu para criação de um App de verificar numeros de loterias </p>
 
-### `yarn start`
+<h2 id="tecnologias"> 🛠 Tecnologias </h2>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+As seguintes ferramentas foram usadas na construção do projeto:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* React hooks
+* React Router
+* API
+* Styled-components
 
-### `yarn test`
+<h2 id="funciona">:heavy_check_mark: O que funciona</h2>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* Selecionar Loteria;
+* Mostrar detalhes da loteria;
+* Mostrar números sorteados;
+<!--
+<h2 id="nao-funciona">:x: O que não funciona</h2>
 
-### `yarn build`
+* N/A -->
+ 
+<h2 id="pendente">:construction: Em desenvolvimento</h2>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [x] Molhorar estilização
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<h2 id="link">:link: Link Surge - link para visualização do site</h2>
+<a href="https://izabella-loterias.surge.sh">Brain-Loterias</a>
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<h2 id="observacoes">:pencil: Observações</h2>
 
-### `yarn eject`
+- Ícones utilizados para organização de commit's
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+:checkered_flag: release
+:package: nova funcionalidade 
+:arrow_up: atualização 
+:beetle: correção de bug
+:art: estilização
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<h2 id="desenvolvedores">:construction_worker: Desenvolvedores</h2>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<table> 
+<tr>
+ 
+ <td align="center"><a href="https://github.com/bellacbs"><img style="border-radius: 50%" src="https://avatars.githubusercontent.com/u/35279793?v=4" width="100px" alt=""/>
+ <br />
+ <sub><b>Izabella Brandão</b></sub></a> <a href="https://github.com/bellacbs">🚀</a></td>
+ 
+</tr>
+  
+</table>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+👋🏽 Entre em contato!
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<a href="#top">Voltar para o topo</a>

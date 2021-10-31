@@ -4,7 +4,7 @@ import SelectContest from '../components/SelectContest';
 import ShowName from '../components/ShowName';
 import ShowNumbers from '../components/ShowNumbers';
 import useRequestData from '../hooks/useRequestData';
-import {ContainerPage, ContainerLottery, ContainerNumbers} from './styled'
+import {ContainerPage, ContainerLottery, ContainerRounded, ContainerNumbers} from './styled'
 import getBackGroundColor from '../functions/getbackgroundcolor'
 
 const ResultPage = () => {
@@ -51,6 +51,10 @@ const ResultPage = () => {
                 {lotteries.length > 0 && <ShowName lotteryName={lotteryName}/>}
                 {contestDate && <ContestDetails contestId={contestId} contestDate={contestDate} />}
             </ContainerLottery>
+            <ContainerRounded style={{backgroundColor: getBackGroundColor(lotteryId)}}>
+                <div id="roundTop"> </div>
+                <div id="roundDown"> </div>
+            </ContainerRounded>
             <ContainerNumbers>
                 <div> </div>
                 {contestId && <ShowNumbers contestId={contestId} setContestDate={setContestDate}/>}

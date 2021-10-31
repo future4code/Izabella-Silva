@@ -22,7 +22,16 @@ export const SelectStyled = styled.select`
     border-radius: 5px;
 `
 
+export const ContainerDatail = styled.div`
+    color: white;
+`
+
 export const ContainerContest = styled.div`
     display: flex;
+    font-weight: bold;
+`
+
+export const StyledName = styled.div`
+    color: white;
     font-weight: bold;
 `
