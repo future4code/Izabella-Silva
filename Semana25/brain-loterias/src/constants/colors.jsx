@@ -1,0 +1,9 @@
+export const megasena = '#6befa3';
+export const quina = '#8666EF';
+export const lotofacil = '#DD7AC6';
+export const lotomania = '#FFAB64';
+export const timemania = '#5AAD7D';
+export const diaDeSorte = '#BFAF83';
+export const ball = '#FFFFFF';
+export const backGroundBalls = '#D3D3D3'
+export const errorColor = '#FF0000'

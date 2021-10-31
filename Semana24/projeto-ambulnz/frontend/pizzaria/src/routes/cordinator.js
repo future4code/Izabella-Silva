@@ -13,3 +13,7 @@ export const goToSignup = (history) => {
 export const goToFeed = (history) => {
     history.push("/feed")
 }
+
+export const goToCart = (history) => {
+    history.push(`/cart`)
+}

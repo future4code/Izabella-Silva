@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import CartPage from "../pages/CartPage/CartPage";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import FeedPage from "../pages/FeedPage/FeedPage";
 import Login from "../pages/Login/Login";
@@ -14,6 +15,7 @@ const Router = () => {
                 <Route exact path="/login" component = {Login}/>
                 <Route exact path="/cadastro" component = {SignUpPage}/>
                 <Route exact path="/feed" component = {FeedPage}/>
+                <Route exact path="/cart" component = {CartPage} />
                 <Route exact path="/criar"/>
                 <Route component = {ErrorPage}/>
             </Switch>
